@@ -1,15 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'pages/Router';
 
 function App() {
   return (
-    <div>
-      <button>hi</button>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-      </ul>
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 
