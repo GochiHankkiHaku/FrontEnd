@@ -68,7 +68,7 @@ export const GlobalStyle = createGlobalStyle`
   input:focus {
     outline: none;
   }
-  /* select css 없애기 */
+  /* select 기본 스타일 제거 */
   select {
     -o-appearance: none;
     -webkit-appearance: none;
@@ -76,6 +76,7 @@ export const GlobalStyle = createGlobalStyle`
     appearance: none;
     border: 0;
   }
+  // list 기본 스타일 제거
   li {
     list-style-type: none;
   }
