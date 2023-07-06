@@ -35,6 +35,7 @@ function Map() {
   const [markerContent, setMarkerContent] = useState<string>('');
   const [targetDistance, setTargetDistance] = useState<number>(0);
 
+  const staticServerUri = process.env.REACT_APP_API_URL || '';
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
@@ -135,7 +136,7 @@ function Map() {
 
   return (
     <MapContainer ref={mapRef}>
-      <Link to={`/Detail/${distanceLimitData.id}`}>
+      <Link to={staticServerUri + `/Detail/${distanceLimitData.id}`}>
         <div ref={infoRef}>
           {infoOpen && (
             <UnderBar>
