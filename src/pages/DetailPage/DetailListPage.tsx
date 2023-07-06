@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { ReactComponent as User2 } from 'assets/icons/user2.svg';
@@ -16,9 +17,26 @@ const DetailContainer = styled.div`
 const DetailHeader = styled.div`
   display: flex;
   align-items: center;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 8px;
+  color: #333333;
+  border-bottom: 1px solid #dfdfdf;
+
+  > .detail_header-text {
+    width: 288px;
+    text-align: center;
+  }
+`;
+
+const DetailCheck = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 20px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: #333333;
 `;
 
@@ -38,22 +56,6 @@ const MenuInfo = styled.div`
   /* border: 1px solid red; */
 `;
 
-const GatheringDate = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  margin-top: 15px;
-`;
-
-const GatheringTitle = styled.div`
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: -15px;
-  margin-bottom: 5px;
-  padding-bottom: 10px;
-  width: 350px;
-  border-bottom: 1px solid #dfdfdf;
-`;
-
 const MenuInfoTitle = styled.div`
   font-size: 18px;
   font-weight: 600;
@@ -69,9 +71,6 @@ const MenuInfoContent = styled.div`
   align-items: flex-start;
   gap: 12px;
   width: 350px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #6f6f6f;
   /* border: 1px solid red; */
 
   > .menu_image {
@@ -114,6 +113,20 @@ const MenuInfoContent = styled.div`
 const Divider = styled.div`
   width: 100vw;
   height: 14px;
+  background-color: #f5f4f3;
+`;
+
+const ReservationTiem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 11.5px 20px;
+  color: #333333;
+  border-radius: 8px;
+  border: 1px solid #c1c1c1;
   background-color: #f5f4f3;
 `;
 
@@ -230,7 +243,7 @@ const PriceInfoTitleArea = styled.div`
     position: absolute;
     padding: 12px;
     right: 15px;
-    bottom: -165px;
+    bottom: -343px;
     font-size: 14px;
     font-weight: 400;
     border-radius: 4px;
@@ -254,7 +267,7 @@ const PriceInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 120px;
+  margin-bottom: 70px;
 
   > li {
     display: flex;
@@ -308,53 +321,55 @@ const PaymentBtnArea = styled.div`
   position: fixed;
   bottom: 0;
   padding: 16px 20px 24px 20px;
-  margin-bottom: 70px;
+  border-top: 1px solid #c1c1c1;
+  background-color: white;
 `;
 
 const PayBtn = styled.button`
   display: flex;
   justify-content: center;
-  width: 200px;
-  padding: 13px 10px;
+  width: 350px;
+  padding: 11.5px 20px;
   align-items: center;
   font-size: 18px;
   font-weight: 600;
   color: white;
   background-color: #ff5c00;
-  border-radius: 50px;
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 `;
 
-const Center = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-function Gathering() {
+function DetailListPage({ detailData }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
 
+  console.log(detailData.item);
+
   return (
     <DetailContainer>
-      <DetailHeader>모임 정보</DetailHeader>
+      <DetailHeader>
+        <ArrowChevron />
+        <div className='detail_header-text'>모임 신청하기</div>
+      </DetailHeader>
+      <DetailCheck>모임 정보를 확인해보세요.</DetailCheck>
       <DetailInfo>
         <MenuInfo>
-          <GatheringDate>2023. 07. 07</GatheringDate>
-          <GatheringTitle>자리돔조림 요리 모집</GatheringTitle>
+          <MenuInfoTitle>요리 정보</MenuInfoTitle>
           <MenuInfoContent>
-            <img className='menu_image' src={fish} />
+            <img className='menu_image' src={detailData.img} />
             <div className='menu_text'>
-              <div className='menu_text-title'>자라돔조림</div>
-              <div>
-                제주 연안에 서식하는 자리돔을 간장
-                <br />
-                으로 졸인 음식
-              </div>
+              <div className='menu_text-title'>{detailData.menuname}</div>
+              <div className='menu_text-content'>{detailData.menucontent}</div>
+              <div className='menu_text-number'>{detailData.application}명이 만들었어요.</div>
             </div>
           </MenuInfoContent>
+        </MenuInfo>
+        <Divider></Divider>
+        <MenuInfo>
+          <MenuInfoTitle>모임 시간대</MenuInfoTitle>
+          <ReservationTiem>{detailData.time}</ReservationTiem>
         </MenuInfo>
         <Divider></Divider>
         <HostInfo>
@@ -364,7 +379,7 @@ function Gathering() {
             <div className='host_detail-info'>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
+              <div className='address'>{detailData.address}</div>
               <div className='host_btn'>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
@@ -424,15 +439,13 @@ function Gathering() {
           </PriceInfoList>
         </PriceInfo>
       </DetailInfo>
-      <Center>
-        <PaymentBtnArea>
-          <Link to={'/payment'}>
-            <PayBtn>모임 끝내기</PayBtn>
-          </Link>
-        </PaymentBtnArea>
-      </Center>
+      <PaymentBtnArea>
+        <Link to={'/payment'}>
+          <PayBtn>참가비 결제</PayBtn>
+        </Link>
+      </PaymentBtnArea>
     </DetailContainer>
   );
 }
 
-export default Gathering;
+export default DetailListPage;

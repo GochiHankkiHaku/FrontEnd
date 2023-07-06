@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import landingImg from 'assets/imgs/landingImg.png';
 import CustomToast from 'components/CustomToast';
 import { Button } from 'components/Button';
-import { color } from 'styles/constants';
+import { color, fontFamily } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function LandingPage() {
         <Typography variant='caption' size={1} color={color.main[4]}>
           푸드 쉐어링 O2O 모임서비스
         </Typography>
-        <Title>한끼 하쿠</Title>
+        <Title style={{ fontFamily: 'EF_jejudoldam' }}>한끼 하쿠</Title>
         <Typography variant='paragraph' size={4} color={color.main[4]}>
           제주 어르신과의 새로운 경험을
           <br />
