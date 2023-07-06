@@ -35,7 +35,7 @@ function Map() {
   const [markerContent, setMarkerContent] = useState<string>('');
   const [targetDistance, setTargetDistance] = useState<number>(0);
 
-  const staticServerUri = process.env.REACT_APP_API_URL || '';
+  const staticServerUri = process.env.REACT_APP_PATH || '';
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);

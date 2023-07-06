@@ -11,7 +11,7 @@ import DetailPage from './DetailPage/DetailPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 
-const staticServerUri = process.env.REACT_APP_API_URL || '';
+const staticServerUri = process.env.REACT_APP_PATH || '';
 
 export const Router = (): React.ReactElement => {
   return (
