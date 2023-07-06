@@ -323,7 +323,7 @@ function DetailListPage({ detailData }: any) {
     setIsOpen(!isOpen);
   };
 
-  // console.log(detailData);
+  console.log(detailData);
 
   return (
     <DetailContainer>
@@ -339,9 +339,7 @@ function DetailListPage({ detailData }: any) {
             <div className='menu_image'></div>
             <div className='menu_text'>
               <div className='menu_text-title'>{detailData.menuname}</div>
-              <div className='menu_text-content'>
-                제주 연안에 서식하는 자리돔을 간장으로 조린 음식
-              </div>
+              <div className='menu_text-content'>{detailData.menucontent}</div>
               <div className='menu_text-number'>{detailData.application}명이 만들었어요.</div>
             </div>
           </MenuInfoContent>

@@ -25,8 +25,8 @@ export const Router = (): React.ReactElement => {
       <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<MapPage />} />
-        <Route path='detail/:post_idx' element={<DetailMainPage />} />
       </Route>
+      <Route path='detail/:post_idx' element={<DetailMainPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
