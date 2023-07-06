@@ -8,6 +8,8 @@ import { ReactComponent as User3 } from 'assets/icons/user3.svg';
 import fish from 'assets/icons/images/어류.png';
 import vege from 'assets/icons/images/채소.png';
 import grain from 'assets/icons/images/곡류.png';
+import { Link } from 'react-router-dom';
+
 const DetailContainer = styled.div`
   margin-bottom: 25px;
 `;
@@ -438,7 +440,9 @@ function DetailListPage({ detailData }: any) {
         </PriceInfo>
       </DetailInfo>
       <PaymentBtnArea>
-        <PayBtn>참가비 결제</PayBtn>
+        <Link to={'/payment'}>
+          <PayBtn>참가비 결제</PayBtn>
+        </Link>
       </PaymentBtnArea>
     </DetailContainer>
   );

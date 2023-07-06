@@ -289,8 +289,6 @@ function Map() {
     return () => document.removeEventListener('click', handleOutsideClose);
   }, [infoOpen]);
 
-  console.log(latlngData);
-
   return (
     <>
       <MapHeader>
