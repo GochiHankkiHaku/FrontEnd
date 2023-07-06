@@ -11,20 +11,18 @@ import DetailMainPage from './DetailPage/DetailMainPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 
-const staticServerUri = process.env.REACT_APP_PATH || '';
-
 export const Router = (): React.ReactElement => {
   return (
     <Routes>
-      <Route path={staticServerUri + '/'} element={<LandingPage />} />
-      <Route path={staticServerUri + '/onboarding'}>
+      <Route path={'/'} element={<LandingPage />} />
+      <Route path={'/onboarding'}>
         <Route path='time' element={<TimePage />} />
         <Route path='personal' element={<PersonalPage />} />
         <Route path='menu' element={<MenuPage />} />
         <Route path='food' element={<FoodPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
-      <Route path={staticServerUri + '/'} element={<Layout />}>
+      <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<MapPage />} />
         <Route path='detail/:post_idx' element={<DetailMainPage />} />
