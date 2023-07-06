@@ -34,6 +34,8 @@ function Map() {
   const [markerContent, setMarkerContent] = useState<string>('');
   const [targetDistance, setTargetDistance] = useState<number>(0);
 
+  const [detailId, setDetailId] = useState<number>(0);
+
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
@@ -104,7 +106,8 @@ function Map() {
           setMarkerTitle(distanceLimitData[i].title);
           setMarkerContent(distanceLimitData[i].content);
           setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
-          setInfoOpen(() => true);
+          setInfoOpen(true);
+          setDetailId(distanceLimitData[i].id);
         });
       }
     }
@@ -116,7 +119,7 @@ function Map() {
       if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
         setMarkerTitle('');
         setMarkerContent('');
-        setInfoOpen(() => false);
+        setInfoOpen(false);
       }
     };
     setTimeout(() => {
@@ -126,22 +129,15 @@ function Map() {
     return () => document.removeEventListener('click', handleOutsideClose);
   }, [infoOpen]);
 
-  const closeInfo = () => {
-    setMarkerTitle('');
-    setMarkerContent('');
-    setInfoOpen(false);
-  };
-
   return (
     <MapContainer ref={mapRef}>
-      <Link to={`/Detail/${distanceLimitData.id}`}>
+      <Link to={`/detail/${detailId}`}>
         <div ref={infoRef}>
           {infoOpen && (
             <UnderBar>
               <div>{markerTitle}</div>
               <div>{markerContent}</div>
               <div>{targetDistance}m</div>
-              <button onClick={closeInfo}>X</button>
             </UnderBar>
           )}
         </div>
