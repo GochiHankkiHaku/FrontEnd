@@ -12,6 +12,7 @@ import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 import ReviewPage from './ReviewPage/ReviewPage';
 import Gathering from './Gathering/Gathering';
+import CostPage from './OnboardingPage/CostPage';
 
 export const Router = (): React.ReactElement => {
   return (
@@ -22,6 +23,7 @@ export const Router = (): React.ReactElement => {
         <Route path='personal' element={<PersonalPage />} />
         <Route path='menu' element={<MenuPage />} />
         <Route path='food' element={<FoodPage />} />
+        <Route path='cost' element={<CostPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
       <Route path='/' element={<Layout />}>

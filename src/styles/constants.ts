@@ -19,10 +19,10 @@ export const color = {
   active: '#007df0',
   main: {
     // main 색상 변경 가능
-    1: '#0f283e',
+    1: '#FF5C00',
     2: '#265b53',
     3: '#dff157',
-    4: '#4CC096',
+    4: '#966E57',
   },
 } as const;
 

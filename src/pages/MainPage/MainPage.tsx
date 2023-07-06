@@ -24,8 +24,6 @@ export default function MainPage() {
     const getPost = async () => {
       try {
         const res = await PostApi.getList();
-        const env = process.env.REACT_APP_API_URL;
-        console.log('zz', env);
         console.log('res :>> ', res);
         setPost(res);
       } catch (error) {
