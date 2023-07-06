@@ -1,24 +1,179 @@
-export const COLOR = {
-  primary: 'orange',
-  error: '#EE2737',
-  grey: {
-    50: '#F3F3F3',
-    100: '#EFF0F5',
-    200: '#D8D9E1',
-    300: '#A9ABB6',
-    400: '#727582',
-    500: '#505462',
+export const color = {
+  black: '#000000',
+  gray: {
+    10: '#0f0f0f',
+    9: '#333333',
+    8: '#3d3d3d',
+    7: '#6f6f6f',
+    6: '#8b8b8b',
+    5: '#a5a5a5',
+    4: '#c1c1c1',
+    3: '#dfdfdf',
+    2: '#f5f4f3',
+    1: '#f7f7f7',
   } as const,
+  white: '#ffffff',
+  alert: '#f22222',
+  warning: '#ffc123',
+  complete: '#00c974',
+  active: '#007df0',
+  main: {
+    // main 색상 변경 가능
+    1: '#0f283e',
+    2: '#265b53',
+    3: '#dff157',
+    4: '#a6c04c',
+  },
 } as const;
 
-export const FONT_SIZE = {
-  s1: '10px',
-  s2: '12px',
-  s3: '14px',
-  m1: '16px',
-  m2: '18px',
-  m3: '20px',
-  l1: '32px',
-  l2: '40px',
-  l3: '48px',
-} as const;
+export const radius = {
+  4: 4,
+  8: 8,
+  12: 12,
+};
+
+export const fontFamily = {
+  SUIT: 'SUIT Variable',
+};
+
+export const fontWeight = {
+  bold: 700,
+  semiBold: 600,
+  medium: 500,
+  regular: 300,
+};
+
+export const typograpy = {
+  title: {
+    1: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 20,
+      fontWeight: fontWeight.bold,
+      lineHeight: 150,
+    },
+    2: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 20,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    3: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 20,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    4: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 18,
+      fontWeight: fontWeight.bold,
+      lineHeight: 150,
+    },
+    5: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 18,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    6: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 18,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    7: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 18,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+  },
+  paragraph: {
+    1: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 16,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    2: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 16,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    3: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 16,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+    4: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 14,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    5: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 14,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    6: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 14,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+    7: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 14,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+  },
+  caption: {
+    1: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 12,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    2: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 12,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    3: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 12,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+    4: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 10,
+      fontWeight: fontWeight.semiBold,
+      lineHeight: 150,
+    },
+    5: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 10,
+      fontWeight: fontWeight.medium,
+      lineHeight: 150,
+    },
+    6: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 10,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+    7: {
+      fontFamily: fontFamily.SUIT,
+      fontSize: 10,
+      fontWeight: fontWeight.regular,
+      lineHeight: 150,
+    },
+  },
+};

@@ -1,12 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
-
 export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%; // 1rem = 10px 로 변경
 
   }
   body {
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    font-family: SUIT Variable, -apple-system, BlinkMacSystemFont, 'Segoe UI',
       'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
