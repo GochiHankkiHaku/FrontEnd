@@ -34,6 +34,7 @@ export const radius = {
 
 export const fontFamily = {
   SUIT: 'SUIT Variable',
+  EF_JEJU: 'EF_jejudoldam',
 };
 
 export const fontWeight = {

@@ -5,6 +5,7 @@ import { Button } from 'components/Button';
 import { color } from 'styles/constants';
 
 export default function LandingPage() {
+  console.log(process.env.REACT_APP_PATH);
   return (
     <Wrap>
       <Title>

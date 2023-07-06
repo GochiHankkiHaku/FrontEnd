@@ -12,7 +12,6 @@ export default function DetailMainPage() {
     try {
       const res = await axios.get('http://15.164.155.242:8080/post/listall');
       setLatlngData(res.data);
-      console.log('khkh', res);
     } catch (err: any) {
       console.error(err);
     }
