@@ -27,7 +27,7 @@ export default function BottomNavigation() {
           </>
         )}
       </NavItem>
-      <NavItem to='/profile'>
+      <NavItem to='/gathering'>
         {({ isActive }) => (
           <>
             <PotIcon fill={isActive ? color.main[2] : color.gray[3]} />

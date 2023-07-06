@@ -148,7 +148,7 @@ const HostInfoContent = styled.div`
 const TotalPay = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 125px;
+  margin-bottom: 170px;
   padding: 0 20px 0 20px;
 
   > .total_text {
