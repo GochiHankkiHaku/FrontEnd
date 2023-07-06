@@ -1,10 +1,11 @@
 import { Typography } from 'components/Typography';
 import styled from 'styled-components/macro';
-import { color } from 'styles/constants';
+import { color, fontFamily } from 'styles/constants';
 import GatheringInfo from './components/GatheringInfo';
 import Slider from './components/Slider';
 import { useEffect, useState } from 'react';
 import { PostApi, PostResponse } from 'apis/lib/post';
+import { Header } from 'components/Header';
 
 // const menuImg = {
 //   '구살국(성게국)':
@@ -28,6 +29,9 @@ export default function MainPage() {
 
   return (
     <Wrap>
+      <Header>
+        <HeaderText>한 끼 하쿠</HeaderText>
+      </Header>
       <SliderWrap>
         <Slider />
       </SliderWrap>
@@ -49,6 +53,15 @@ export default function MainPage() {
     </Wrap>
   );
 }
+
+const HeaderText = styled.p`
+  color: ${color.gray[9]};
+  font-family: ${fontFamily.EF_JEJU};
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 165%;
+`;
 
 const Wrap = styled.div`
   position: relative;

@@ -54,6 +54,7 @@ export const Typography: React.FC<TypographyProps & { children: ReactNode }> = (
       pl={pl}
       pr={pr}
       style={style}
+
       // {...rest}
     >
       {children}
