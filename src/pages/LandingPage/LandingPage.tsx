@@ -49,6 +49,9 @@ export default function LandingPage() {
             // left: 0,
           }
         }
+        onClick={() => {
+          navigate('/main');
+        }}
       >
         식사에 참여하나요?
       </Button>

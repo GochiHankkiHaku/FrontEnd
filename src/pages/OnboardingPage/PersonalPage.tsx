@@ -46,7 +46,7 @@ export default function PersonalPage() {
       </Container>
       <Button
         col='white'
-        bgCol={color.main[1]}
+        bgCol={color.main[2]}
         onClick={() => {
           navigate('/onboarding/menu');
           localStorage.setItem('number', String(count));

@@ -15,12 +15,10 @@ export default function TimePage() {
 
   const handleDaySelect = (day: string) => {
     setSelectedDay(day);
-    localStorage.setItem('day', day);
   };
 
   const handleMealTimeSelect = (mealTime: string) => {
     setSelectedMealTime(mealTime);
-    localStorage.setItem('mealTime', mealTime);
   };
 
   return (
@@ -49,32 +47,32 @@ export default function TimePage() {
         </Typography>
         <ButtonGroup2>
           <Button2
-            onClick={() => handleMealTimeSelect('breakfast')}
-            selected={selectedMealTime === 'breakfast'}
+            onClick={() => handleMealTimeSelect('아침')}
+            selected={selectedMealTime === '아침'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               아침 (8:00 ~ 10:00)
             </Typography>
           </Button2>
           <Button2
-            onClick={() => handleMealTimeSelect('lunch')}
-            selected={selectedMealTime === 'lunch'}
+            onClick={() => handleMealTimeSelect('점심')}
+            selected={selectedMealTime === '점심'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
-              점심 (10:00 ~ 12:00)
+              점심 (10:00 ~ 14:00)
             </Typography>
           </Button2>
-          <Button2
-            onClick={() => handleMealTimeSelect('lunch2')}
-            selected={selectedMealTime === 'lunch2'}
+          {/* <Button2
+            onClick={() => handleMealTimeSelect('점심2')}
+            selected={selectedMealTime === '점심2'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               점심 (12:00 ~ 14:00)
             </Typography>
-          </Button2>
+          </Button2> */}
           <Button2
-            onClick={() => handleMealTimeSelect('dinner')}
-            selected={selectedMealTime === 'dinner'}
+            onClick={() => handleMealTimeSelect('저녁')}
+            selected={selectedMealTime === '저녁'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               저녁 (16:00 ~ 18:00)
@@ -84,7 +82,7 @@ export default function TimePage() {
       </Container>
       <Button
         col='white'
-        bgCol={color.main[1]}
+        bgCol={color.main[2]}
         onClick={() => {
           localStorage.setItem('date', selectedDay);
           localStorage.setItem('time', selectedMealTime);

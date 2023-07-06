@@ -5,14 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { color, radius } from 'styles/constants';
 
 export default function CustomToast() {
-  const notify = () => {
-    toast.success('Info Notification !', {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
   return (
     <Wrap>
-      <button onClick={notify}>Notify</button>;
       <ToastContainer
         closeButton={false}
         position='bottom-center'
@@ -31,7 +25,7 @@ const Wrap = styled.div`
   --toastify-color-light: #fff;
   --toastify-color-dark: ${color.gray[8]};
   --toastify-color-info: #3498db;
-  --toastify-color-success: ${color.main[4]};
+  --toastify-color-success: #00ae84;
   --toastify-color-warning: #f1c40f;
   --toastify-color-error: #e74c3c;
   --toastify-color-transparent: rgba(255, 255, 255, 0.7);

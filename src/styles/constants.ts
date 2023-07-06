@@ -20,7 +20,7 @@ export const color = {
   main: {
     // main 색상 변경 가능
     1: '#FF5C00',
-    2: '#265b53',
+    2: '#FFA51F',
     3: '#dff157',
     4: '#966E57',
   },

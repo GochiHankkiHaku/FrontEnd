@@ -9,6 +9,8 @@ import { Header } from 'components/Header';
 import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { flexSet } from 'styles/minxin';
+import CustomToast from 'components/CustomToast';
+import { toast } from 'react-toastify';
 
 // const menuImg = {
 //   '구살국(성게국)':
@@ -62,6 +64,7 @@ export default function MainPage() {
       <CreateBtn>
         <PlusIcon /> <span>모임</span>
       </CreateBtn>
+      <CustomToast />
     </Wrap>
   );
 }
@@ -107,15 +110,15 @@ const StyledTypography = styled(Typography)`
 `;
 
 const CreateBtn = styled.button`
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
   ${flexSet()}
 
   width: 92px;
   height: 44px;
 
-  background-color: ${color.main[1]};
+  background-color: ${color.main[2]};
   border-radius: 50px;
   color: white;
 

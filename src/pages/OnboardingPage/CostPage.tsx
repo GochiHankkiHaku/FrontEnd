@@ -7,12 +7,19 @@ import { Button } from 'components/Button';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 import { PostApi } from 'apis/lib/post';
+import CustomToast from 'components/CustomToast';
+import { toast } from 'react-toastify';
 
 const formatPrice = (value: string) => {
   const numericValue = value.replace(/\D/g, '');
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 export default function CostPage() {
+  const notify = () => {
+    toast.success('모임이 생성되었습니다 !', {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
   const navigate = useNavigate();
 
   const [price, setPrice] = useState('');
@@ -30,9 +37,11 @@ export default function CostPage() {
     const money = localStorage.getItem('money') ?? '';
     const menuname = localStorage.getItem('menuname') ?? '';
 
-    // navigate('/main');
-    const res = await PostApi.write(date2, time, +number, menuname, money);
+    const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
+    navigate('/main');
     console.log('res :>> ', res);
+
+    localStorage.setItem('success', 'true');
   };
 
   return (
@@ -51,7 +60,7 @@ export default function CostPage() {
           <Text>원</Text>
         </InputContainer>
       </Container>
-      <Button col='white' bgCol={color.main[1]} onClick={handleNext}>
+      <Button col='white' bgCol={color.main[2]} onClick={handleNext}>
         다음으로
       </Button>
     </Wrap>

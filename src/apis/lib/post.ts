@@ -16,7 +16,7 @@ export class PostApi {
     console.log('res :>> ', res);
     return res.data;
   }
-  static async write(date: string, time: string, number: number, menuname: string, money: string) {
+  static async write(date: string, time: string, number: number, menuname: string, money: number) {
     const res = await axiosClient.post('/post/write', {
       menuname,
       date,
