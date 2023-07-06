@@ -15,4 +15,15 @@ export class PostApi {
     console.log('res :>> ', res);
     return res.data;
   }
+  static async write(date: string, time: string, number: number, menuname: string, money: string) {
+    const res = await axiosClient.post('/post/write', {
+      menuname,
+      date,
+      time,
+      number,
+      money,
+      lat: 33.449701,
+      lng: 126.917109,
+    });
+  }
 }

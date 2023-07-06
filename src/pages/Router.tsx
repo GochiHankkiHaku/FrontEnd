@@ -11,6 +11,9 @@ import DetailMainPage from './DetailPage/DetailMainPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 import PaymentPage from './PayMentPage/PaymentPage';
+import ReviewPage from './ReviewPage/ReviewPage';
+import Gathering from './Gathering/Gathering';
+import CostPage from './OnboardingPage/CostPage';
 
 export const Router = (): React.ReactElement => {
   return (
@@ -21,6 +24,7 @@ export const Router = (): React.ReactElement => {
         <Route path='personal' element={<PersonalPage />} />
         <Route path='menu' element={<MenuPage />} />
         <Route path='food' element={<FoodPage />} />
+        <Route path='cost' element={<CostPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
       <Route path={'/'} element={<Layout />}>
@@ -29,6 +33,8 @@ export const Router = (): React.ReactElement => {
       </Route>
       <Route path='detail/:post_idx' element={<DetailMainPage />} />
       <Route path='/payment' element={<PaymentPage />} />
+      <Route path='/gathering' element={<Gathering />} />
+      <Route path='/review' element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
