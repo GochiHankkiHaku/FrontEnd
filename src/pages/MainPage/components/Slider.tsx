@@ -60,7 +60,7 @@ export default function Slider() {
         //   spaceBetween={50}
         //   slidesPerView={3}
         onSlideChange={(swiper) => {
-          setActiveIndex(swiper.activeIndex);
+          setActiveIndex(swiper.activeIndex + 1);
           console.log(swiper, swiper.activeIndex);
         }}
         // onSwiper={(swiper) => swiperRef}
@@ -106,7 +106,11 @@ const Wrap = styled.div`
 
   overflow: hidden;
 
-  /* border: 5px solid white; */
+  /* border: 2px solid red; */
+
+  .swiper-slide {
+    height: 220px;
+  }
 
   .swiper-horizontal > .swiper-pagination-progressbar,
   .swiper-pagination-progressbar.swiper-pagination-horizontal {
@@ -122,13 +126,15 @@ const Wrap = styled.div`
     background-color: ${color.main[4]};
   }
 
-  /* .swiper-button-next, */
+  .swiper-button-next,
   .swiper-button-prev {
     display: none;
   }
 
   .swiper-button-next {
-    background-color: red;
+    /* width: 3px;
+    height: 5px; */
+    /* background-color: red;
     position: absolute;
     top: 220px;
     bottom: 0;
@@ -137,34 +143,21 @@ const Wrap = styled.div`
     width: 43px;
     height: 23px;
 
-    z-index: 150;
+    z-index: 150; */
   }
-`;
-
-const StyledSwiperSlide = styled(SwiperSlide)`
-  width: 100%;
-  height: 100%;
 `;
 
 const Image = styled.img`
   /* border: 2px solid pink; */
   width: 100%;
-  height: 100%;
+  height: 220px;
+  overflow: hidden;
   overflow: hide;
-  object-fit: contain;
+  object-fit: cover;
 
   filter: brightness(65%);
-`;
 
-const StyledTypography = styled(Typography)`
-  background-color: aqua;
-  width: auto;
-  position: absolute;
-  /* bottom: 0; */
-  /* right: 0; */
-  top: 0;
-  text-align: end;
-  text-align: right;
+  /* border: 2px solid blue; */
 `;
 
 const Text = styled.div`

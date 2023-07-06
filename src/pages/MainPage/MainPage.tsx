@@ -50,7 +50,8 @@ export default function MainPage() {
         {posts.map((post, idx) => (
           <GatheringInfo
             key={idx}
-            thumbnail='https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/catlab/20210525034607713vblk.jpg'
+            idx={idx}
+            thumbnail={post.img}
             title={`${post.menuname} 요리 모집`}
             address='제주 서귀포시 성산읍 고성리 296-8'
             recruitedCnt={post.application}

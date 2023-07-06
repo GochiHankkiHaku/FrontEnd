@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import { color, radius } from 'styles/constants';
 import { ReactComponent as PeopleIcon } from 'assets/icons/people.svg';
 
+const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];
 interface ContentsWrapProps {
   thumbnail: string;
   title: string;
   address: string;
   recruitedCnt: number;
   totalCnt: number;
+  idx: number;
 }
 export default function GatheringInfo({
   thumbnail,
@@ -17,10 +19,13 @@ export default function GatheringInfo({
   address,
   recruitedCnt,
   totalCnt,
+  idx,
 }: ContentsWrapProps) {
   return (
     <Wrap>
-      <Img src={thumbnail} alt='음식 썸네일' />
+      <ImgWrap idx={idx}>
+        <Img src={thumbnail} alt='음식 썸네일' />
+      </ImgWrap>
       <div>
         <Typography variant='paragraph' size={2} color={color.gray[9]}>
           {title}
@@ -49,12 +54,15 @@ const Wrap = styled.div`
   border-bottom: 1px solid ${color.gray[3]};
 `;
 
-const Img = styled.img`
+const ImgWrap = styled.div<{ idx: number }>`
   width: 116px;
   height: 116px;
   border-radius: ${radius[4]}px;
   margin-right: 16px;
+
+  background-color: ${({ idx }) => bgCols[idx % 3]};
 `;
+const Img = styled.img``;
 
 const IngredientsWrap = styled.div`
   display: flex;

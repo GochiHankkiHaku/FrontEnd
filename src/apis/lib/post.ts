@@ -7,6 +7,7 @@ export interface PostResponse {
   menuname: string;
   application: number;
   number: number;
+  img: string;
 }
 
 export class PostApi {
