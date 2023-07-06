@@ -2,6 +2,7 @@ import { Typography } from 'components/Typography';
 import React from 'react';
 import styled from 'styled-components';
 import { color, radius } from 'styles/constants';
+import { ReactComponent as PeopleIcon } from 'assets/icons/people.svg';
 
 interface ContentsWrapProps {
   thumbnail: string;
@@ -27,14 +28,15 @@ export default function GatheringInfo({
         <Typography variant='caption' size={2} color={color.gray[6]} mt={6} mb={8}>
           {address}
         </Typography>
-        <Typography variant='caption' size={1} color={color.gray[9]} pb={8}>
-          {`${recruitedCnt}/${totalCnt} 모집 완료`}
-        </Typography>
-        <IngredientsWrap>
+        <PeopleWrap>
+          <PeopleIcon />
+          <Text>{`${recruitedCnt}/${totalCnt} 모집 완료`}</Text>
+        </PeopleWrap>
+        {/* <IngredientsWrap>
           <Typography variant='paragraph' size={6} color={color.gray[9]}>
             필요 재료
           </Typography>
-        </IngredientsWrap>
+        </IngredientsWrap> */}
       </div>
     </Wrap>
   );
@@ -59,4 +61,21 @@ const IngredientsWrap = styled.div`
   height: 30px;
   align-items: center;
   background-color: yellow;
+`;
+
+const PeopleWrap = styled.div`
+  display: flex;
+  align-content: center;
+`;
+
+const Text = styled.p`
+  margin-left: 6px;
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 12px;
+
+  display: flex;
+  align-items: center;
 `;

@@ -6,6 +6,9 @@ import Slider from './components/Slider';
 import { useEffect, useState } from 'react';
 import { PostApi, PostResponse } from 'apis/lib/post';
 import { Header } from 'components/Header';
+import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
+import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
+import { flexSet } from 'styles/minxin';
 
 // const menuImg = {
 //   '구살국(성게국)':
@@ -19,9 +22,15 @@ export default function MainPage() {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await PostApi.getList();
-      console.log('res :>> ', res);
-      setPost(res);
+      try {
+        const res = await PostApi.getList();
+        const env = process.env.REACT_APP_API_URL;
+        console.log('zz', env);
+        console.log('res :>> ', res);
+        setPost(res);
+      } catch (error) {
+        console.log('error :>> ', error);
+      }
     };
 
     getPost();
@@ -30,6 +39,7 @@ export default function MainPage() {
   return (
     <Wrap>
       <Header>
+        <PotIcon fill={color.main[1]} />
         <HeaderText>한 끼 하쿠</HeaderText>
       </Header>
       <SliderWrap>
@@ -50,11 +60,15 @@ export default function MainPage() {
           />
         ))}
       </ContentsWrap>
+      <CreateBtn>
+        <PlusIcon /> <span>모임</span>
+      </CreateBtn>
     </Wrap>
   );
 }
 
 const HeaderText = styled.p`
+  margin-left: 8px;
   color: ${color.gray[9]};
   font-family: ${fontFamily.EF_JEJU};
   font-size: 20px;
@@ -66,6 +80,7 @@ const HeaderText = styled.p`
 const Wrap = styled.div`
   position: relative;
   background-color: white;
+  height: 100%;
 `;
 
 const SliderWrap = styled.div`
@@ -87,4 +102,26 @@ const StyledTypography = styled(Typography)`
   text-align: end;
   text-align: right;
   z-index: 100;
+`;
+
+const CreateBtn = styled.button`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  ${flexSet()}
+
+  width: 92px;
+  height: 44px;
+
+  background-color: ${color.main[1]};
+  border-radius: 50px;
+  color: white;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+
+  span {
+    margin-left: 8px;
+  }
 `;

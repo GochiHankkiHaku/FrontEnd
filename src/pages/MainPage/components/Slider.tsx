@@ -48,6 +48,13 @@ export default function Slider() {
 
   return (
     <Wrap>
+      <SliderCnt onClick={handleClickNext}>
+        <Typography
+          variant={'caption'}
+          size={2}
+          color={color.gray[9]}
+        >{`${activeIndex}/4 >`}</Typography>
+      </SliderCnt>
       <Swiper
         ref={swiperRef}
         //   spaceBetween={50}
@@ -85,13 +92,6 @@ export default function Slider() {
         <br />
         새로운 사람들과 함께 만들어봐요!
       </Text>
-      <SliderCnt onClick={handleClickNext}>
-        <Typography
-          variant={'caption'}
-          size={2}
-          color={color.gray[9]}
-        >{`${activeIndex}/4 >`}</Typography>
-      </SliderCnt>
     </Wrap>
   );
 }
@@ -122,9 +122,22 @@ const Wrap = styled.div`
     background-color: ${color.main[4]};
   }
 
-  .swiper-button-next,
+  /* .swiper-button-next, */
   .swiper-button-prev {
     display: none;
+  }
+
+  .swiper-button-next {
+    background-color: red;
+    position: absolute;
+    top: 220px;
+    bottom: 0;
+    right: 0;
+
+    width: 43px;
+    height: 23px;
+
+    z-index: 150;
   }
 `;
 
