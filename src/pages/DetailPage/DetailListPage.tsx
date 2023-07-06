@@ -134,8 +134,12 @@ const HostInfo = styled.div`
 
 const HostInfoContent = styled.div`
   display: flex;
+  width: 100%;
   align-items: flex-start;
   gap: 16px;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #c1c1c1;
 
   > .host_image {
     width: 80px;
@@ -168,10 +172,27 @@ const HostInfoContent = styled.div`
       color: #8b8b8b;
     }
 
-    > .meter {
-      font-size: 14px;
-      font-weight: 400;
-      color: #128fe9;
+    > .host_btn {
+      display: flex;
+      gap: 5px;
+
+      > .ex {
+        font-size: 10px;
+        font-weight: 600;
+        color: #ff5c00;
+        padding: 4.5px 12px;
+        border-radius: 70px;
+        border: 1px solid #c1c1c1;
+      }
+
+      > .good {
+        font-size: 10px;
+        font-weight: 600;
+        color: #ffa51f;
+        padding: 4.5px 12px;
+        border-radius: 70px;
+        border: 1px solid #c1c1c1;
+      }
     }
   }
 `;
@@ -358,7 +379,10 @@ function DetailListPage({ detailData }: any) {
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
               <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
-              <div className='meter'>246m</div>
+              <div className='host_btn'>
+                <div className='ex'>최고에요 37</div>
+                <div className='good'>좋아요 15</div>
+              </div>
             </div>
           </HostInfoContent>
         </HostInfo>
