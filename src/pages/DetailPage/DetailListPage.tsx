@@ -316,8 +316,11 @@ const PriceInfoList = styled.ul`
 const PaymentBtnArea = styled.div`
   display: flex;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
   padding: 16px 20px 24px 20px;
   border-top: 1px solid #c1c1c1;
+  background-color: white;
 `;
 
 const PayBtn = styled.button`
