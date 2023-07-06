@@ -7,10 +7,6 @@ export default function Gathering() {
     <Wrap>
       <Header>
         <p className='title'>모임 정보</p>
-        <button className='btn'>현재 모임</button>
-        <button className='btn'>이전 기록</button>
-        <Button>현재 모임</Button>
-        <Button>이전 기록</Button>
       </Header>
     </Wrap>
   );
@@ -29,5 +25,3 @@ const Header = styled.div`
     line-height: 150%;
   }
 `;
-
-const Button = styled.button``;
