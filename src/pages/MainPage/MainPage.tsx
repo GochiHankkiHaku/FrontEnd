@@ -68,13 +68,16 @@ export default function MainPage() {
 }
 
 const HeaderText = styled.p`
+  display: flex;
+  align-items: center;
+
   margin-left: 8px;
   color: ${color.gray[9]};
   font-family: ${fontFamily.EF_JEJU};
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 165%;
+  /* line-height: 165%; */
 `;
 
 const Wrap = styled.div`

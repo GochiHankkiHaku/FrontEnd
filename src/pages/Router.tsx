@@ -10,6 +10,8 @@ import MapPage from './MapPage/MapPage';
 import DetailPage from './DetailPage/DetailPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
+import ReviewPage from './ReviewPage/ReviewPage';
+import Gathering from './Gathering/Gathering';
 
 export const Router = (): React.ReactElement => {
   return (
@@ -27,6 +29,8 @@ export const Router = (): React.ReactElement => {
         <Route path='map' element={<MapPage />} />
         <Route path='detail' element={<DetailPage />} />
       </Route>
+      <Route path='/gathering' element={<Gathering />} />
+      <Route path='/review' element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
