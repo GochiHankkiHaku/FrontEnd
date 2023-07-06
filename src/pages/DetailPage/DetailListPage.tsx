@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
-import { Button } from 'components/Button';
-import { color } from 'styles/constants';
-
+import { ReactComponent as User1 } from 'assets/icons/user1.svg';
+import { ReactComponent as User2 } from 'assets/icons/user2.svg';
+import { ReactComponent as User3 } from 'assets/icons/user3.svg';
+import fish from 'assets/icons/images/어류.png';
+import vege from 'assets/icons/images/채소.png';
+import grain from 'assets/icons/images/곡류.png';
 const DetailContainer = styled.div`
   margin-bottom: 25px;
 `;
@@ -71,7 +74,8 @@ const MenuInfoContent = styled.div`
   > .menu_image {
     width: 144px;
     height: 144px;
-    background-color: lightgray;
+    border-radius: 4px;
+    background-color: peachpuff;
   }
 
   > .menu_text {
@@ -118,9 +122,10 @@ const ReservationTiem = styled.div`
   font-size: 18px;
   font-weight: 500;
   padding: 11.5px 20px;
+  color: #333333;
   border-radius: 8px;
-  color: #ffffff;
-  background-color: #128fe9;
+  border: 1px solid #c1c1c1;
+  background-color: #f5f4f3;
 `;
 
 const HostInfo = styled.div`
@@ -140,13 +145,6 @@ const HostInfoContent = styled.div`
   border-radius: 8px;
   padding: 12px;
   border: 1px solid #c1c1c1;
-
-  > .host_image {
-    width: 80px;
-    height: 80px;
-    border-radius: 109.091px;
-    background: #8fcbdd;
-  }
 
   > .host_detail-info {
     display: flex;
@@ -197,48 +195,15 @@ const HostInfoContent = styled.div`
   }
 `;
 
-const ParticipantsCheck = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  > input {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1px solid #999;
-    appearance: none;
-    cursor: pointer;
-  }
-
-  > input[type='checkbox']:checked {
-    background: #128fe9;
-    border: none;
-  }
-
-  > .text {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333333;
-  }
-`;
-
 const ParticipantsImages = styled.ul`
   display: flex;
+  gap: 10px;
   width: 350px;
-  justify-content: space-between;
 
   > li {
     display: flex;
     flex-direction: column;
-    gap: 1.818px;
-
-    > .profile {
-      width: 80px;
-      height: 80px;
-      background-color: #8fcbdd;
-      border-radius: 109.091px;
-    }
+    gap: 8px;
 
     > .username {
       font-size: 14px;
@@ -263,6 +228,13 @@ const PriceInfoTitleArea = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 350px;
+
+  > .price_text {
+    color: #333333;
+
+    font-size: 18px;
+    font-weight: 700;
+  }
 
   p {
     width: 280px;
@@ -293,7 +265,7 @@ const PriceInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 70px;
 
   > li {
     display: flex;
@@ -304,6 +276,21 @@ const PriceInfoList = styled.ul`
       width: 80px;
       height: 80px;
       background-color: #aed8ff;
+      border-radius: 4px;
+    }
+
+    > .profile2 {
+      width: 80px;
+      height: 80px;
+      background-color: #a2f5e6;
+      border-radius: 4px;
+    }
+
+    > .profile3 {
+      width: 80px;
+      height: 80px;
+      background-color: #dbfbff;
+      border-radius: 4px;
     }
 
     > .price_info {
@@ -321,10 +308,6 @@ const PriceInfoList = styled.ul`
         font-size: 16px;
         font-weight: 500;
         color: #333333;
-
-        > .approve {
-          color: #128fe9;
-        }
       }
     }
   }
@@ -337,6 +320,19 @@ const PaymentBtnArea = styled.div`
   border-top: 1px solid #c1c1c1;
 `;
 
+const PayBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 350px;
+  padding: 11.5px 20px;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  background-color: #ff5c00;
+  border-radius: 8px;
+`;
+
 function DetailListPage({ detailData }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -344,7 +340,7 @@ function DetailListPage({ detailData }: any) {
     setIsOpen(!isOpen);
   };
 
-  console.log(detailData);
+  console.log(detailData.item);
 
   return (
     <DetailContainer>
@@ -357,7 +353,7 @@ function DetailListPage({ detailData }: any) {
         <MenuInfo>
           <MenuInfoTitle>요리 정보</MenuInfoTitle>
           <MenuInfoContent>
-            <div className='menu_image'></div>
+            <img className='menu_image' src={detailData.img} />
             <div className='menu_text'>
               <div className='menu_text-title'>{detailData.menuname}</div>
               <div className='menu_text-content'>{detailData.menucontent}</div>
@@ -368,17 +364,17 @@ function DetailListPage({ detailData }: any) {
         <Divider></Divider>
         <MenuInfo>
           <MenuInfoTitle>모임 시간대</MenuInfoTitle>
-          <ReservationTiem>{detailData.time} (17:00 ~ 20:00)</ReservationTiem>
+          <ReservationTiem>{detailData.time}</ReservationTiem>
         </MenuInfo>
         <Divider></Divider>
         <HostInfo>
           <MenuInfoTitle>개설자 정보</MenuInfoTitle>
           <HostInfoContent>
-            <div className='host_image'></div>
+            <User1 />
             <div className='host_detail-info'>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
+              <div className='address'>{detailData.address}</div>
               <div className='host_btn'>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
@@ -391,25 +387,17 @@ function DetailListPage({ detailData }: any) {
           <MenuInfoTitle>
             참여자 <span className='num'>3명</span>
           </MenuInfoTitle>
-          <ParticipantsCheck>
-            <input type='checkbox' />
-            <div className='text'>일행입니다.</div>
-          </ParticipantsCheck>
           <ParticipantsImages>
             <li>
-              <div className='profile'></div>
+              <User1 />
               <div className='username'>유저 네임</div>
             </li>
             <li>
-              <div className='profile'></div>
+              <User2 />
               <div className='username'>유저 네임</div>
             </li>
             <li>
-              <div className='profile'></div>
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <div className='profile'></div>
+              <User3 />
               <div className='username'>유저 네임</div>
             </li>
           </ParticipantsImages>
@@ -417,54 +405,37 @@ function DetailListPage({ detailData }: any) {
         <Divider></Divider>
         <PriceInfo>
           <PriceInfoTitleArea>
-            <div className='price_text'>가격 정보</div>
+            <div className='price_text'>시세 정보</div>
             <Info onClick={openHandler} />
             {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
           </PriceInfoTitleArea>
           <PriceInfoList>
             <li>
-              <div className='profile'></div>
+              <img className='profile' src={fish} />
               <div className='price_info'>
                 <div className='price_info-menuname'>갈치</div>
-                <div className='price_info-cost'>
-                  9,000원 <span className='approve'>적절</span>
-                </div>
+                <div className='price_info-cost'>평균 9,000원</div>
               </div>
             </li>
             <li>
-              <div className='profile'></div>
+              <img className='profile2' src={vege} />
               <div className='price_info'>
                 <div className='price_info-menuname'>무</div>
-                <div className='price_info-cost'>
-                  3,000원 <span className='approve'>적절</span>
-                </div>
+                <div className='price_info-cost'>평균 3,000원</div>
               </div>
             </li>
             <li>
-              <div className='profile'></div>
+              <img className='profile3' src={grain} />
               <div className='price_info'>
                 <div className='price_info-menuname'>흰쌀밥 (200g)</div>
-                <div className='price_info-cost'>
-                  2,000원 <span className='approve'>적절</span>
-                </div>
+                <div className='price_info-cost'>평균 2,000원</div>
               </div>
             </li>
           </PriceInfoList>
         </PriceInfo>
       </DetailInfo>
       <PaymentBtnArea>
-        <Button
-          width={350}
-          bgCol={color.main[2]}
-          col={color.white}
-          // css 커스텀 가능
-          // style={{
-          //   position: 'absolute',
-          //   bottom: 0,
-          // }}
-        >
-          참가비 결제
-        </Button>
+        <PayBtn>참가비 결제</PayBtn>
       </PaymentBtnArea>
     </DetailContainer>
   );

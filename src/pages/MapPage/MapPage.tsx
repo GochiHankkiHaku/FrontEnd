@@ -143,6 +143,29 @@ const Info = styled.div`
       }
     }
   }
+
+  > .host_btn {
+    display: flex;
+    gap: 5px;
+
+    > .ex {
+      font-size: 10px;
+      font-weight: 600;
+      color: #ff5c00;
+      padding: 4.5px 12px;
+      border-radius: 70px;
+      border: 1px solid #c1c1c1;
+    }
+
+    > .good {
+      font-size: 10px;
+      font-weight: 600;
+      color: #ffa51f;
+      padding: 4.5px 12px;
+      border-radius: 70px;
+      border: 1px solid #c1c1c1;
+    }
+  }
 `;
 
 const Arrow = styled.div`
@@ -293,14 +316,9 @@ function Map() {
                       </div>
                       <div className='meter'>{targetDistance}m</div>
                     </div>
-                    <div className='ingredient'>
-                      <div className='ingredient_title'>필요 재료</div>
-                      <ul className='ingredient_list'>
-                        <li className='ingredient_item'></li>
-                        <li className='ingredient_item'></li>
-                        <li className='ingredient_item'></li>
-                        <li className='ingredient_item'></li>
-                      </ul>
+                    <div className='host_btn'>
+                      <div className='ex'>최고에요 37</div>
+                      <div className='good'>좋아요 15</div>
                     </div>
                   </Info>
                   <Arrow>
