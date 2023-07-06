@@ -1,8 +1,12 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
+import { ReactComponent as Info } from 'assets/icons/info.svg';
+import { Button } from 'components/Button';
+import { color } from 'styles/constants';
 
 const DetailContainer = styled.div`
-  margin-bottom: 80px;
+  margin-bottom: 25px;
 `;
 
 const DetailHeader = styled.div`
@@ -44,7 +48,7 @@ const MenuInfo = styled.div`
   align-items: flex-start;
   gap: 16px;
   width: 350px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const MenuInfoTitle = styled.div`
@@ -101,7 +105,7 @@ const MenuInfoContent = styled.div`
 `;
 
 const Divider = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 14px;
   background-color: #f5f4f3;
 `;
@@ -125,7 +129,7 @@ const HostInfo = styled.div`
   align-items: flex-start;
   gap: 24px;
   width: 350px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const HostInfoContent = styled.div`
@@ -174,7 +178,22 @@ const HostInfoContent = styled.div`
 
 const ParticipantsCheck = styled.div`
   display: flex;
+  align-items: center;
   gap: 5px;
+
+  > input {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #999;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  > input[type='checkbox']:checked {
+    background: #128fe9;
+    border: none;
+  }
 
   > .text {
     font-size: 14px;
@@ -196,19 +215,114 @@ const ParticipantsImages = styled.ul`
     > .profile {
       width: 80px;
       height: 80px;
-      background-color: red;
+      background-color: #8fcbdd;
       border-radius: 109.091px;
     }
 
     > .username {
       font-size: 14px;
       font-weight: 400;
+      color: #333333;
       text-align: center;
     }
   }
 `;
 
+const PriceInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 350px;
+  /* width: 350px; */
+`;
+
+const PriceInfoTitleArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+
+  p {
+    width: 280px;
+    position: absolute;
+    padding: 12px;
+    right: 15px;
+    bottom: -343px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 4px;
+    background-color: #f5f4f3;
+    box-shadow: 0px 0px 8px 0px #00000066;
+
+    &::before {
+      position: absolute;
+      content: '';
+      border: 10px solid transparent;
+      border-bottom: 13px solid #f5f4f3;
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+      top: -20px;
+      right: 8px;
+    }
+  }
+`;
+
+const PriceInfoList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 25px;
+
+  > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    > .profile {
+      width: 80px;
+      height: 80px;
+      background-color: #aed8ff;
+    }
+
+    > .price_info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      > .price_info-menuname {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333333;
+      }
+
+      > .price_info-cost {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333333;
+
+        > .approve {
+          color: #128fe9;
+        }
+      }
+    }
+  }
+`;
+
+const PaymentBtnArea = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 16px 20px 24px 20px;
+  border-top: 1px solid #c1c1c1;
+`;
+
 function DetailListPage({ detailData }: any) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <DetailContainer>
       <DetailHeader>
@@ -276,7 +390,58 @@ function DetailListPage({ detailData }: any) {
             </li>
           </ParticipantsImages>
         </HostInfo>
+        <Divider></Divider>
+        <PriceInfo>
+          <PriceInfoTitleArea>
+            <div className='price_text'>가격 정보</div>
+            <Info onClick={openHandler} />
+            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
+          </PriceInfoTitleArea>
+          <PriceInfoList>
+            <li>
+              <div className='profile'></div>
+              <div className='price_info'>
+                <div className='price_info-menuname'>갈치</div>
+                <div className='price_info-cost'>
+                  9,000원 <span className='approve'>적절</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className='profile'></div>
+              <div className='price_info'>
+                <div className='price_info-menuname'>무</div>
+                <div className='price_info-cost'>
+                  3,000원 <span className='approve'>적절</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className='profile'></div>
+              <div className='price_info'>
+                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
+                <div className='price_info-cost'>
+                  2,000원 <span className='approve'>적절</span>
+                </div>
+              </div>
+            </li>
+          </PriceInfoList>
+        </PriceInfo>
       </DetailInfo>
+      <PaymentBtnArea>
+        <Button
+          width={350}
+          bgCol={color.main[2]}
+          col={color.white}
+          // css 커스텀 가능
+          // style={{
+          //   position: 'absolute',
+          //   bottom: 0,
+          // }}
+        >
+          참가비 결제
+        </Button>
+      </PaymentBtnArea>
     </DetailContainer>
   );
 }
