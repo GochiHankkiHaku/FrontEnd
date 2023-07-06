@@ -1,3 +1,4 @@
+import { MAXWIDTH } from 'common/constants';
 import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -5,8 +6,8 @@ export const GlobalStyle = createGlobalStyle`
 
   }
   body {
-    height: 100vh;
-    max-width: 500px;
+    /* height: 100vh; */
+    max-width: ${MAXWIDTH}px;
     margin: auto;
     
     font-family: SUIT Variable, -apple-system, BlinkMacSystemFont, 'Segoe UI',

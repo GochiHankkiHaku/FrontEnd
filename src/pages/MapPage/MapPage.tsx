@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 100%;
+  /**  height - 100vh, 100% 안됨 */
+  height: calc(100vh - 80px);
 `;
 
 const UnderBar = styled.div`
