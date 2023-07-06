@@ -22,7 +22,7 @@ export const color = {
     1: '#0f283e',
     2: '#265b53',
     3: '#dff157',
-    4: '#a6c04c',
+    4: '#4CC096',
   },
 } as const;
 
