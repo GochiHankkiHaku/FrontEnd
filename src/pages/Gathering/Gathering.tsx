@@ -230,7 +230,7 @@ const PriceInfoTitleArea = styled.div`
     position: absolute;
     padding: 12px;
     right: 15px;
-    bottom: -343px;
+    bottom: -165px;
     font-size: 14px;
     font-weight: 400;
     border-radius: 4px;
