@@ -8,3 +8,5 @@ export const PATH = {
   userList: 'userlist',
   bodyStatus: 'bodystatus',
 } as const;
+
+export const MAXWIDTH = 600;

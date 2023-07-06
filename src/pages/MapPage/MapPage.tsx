@@ -3,35 +3,143 @@ import { useState, useEffect, useRef } from 'react';
 import { dummyData } from 'common/utils/dummyData';
 import { getDistance } from 'common/utils/calDistanceFunc';
 import { Link } from 'react-router-dom';
+import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 100%;
+  /**  height - 100vh, 100% 안됨 */
+  height: calc(100vh - 80px);
 `;
 
 const UnderBar = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   bottom: 0;
   position: absolute;
   z-index: 999;
   width: 100%;
-  height: 200px;
-  padding: 10px;
+  height: 164px;
   font-size: 20px;
   background-color: white;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border: 1px solid red;
+  padding: 16px 20px 16px 20px;
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0px 0px 8px 0px #00000066;
+  gap: 8px;
+`;
+
+const TitleArea = styled.div`
+  display: flex;
+  align-items: center;
+  height: 27px;
+  gap: 8px;
+
+  > .title {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  > .title_state {
+    display: flex;
+    align-items: center;
+    width: 62px;
+    height: 24px;
+    padding: 5px 12px 5px 12px;
+    border-radius: 70px;
+    border: 1px;
+    gap: 10px;
+    color: #ff5325;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 15px;
+    border: 1px solid #ff5325;
+
+    > .title_state-text {
+      width: 38px;
+    }
+  }
+`;
+
+const InfoArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 85px;
+  padding: 12px 0px 0px 0px;
+  border: 1px 0px 0px 0px;
+  border-top: 1px solid #dfdfdf;
+  /* border: 1px solid red; */
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 322px;
+  /* border: 1px solid red; */
+
+  > .address {
+    height: 18px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #8b8b8b;
+  }
+
+  > .distance {
+    display: flex;
+    gap: 8px;
+
+    > .text {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+    }
+
+    > .meter {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: #128fe9;
+    }
+  }
+
+  > .ingredient {
+    display: flex;
+    align-items: center;
+    width: 205px;
+    height: 30px;
+    gap: 8px;
+
+    > .ingredient_title {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+    }
+
+    > .ingredient_list {
+      display: flex;
+      gap: 8px;
+
+      > .ingredient_item {
+        width: 30px;
+        height: 30px;
+        background-color: #d9d9d9;
+      }
+    }
+  }
+`;
+
+const Arrow = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 function Map() {
   const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
   const [markerTitle, setMarkerTitle] = useState<string>('');
-  const [markerContent, setMarkerContent] = useState<string>('');
+  const [markerAddress, setMarkerAddress] = useState<string>('');
   const [targetDistance, setTargetDistance] = useState<number>(0);
 
   const [detailId, setDetailId] = useState<number>(0);
@@ -104,7 +212,7 @@ function Map() {
           // setMarkerTitle(dummyData[i].title);
           // setMarkerContent(dummyData[i].content);
           setMarkerTitle(distanceLimitData[i].title);
-          setMarkerContent(distanceLimitData[i].content);
+          setMarkerAddress(distanceLimitData[i].address);
           setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
           setInfoOpen(true);
           setDetailId(distanceLimitData[i].id);
@@ -118,7 +226,7 @@ function Map() {
     const handleOutsideClose = (e: MouseEvent) => {
       if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
         setMarkerTitle('');
-        setMarkerContent('');
+        setMarkerAddress('');
         setInfoOpen(false);
       }
     };
@@ -135,9 +243,33 @@ function Map() {
         <div ref={infoRef}>
           {infoOpen && (
             <UnderBar>
-              <div>{markerTitle}</div>
-              <div>{markerContent}</div>
-              <div>{targetDistance}m</div>
+              <TitleArea>
+                <div className='title'>{markerTitle}</div>
+                <div className='title_state'>
+                  <div className='title_state-text'>오늘 모집</div>
+                </div>
+              </TitleArea>
+              <InfoArea>
+                <Info>
+                  <div className='address'>{markerAddress}</div>
+                  <div className='distance'>
+                    <div className='text'>1/3 모집 완료</div>
+                    <div className='meter'>{targetDistance}m</div>
+                  </div>
+                  <div className='ingredient'>
+                    <div className='ingredient_title'>필요 재료</div>
+                    <ul className='ingredient_list'>
+                      <li className='ingredient_item'></li>
+                      <li className='ingredient_item'></li>
+                      <li className='ingredient_item'></li>
+                      <li className='ingredient_item'></li>
+                    </ul>
+                  </div>
+                </Info>
+                <Arrow>
+                  <ArrowChevron />
+                </Arrow>
+              </InfoArea>
             </UnderBar>
           )}
         </div>
