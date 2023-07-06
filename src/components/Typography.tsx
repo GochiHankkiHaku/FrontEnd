@@ -1,8 +1,8 @@
-import { PropsWithChildren, ReactElement, ReactNode } from 'react';
+import { ComponentPropsWithRef, PropsWithChildren, ReactElement, ReactNode } from 'react';
 import styled from 'styled-components/macro';
 import { typograpy } from 'styles/constants';
 
-interface TypographyStyleProps {
+interface TypographyStyleProps extends ComponentPropsWithRef<'p'> {
   variant: 'title' | 'paragraph' | 'caption';
   size: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   color?: string;
@@ -14,6 +14,7 @@ interface TypographyStyleProps {
   pb?: number;
   pl?: number;
   pr?: number;
+  style?: React.CSSProperties;
 }
 
 interface TypographyProps extends TypographyStyleProps {
@@ -36,9 +37,25 @@ export const Typography: React.FC<TypographyProps & { children: ReactNode }> = (
   pl,
   pr,
   children,
+  style,
+  ...rest
 }) => {
   return (
-    <Text variant={variant} size={size} color={color} mt={mt} mb={mb} ml={ml} mr={mr} pt={pt} pb={pb} pl={pl} pr={pr}>
+    <Text
+      variant={variant}
+      size={size}
+      color={color}
+      mt={mt}
+      mb={mb}
+      ml={ml}
+      mr={mr}
+      pt={pt}
+      pb={pb}
+      pl={pl}
+      pr={pr}
+      style={style}
+      // {...rest}
+    >
       {children}
     </Text>
   );

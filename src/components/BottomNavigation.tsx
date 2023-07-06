@@ -2,21 +2,38 @@ import { MAXWIDTH } from 'common/constants';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { ReactComponent as MainIcon } from 'assets/icons/main.svg';
+import { ReactComponent as MapIcon } from 'assets/icons/map.svg';
+import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
+import { color, typograpy } from 'styles/constants';
+import { Typography } from './Typography';
 
 export default function BottomNavigation() {
   return (
     <Nav>
-      <NavItem to='/home'>
-        <img src='/assets/home-icon.png' alt='Home' />
-        <span>Home</span>
+      <NavItem to='/main'>
+        {({ isActive }) => (
+          <>
+            <MainIcon fill={isActive ? color.main[2] : color.gray[3]} />
+            <span>메인</span>
+          </>
+        )}
       </NavItem>
-      <NavItem to='/search'>
-        <img src='/assets/search-icon.png' alt='Search' />
-        <span>Search</span>
+      <NavItem to='/map'>
+        {({ isActive }) => (
+          <>
+            <MapIcon fill={isActive ? color.main[2] : color.gray[3]} />
+            <span>탐색</span>
+          </>
+        )}
       </NavItem>
       <NavItem to='/profile'>
-        <img src='/assets/profile-icon.png' alt='Profile' />
-        <span>Profile</span>
+        {({ isActive }) => (
+          <>
+            <PotIcon fill={isActive ? color.main[2] : color.gray[3]} />
+            <span>모임</span>
+          </>
+        )}
       </NavItem>
     </Nav>
   );
@@ -31,7 +48,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: space-around;
   background-color: #ffffff;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid ${color.gray[3]};
   padding: 10px 0;
 `;
 
@@ -40,10 +57,23 @@ const NavItem = styled(NavLink)`
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #616161;
+  color: ${color.gray[2]};
+
+  span {
+    margin-top: 2px;
+
+    font-size: ${typograpy.paragraph[1].fontSize}px;
+    font-weight: ${typograpy.paragraph[1].fontWeight};
+    line-height: ${typograpy.paragraph[1].lineHeight}%;
+    color: ${color.gray[4]};
+  }
 
   &.active {
-    color: #2196f3;
+    color: ${color.main[2]};
+
+    span {
+      color: ${color.main[2]};
+    }
   }
 
   img {
