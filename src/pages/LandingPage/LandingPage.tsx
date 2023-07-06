@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import landingImg from 'assets/imgs/landingImg.png';
 import CustomToast from 'components/CustomToast';
+import { Button } from 'components/Button';
+import { color } from 'styles/constants';
 
 export default function LandingPage() {
   return (
@@ -10,6 +12,17 @@ export default function LandingPage() {
         하쿠과?
       </Title>
       <CustomToast />
+      <Button
+        bgCol={color.main[2]}
+        col={color.white}
+        // css 커스텀 가능
+        // style={{
+        //   position: 'absolute',
+        //   bottom: 0,
+        // }}
+      >
+        모임을 주최?
+      </Button>
     </Wrap>
   );
 }
