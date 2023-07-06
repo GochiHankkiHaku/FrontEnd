@@ -10,7 +10,13 @@ interface ContentsWrapProps {
   recruitedCnt: number;
   totalCnt: number;
 }
-export default function GatheringInfo({ thumbnail, title, address, recruitedCnt, totalCnt }: ContentsWrapProps) {
+export default function GatheringInfo({
+  thumbnail,
+  title,
+  address,
+  recruitedCnt,
+  totalCnt,
+}: ContentsWrapProps) {
   return (
     <Wrap>
       <Img src={thumbnail} alt='음식 썸네일' />
