@@ -87,3 +87,13 @@ const Text = styled.p`
   display: flex;
   align-items: center;
 `;
+
+const tag = styled.div<{ color: string }>`
+  height: 24px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+
+  color:;
+`;
