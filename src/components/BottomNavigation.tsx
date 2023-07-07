@@ -6,12 +6,13 @@ import { ReactComponent as MainIcon } from 'assets/icons/main.svg';
 import { ReactComponent as MapIcon } from 'assets/icons/map.svg';
 import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { color, typograpy } from 'styles/constants';
-import { Typography } from './Typography';
+
+const staticServerUri = process.env.REACT_APP_PATH || '';
 
 export default function BottomNavigation() {
   return (
     <Nav>
-      <NavItem to='/main'>
+      <NavItem to={staticServerUri + '/main'}>
         {({ isActive }) => (
           <>
             <MainIcon fill={isActive ? color.main[2] : color.gray[3]} />
@@ -19,7 +20,7 @@ export default function BottomNavigation() {
           </>
         )}
       </NavItem>
-      <NavItem to='/map'>
+      <NavItem to={staticServerUri + '/map'}>
         {({ isActive }) => (
           <>
             <MapIcon fill={isActive ? color.main[2] : color.gray[3]} />
@@ -27,7 +28,7 @@ export default function BottomNavigation() {
           </>
         )}
       </NavItem>
-      <NavItem to='/gathering'>
+      <NavItem to={staticServerUri + '/gathering'}>
         {({ isActive }) => (
           <>
             <PotIcon fill={isActive ? color.main[2] : color.gray[3]} />

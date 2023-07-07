@@ -49,7 +49,7 @@ export default function CostPage() {
   return (
     <Wrap>
       <ProgressBar currentStep={4} />
-      <Back page='/onboarding/menu' text='요리' />
+      <Back page={staticServerUri + '/onboarding/menu'} text='요리' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           얼마로 할까요?

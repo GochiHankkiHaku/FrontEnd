@@ -60,7 +60,7 @@ export default function MenuPage() {
     <ContentWrap>
       <Wrap>
         <ProgressBar currentStep={3} />
-        <Back page='/onboarding/time' text='식사 일정' />
+        <Back page={staticServerUri + '/onboarding/time'} text='식사 일정' />
         <Container>
           <Typography variant='title' size={3} color={color.gray[9]} mb={44}>
             어떤 요리를 할까요?

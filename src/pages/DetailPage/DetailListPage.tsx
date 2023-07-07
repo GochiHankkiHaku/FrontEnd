@@ -352,7 +352,7 @@ function DetailListPage({ detailData }: any) {
   return (
     <DetailContainer>
       <DetailHeader>
-        <ArrowChevron />
+        <ArrowChevron o />
         <div className='detail_header-text'>모임 신청하기</div>
       </DetailHeader>
       <DetailCheck>모임 정보를 확인해보세요.</DetailCheck>

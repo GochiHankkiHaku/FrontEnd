@@ -30,7 +30,7 @@ export default function PersonalPage() {
   return (
     <Wrap>
       <ProgressBar currentStep={2} />
-      <Back page='/onboarding/time' text='인원 수' />
+      <Back page={staticServerUri + '/onboarding/time'} text='인원 수' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?

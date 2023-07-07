@@ -26,7 +26,7 @@ export default function TimePage() {
   return (
     <Wrap>
       <ProgressBar currentStep={1} />
-      <Back page='/' text='방문 목적' />
+      <Back page={staticServerUri + '/'} text='방문 목적' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           언제 먹을까요?
