@@ -20,6 +20,8 @@ import { Link } from 'react-router-dom';
 //   '갈치 조림'
 // }
 
+const staticServerUri = process.env.REACT_APP_PATH || '';
+
 export default function MainPage() {
   const [posts, setPost] = useState<any>([]);
 
@@ -52,7 +54,7 @@ export default function MainPage() {
         </Typography>
         {posts.map((post: any, idx: number) => (
           <>
-            <Link to={`/detail/${post.post_idx}`}>
+            <Link to={`${staticServerUri}/detail/${post.post_idx}`}>
               <GatheringInfo
                 key={idx}
                 idx={idx}
