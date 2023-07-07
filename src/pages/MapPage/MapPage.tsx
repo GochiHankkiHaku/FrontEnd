@@ -4,6 +4,7 @@ import { getDistance } from 'common/utils/calDistanceFunc';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import axios from 'axios';
+import { Spinner } from 'components/Spinner';
 
 const MapHeader = styled.div`
   display: flex;
@@ -296,40 +297,44 @@ function Map() {
       <MapHeader>
         <div className='header_title'>내 주변 탐색</div>
       </MapHeader>
-      <MapContainer ref={mapRef}>
-        <Link to={`${staticServerUri}/detail/${detailId}`}>
-          <div ref={infoRef}>
-            {infoOpen && (
-              <UnderBar>
-                <TitleArea>
-                  <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
-                  <div className='title_state'>
-                    <div className='title_state-text'>오늘 모집</div>
-                  </div>
-                </TitleArea>
-                <InfoArea>
-                  <Info>
-                    <div className='address'>{markerAddress}</div>
-                    <div className='distance'>
-                      <div className='text'>
-                        {markerApplication}/{markerNumber} 모집 완료
+      {currentMyLocation.lat === 0 && currentMyLocation.lng === 0 ? (
+        <Spinner mt={200} />
+      ) : (
+        <MapContainer ref={mapRef}>
+          <Link to={`${staticServerUri}/detail/${detailId}`}>
+            <div ref={infoRef}>
+              {infoOpen && (
+                <UnderBar>
+                  <TitleArea>
+                    <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
+                    <div className='title_state'>
+                      <div className='title_state-text'>오늘 모집</div>
+                    </div>
+                  </TitleArea>
+                  <InfoArea>
+                    <Info>
+                      <div className='address'>{markerAddress}</div>
+                      <div className='distance'>
+                        <div className='text'>
+                          {markerApplication}/{markerNumber} 모집 완료
+                        </div>
+                        <div className='meter'>{targetDistance}m</div>
                       </div>
-                      <div className='meter'>{targetDistance}m</div>
-                    </div>
-                    <div className='host_btn'>
-                      <div className='ex'>최고에요 37</div>
-                      <div className='good'>좋아요 15</div>
-                    </div>
-                  </Info>
-                  <Arrow>
-                    <ArrowChevron />
-                  </Arrow>
-                </InfoArea>
-              </UnderBar>
-            )}
-          </div>
-        </Link>
-      </MapContainer>
+                      <div className='host_btn'>
+                        <div className='ex'>최고에요 37</div>
+                        <div className='good'>좋아요 15</div>
+                      </div>
+                    </Info>
+                    <Arrow>
+                      <ArrowChevron />
+                    </Arrow>
+                  </InfoArea>
+                </UnderBar>
+              )}
+            </div>
+          </Link>
+        </MapContainer>
+      )}
     </>
   );
 }
