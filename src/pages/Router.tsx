@@ -15,11 +15,13 @@ import ReviewPage from './ReviewPage/ReviewPage';
 import Gathering from './Gathering/Gathering';
 import CostPage from './OnboardingPage/CostPage';
 
+const staticServerUri = process.env.REACT_APP_PATH || '';
+
 export const Router = (): React.ReactElement => {
   return (
     <Routes>
-      <Route path={'/'} element={<LandingPage />} />
-      <Route path={'/onboarding'}>
+      <Route path={staticServerUri + '/'} element={<LandingPage />} />
+      <Route path={staticServerUri + '/onboarding'}>
         <Route path='time' element={<TimePage />} />
         <Route path='personal' element={<PersonalPage />} />
         <Route path='menu' element={<MenuPage />} />
@@ -27,14 +29,14 @@ export const Router = (): React.ReactElement => {
         <Route path='cost' element={<CostPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
-      <Route path={'/'} element={<Layout />}>
+      <Route path={staticServerUri + '/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<MapPage />} />
         <Route path='gathering' element={<Gathering />} />
       </Route>
-      <Route path='detail/:post_idx' element={<DetailMainPage />} />
-      <Route path='/payment' element={<PaymentPage />} />
-      <Route path='/review' element={<ReviewPage />} />
+      <Route path={staticServerUri + 'detail/:post_idx'} element={<DetailMainPage />} />
+      <Route path={staticServerUri + '/payment'} element={<PaymentPage />} />
+      <Route path={staticServerUri + '/review'} element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

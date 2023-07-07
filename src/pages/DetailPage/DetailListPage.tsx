@@ -339,6 +339,8 @@ const PayBtn = styled.button`
 `;
 
 function DetailListPage({ detailData }: any) {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openHandler = () => {
@@ -440,7 +442,7 @@ function DetailListPage({ detailData }: any) {
         </PriceInfo>
       </DetailInfo>
       <PaymentBtnArea>
-        <Link to={'/payment'}>
+        <Link to={staticServerUri + '/payment'}>
           <PayBtn>참가비 결제</PayBtn>
         </Link>
       </PaymentBtnArea>

@@ -331,6 +331,8 @@ const Center = styled.div`
 `;
 
 function Gathering() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openHandler = () => {
@@ -426,7 +428,7 @@ function Gathering() {
       </DetailInfo>
       <Center>
         <PaymentBtnArea>
-          <Link to={'/payment'}>
+          <Link to={staticServerUri + '/payment'}>
             <PayBtn>모임 끝내기</PayBtn>
           </Link>
         </PaymentBtnArea>

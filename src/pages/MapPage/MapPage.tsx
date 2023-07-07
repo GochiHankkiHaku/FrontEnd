@@ -174,6 +174,8 @@ const Arrow = styled.div`
 `;
 
 function Map() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const [latlngData, setLatlngData] = useState<any>([]);
   const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
@@ -295,7 +297,7 @@ function Map() {
         <div className='header_title'>내 주변 탐색</div>
       </MapHeader>
       <MapContainer ref={mapRef}>
-        <Link to={`/detail/${detailId}`}>
+        <Link to={`${staticServerUri}/detail/${detailId}`}>
           <div ref={infoRef}>
             {infoOpen && (
               <UnderBar>
