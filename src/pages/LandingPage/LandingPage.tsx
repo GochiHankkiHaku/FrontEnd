@@ -7,6 +7,8 @@ import { Typography } from 'components/Typography';
 import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const navigate = useNavigate();
   return (
     <Wrap>
@@ -30,7 +32,7 @@ export default function LandingPage() {
           marginBottom: '8px',
         }}
         onClick={() => {
-          navigate('/onboarding/time');
+          navigate(staticServerUri + '/onboarding/time');
         }}
       >
         모임을 주최하나요?
@@ -50,7 +52,7 @@ export default function LandingPage() {
           }
         }
         onClick={() => {
-          navigate('/main');
+          navigate(staticServerUri + '/main');
         }}
       >
         식사에 참여하나요?

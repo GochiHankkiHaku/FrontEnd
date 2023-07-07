@@ -81,7 +81,7 @@ export default function MenuPage() {
           col='white'
           bgCol={color.main[2]}
           onClick={() => {
-            navigate('/onboarding/cost');
+            navigate(staticServerUri + '/onboarding/cost');
             localStorage.setItem('menuname', selectedMenu);
           }}
         >

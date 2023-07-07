@@ -38,7 +38,7 @@ export default function CostPage() {
     const menuname = localStorage.getItem('menuname') ?? '';
 
     const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
-    navigate('/main');
+    navigate(staticServerUri + '/main');
     console.log('res :>> ', res);
 
     localStorage.setItem('success', 'true');

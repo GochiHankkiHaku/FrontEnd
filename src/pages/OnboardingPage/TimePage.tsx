@@ -86,7 +86,7 @@ export default function TimePage() {
         onClick={() => {
           localStorage.setItem('date', selectedDay);
           localStorage.setItem('time', selectedMealTime);
-          navigate('/onboarding/personal');
+          navigate(staticServerUri + '/onboarding/personal');
         }}
       >
         다음으로

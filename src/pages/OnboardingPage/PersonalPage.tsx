@@ -48,7 +48,7 @@ export default function PersonalPage() {
         col='white'
         bgCol={color.main[2]}
         onClick={() => {
-          navigate('/onboarding/menu');
+          navigate(staticServerUri + '/onboarding/menu');
           localStorage.setItem('number', String(count));
         }}
       >
