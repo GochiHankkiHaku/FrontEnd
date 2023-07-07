@@ -49,32 +49,32 @@ export default function TimePage() {
         </Typography>
         <ButtonGroup2>
           <Button2
-            onClick={() => handleMealTimeSelect('아침')}
-            selected={selectedMealTime === '아침'}
+            onClick={() => handleMealTimeSelect('아침 (8:00 ~ 10:00)')}
+            selected={selectedMealTime === '아침 (8:00 ~ 10:00)'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               아침 (8:00 ~ 10:00)
             </Typography>
           </Button2>
           <Button2
-            onClick={() => handleMealTimeSelect('점심')}
-            selected={selectedMealTime === '점심'}
+            onClick={() => handleMealTimeSelect('점심 (10:00 ~ 12:00)')}
+            selected={selectedMealTime === '점심 (10:00 ~ 12:00)'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
-              점심 (10:00 ~ 14:00)
+              점심 (10:00 ~ 12:00)
             </Typography>
           </Button2>
-          {/* <Button2
-            onClick={() => handleMealTimeSelect('점심2')}
-            selected={selectedMealTime === '점심2'}
+          <Button2
+            onClick={() => handleMealTimeSelect('점심 (12:00 ~ 14:00)')}
+            selected={selectedMealTime === '점심 (12:00 ~ 14:00)'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               점심 (12:00 ~ 14:00)
             </Typography>
-          </Button2> */}
+          </Button2>
           <Button2
-            onClick={() => handleMealTimeSelect('저녁')}
-            selected={selectedMealTime === '저녁'}
+            onClick={() => handleMealTimeSelect('저녁 (16:00 ~ 18:00)')}
+            selected={selectedMealTime === '저녁 (16:00 ~ 18:00)'}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
               저녁 (16:00 ~ 18:00)

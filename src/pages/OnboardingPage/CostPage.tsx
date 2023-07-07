@@ -9,7 +9,13 @@ import { ChangeEvent, useState } from 'react';
 import { PostApi } from 'apis/lib/post';
 import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
+import { menus } from './MenuPage';
 
+const prices = {
+  '구살국(성게국)': 13000,
+  자리돔조림: 14000,
+  '한치 물회 덮밥': 11000,
+};
 const formatPrice = (value: string) => {
   const numericValue = value.replace(/\D/g, '');
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -46,6 +52,8 @@ export default function CostPage() {
     localStorage.setItem('success', 'true');
   };
 
+  const menuName = localStorage.getItem('menuname') ?? '';
+
   return (
     <Wrap>
       <ProgressBar currentStep={4} />
@@ -55,7 +63,7 @@ export default function CostPage() {
           얼마로 할까요?
         </Typography>
         <Typography variant='paragraph' size={6} color={color.gray[6]}>
-          구살국(성게국)의 평균 가격은 1인당 13,000원이에요.
+          {localStorage.getItem('menuname')}의 평균 가격은 1인당 13,000원이에요.
         </Typography>
         <InputContainer>
           <Input type='text' value={price} onChange={handleChange} placeholder='Enter price' />
