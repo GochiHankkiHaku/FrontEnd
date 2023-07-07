@@ -11,6 +11,7 @@ import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { flexSet } from 'styles/minxin';
 import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 // const menuImg = {
 //   '구살국(성게국)':
@@ -20,13 +21,13 @@ import { toast } from 'react-toastify';
 // }
 
 export default function MainPage() {
-  const [posts, setPost] = useState<PostResponse[]>([]);
+  const [posts, setPost] = useState<any>([]);
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await PostApi.getList();
-        console.log('res :>> ', res);
+        // console.log('res :>> ', res);
         setPost(res);
       } catch (error) {
         console.log('error :>> ', error);
@@ -49,16 +50,20 @@ export default function MainPage() {
         <Typography variant='title' size={3} color={color.gray[9]}>
           내 주변 요리 모임
         </Typography>
-        {posts.map((post, idx) => (
-          <GatheringInfo
-            key={idx}
-            idx={idx}
-            thumbnail={post.img}
-            title={`${post.menuname} 요리 모집`}
-            address='제주 서귀포시 성산읍 고성리 296-8'
-            recruitedCnt={post.application}
-            totalCnt={post.number}
-          />
+        {posts.map((post: any, idx: number) => (
+          <>
+            <Link to={`/detail/${post.post_idx}`}>
+              <GatheringInfo
+                key={idx}
+                idx={idx}
+                thumbnail={post.img}
+                title={`${post.menuname} 요리 모집`}
+                address='제주 서귀포시 성산읍 고성리 296-8'
+                recruitedCnt={post.application}
+                totalCnt={post.number}
+              />
+            </Link>
+          </>
         ))}
       </ContentsWrap>
       <CreateBtn>
