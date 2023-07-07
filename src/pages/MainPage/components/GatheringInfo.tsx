@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { color, radius } from 'styles/constants';
 import { ReactComponent as PeopleIcon } from 'assets/icons/people.svg';
+import { flexSet } from 'styles/minxin';
 
 const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];
 interface ContentsWrapProps {
@@ -37,6 +38,10 @@ export default function GatheringInfo({
           <PeopleIcon />
           <Text>{`${recruitedCnt}/${totalCnt} 모집 완료`}</Text>
         </PeopleWrap>
+        <TagWrap>
+          <Tag color={color.main[1]}>최고에요 37</Tag>
+          <Tag color={color.main[2]}>좋아요 15</Tag>
+        </TagWrap>
         {/* <IngredientsWrap>
           <Typography variant='paragraph' size={6} color={color.gray[9]}>
             필요 재료
@@ -86,4 +91,25 @@ const Text = styled.p`
 
   display: flex;
   align-items: center;
+`;
+
+const TagWrap = styled.div`
+  margin-top: 10px;
+  display: flex;
+  gap: 4px;
+`;
+
+const Tag = styled.div<{ color: string }>`
+  ${flexSet()}
+  padding: 0 8px;
+  height: 24px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+
+  color: ${({ color }) => color};
+
+  border-radius: 70px;
+  border: 1px solid #c1c1c1;
 `;
