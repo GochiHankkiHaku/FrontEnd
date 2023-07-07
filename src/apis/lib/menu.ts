@@ -13,7 +13,7 @@ export interface PostResponse {
 export class MenuApi {
   static async getMenu() {
     const res = await axiosClient.post('/menu/listall', {});
-    console.log('res :>> ', res);
+    // console.log('res :>> ', res);
     return res;
   }
 }

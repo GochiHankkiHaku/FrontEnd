@@ -345,7 +345,7 @@ function DetailListPage({ detailData }: any) {
     setIsOpen(!isOpen);
   };
 
-  console.log(detailData.item);
+  // console.log(detailData.item);
 
   return (
     <DetailContainer>

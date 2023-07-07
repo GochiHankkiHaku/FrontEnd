@@ -15,7 +15,7 @@ export async function registerPushNotification(token: string) {
       // data: `uuid=1234&device_id=0f365b39-c33d-39be-bdfc-74aaf5534470&push_type=fcm&push_token=${encodeURIComponent(token)}`,
     });
 
-    console.log('Response:', response.data);
+    // console.log('Response:', response.data);
   } catch (error) {
     console.error('Error:', error);
   }

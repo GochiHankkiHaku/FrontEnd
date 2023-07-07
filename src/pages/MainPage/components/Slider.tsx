@@ -61,7 +61,7 @@ export default function Slider() {
         //   slidesPerView={3}
         onSlideChange={(swiper) => {
           setActiveIndex(swiper.activeIndex + 1);
-          console.log(swiper, swiper.activeIndex);
+          // console.log(swiper, swiper.activeIndex);
         }}
         // onSwiper={(swiper) => swiperRef}
         autoplay={{ delay: 3000 }}

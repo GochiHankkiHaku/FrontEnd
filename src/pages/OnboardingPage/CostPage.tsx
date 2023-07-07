@@ -39,7 +39,7 @@ export default function CostPage() {
 
     const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
     navigate('/main');
-    console.log('res :>> ', res);
+    // console.log('res :>> ', res);
 
     localStorage.setItem('success', 'true');
   };

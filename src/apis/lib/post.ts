@@ -13,7 +13,7 @@ export interface PostResponse {
 export class PostApi {
   static async getList(): Promise<PostResponse[]> {
     const res = await axiosClient.get('/post/listall', {});
-    console.log('res :>> ', res);
+    // console.log('res :>> ', res);
     return res.data;
   }
   static async write(date: string, time: string, number: number, menuname: string, money: number) {

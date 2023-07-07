@@ -44,7 +44,7 @@ export default function MenuPage() {
     const getPost = async () => {
       try {
         const res = await MenuApi.getMenu();
-        console.log('res :>> ', res);
+        // console.log('res :>> ', res);
         // setMenus(res);
       } catch (error) {
         console.log('error :>> ', error);

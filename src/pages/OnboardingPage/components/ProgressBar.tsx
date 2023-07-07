@@ -31,7 +31,7 @@ const ProgressBarContainer = styled.div`
 const Step = styled.div<{ isActive: boolean }>`
   flex: 1;
   background-color: ${(props) => {
-    console.log('props.isActive :>> ', props.isActive);
+    // console.log('props.isActive :>> ', props.isActive);
     return props.isActive ? color.gray[7] : color.gray[3];
   }};
 
