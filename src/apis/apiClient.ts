@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const axiosClient = axios.create({
   //   baseURL: process.env.REACT_APP_API_URL,
-  baseURL: 'http://15.164.155.242:8080/',
+  baseURL: 'https://gochihankkihaku.shop/',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

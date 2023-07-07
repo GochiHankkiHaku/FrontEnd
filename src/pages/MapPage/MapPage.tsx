@@ -193,7 +193,7 @@ function Map() {
 
   const getData = async () => {
     try {
-      const res = await axios.get('http://15.164.155.242:8080/post/listall');
+      const res = await axios.get('https://gochihankkihaku.shop/post/listall');
       setLatlngData(res.data);
     } catch (err: any) {
       console.error(err);
