@@ -15,6 +15,8 @@ const formatPrice = (value: string) => {
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 export default function CostPage() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const notify = () => {
     toast.success('모임이 생성되었습니다 !', {
       position: toast.POSITION.BOTTOM_CENTER,

@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function TimePage() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const navigate = useNavigate();
 
   const [selectedDay, setSelectedDay] = useState('');

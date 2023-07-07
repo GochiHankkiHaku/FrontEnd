@@ -36,6 +36,8 @@ const menus = [
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
 export default function MenuPage() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const [selectedMenu, setSelectedMenu] = useState('구살국(성게국)');
 
   const navigate = useNavigate();

@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
 
 export default function PersonalPage() {
+  const staticServerUri = process.env.REACT_APP_PATH || '';
+
   const navigate = useNavigate();
 
   const [count, setCount] = useState(1);
