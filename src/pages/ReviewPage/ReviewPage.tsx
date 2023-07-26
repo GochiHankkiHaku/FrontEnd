@@ -1,7 +1,5 @@
-import React from 'react';
 import { ReactComponent as XIcon } from 'assets/icons/xmark.svg';
 import { Header } from 'components/Header';
-import { Typography } from 'components/Typography';
 import styled from 'styled-components';
 import { color } from 'styles/constants';
 

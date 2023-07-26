@@ -5,10 +5,120 @@ import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { ReactComponent as User2 } from 'assets/icons/user2.svg';
 import { ReactComponent as User3 } from 'assets/icons/user3.svg';
-import fish from 'assets/icons/images/어류.png';
-import vege from 'assets/icons/images/채소.png';
-import grain from 'assets/icons/images/곡류.png';
+import fish from 'assets/images/어류.png';
+import vege from 'assets/images/채소.png';
+import grain from 'assets/images/곡류.png';
 import { Link } from 'react-router-dom';
+
+export default function GatheringApplyListPage({ detailData }: any) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // console.log(detailData.item);
+
+  return (
+    <DetailContainer>
+      <DetailHeader>
+        <ArrowChevron />
+        <div className='detail_header-text'>모임 신청하기</div>
+      </DetailHeader>
+      <DetailCheck>모임 정보를 확인해보세요.</DetailCheck>
+      <DetailInfo>
+        <MenuInfo>
+          <MenuInfoTitle>요리 정보</MenuInfoTitle>
+          <MenuInfoContent>
+            <img className='menu_image' src={detailData.img} />
+            <div className='menu_text'>
+              <div className='menu_text-title'>{detailData.menuname}</div>
+              <div className='menu_text-content'>{detailData.menucontent}</div>
+              <div className='menu_text-number'>{detailData.application}명이 만들었어요.</div>
+            </div>
+          </MenuInfoContent>
+        </MenuInfo>
+        <Divider></Divider>
+        <MenuInfo>
+          <MenuInfoTitle>모임 시간대</MenuInfoTitle>
+          <ReservationTiem>{detailData.time}</ReservationTiem>
+        </MenuInfo>
+        <Divider></Divider>
+        <HostInfo>
+          <MenuInfoTitle>개설자 정보</MenuInfoTitle>
+          <HostInfoContent>
+            <User1 />
+            <div className='host_detail-info'>
+              <div className='name'>개설자 이름</div>
+              <div className='position_name'>장소 이름</div>
+              <div className='address'>{detailData.address}</div>
+              <div className='host_btn'>
+                <div className='ex'>최고에요 37</div>
+                <div className='good'>좋아요 15</div>
+              </div>
+            </div>
+          </HostInfoContent>
+        </HostInfo>
+        <Divider></Divider>
+        <HostInfo>
+          <MenuInfoTitle>
+            참여자 <span className='num'>3명</span>
+          </MenuInfoTitle>
+          <ParticipantsImages>
+            <li>
+              <User1 />
+              <div className='username'>유저 네임</div>
+            </li>
+            <li>
+              <User2 />
+              <div className='username'>유저 네임</div>
+            </li>
+            <li>
+              <User3 />
+              <div className='username'>유저 네임</div>
+            </li>
+          </ParticipantsImages>
+        </HostInfo>
+        <Divider></Divider>
+        <PriceInfo>
+          <PriceInfoTitleArea>
+            <div className='price_text'>시세 정보</div>
+            <Info onClick={openHandler} />
+            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
+          </PriceInfoTitleArea>
+          <PriceInfoList>
+            <li>
+              <img className='profile' src={fish} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>갈치</div>
+                <div className='price_info-cost'>평균 9,000원</div>
+              </div>
+            </li>
+            <li>
+              <img className='profile2' src={vege} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>무</div>
+                <div className='price_info-cost'>평균 3,000원</div>
+              </div>
+            </li>
+            <li>
+              <img className='profile3' src={grain} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
+                <div className='price_info-cost'>평균 2,000원</div>
+              </div>
+            </li>
+          </PriceInfoList>
+        </PriceInfo>
+      </DetailInfo>
+      <PaymentBtnArea>
+        <Link to={'/payment'}>
+          <PayBtn>참가비 결제</PayBtn>
+        </Link>
+      </PaymentBtnArea>
+    </DetailContainer>
+  );
+}
 
 const DetailContainer = styled.div`
   margin-bottom: 25px;
@@ -337,117 +447,3 @@ const PayBtn = styled.button`
   background-color: #ff5c00;
   border-radius: 8px;
 `;
-
-function DetailListPage({ detailData }: any) {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const openHandler = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // console.log(detailData.item);
-
-  return (
-    <DetailContainer>
-      <DetailHeader>
-        <ArrowChevron />
-        <div className='detail_header-text'>모임 신청하기</div>
-      </DetailHeader>
-      <DetailCheck>모임 정보를 확인해보세요.</DetailCheck>
-      <DetailInfo>
-        <MenuInfo>
-          <MenuInfoTitle>요리 정보</MenuInfoTitle>
-          <MenuInfoContent>
-            <img className='menu_image' src={detailData.img} />
-            <div className='menu_text'>
-              <div className='menu_text-title'>{detailData.menuname}</div>
-              <div className='menu_text-content'>{detailData.menucontent}</div>
-              <div className='menu_text-number'>{detailData.application}명이 만들었어요.</div>
-            </div>
-          </MenuInfoContent>
-        </MenuInfo>
-        <Divider></Divider>
-        <MenuInfo>
-          <MenuInfoTitle>모임 시간대</MenuInfoTitle>
-          <ReservationTiem>{detailData.time}</ReservationTiem>
-        </MenuInfo>
-        <Divider></Divider>
-        <HostInfo>
-          <MenuInfoTitle>개설자 정보</MenuInfoTitle>
-          <HostInfoContent>
-            <User1 />
-            <div className='host_detail-info'>
-              <div className='name'>개설자 이름</div>
-              <div className='position_name'>장소 이름</div>
-              <div className='address'>{detailData.address}</div>
-              <div className='host_btn'>
-                <div className='ex'>최고에요 37</div>
-                <div className='good'>좋아요 15</div>
-              </div>
-            </div>
-          </HostInfoContent>
-        </HostInfo>
-        <Divider></Divider>
-        <HostInfo>
-          <MenuInfoTitle>
-            참여자 <span className='num'>3명</span>
-          </MenuInfoTitle>
-          <ParticipantsImages>
-            <li>
-              <User1 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User2 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User3 />
-              <div className='username'>유저 네임</div>
-            </li>
-          </ParticipantsImages>
-        </HostInfo>
-        <Divider></Divider>
-        <PriceInfo>
-          <PriceInfoTitleArea>
-            <div className='price_text'>시세 정보</div>
-            <Info onClick={openHandler} />
-            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
-          </PriceInfoTitleArea>
-          <PriceInfoList>
-            <li>
-              <img className='profile' src={fish} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>갈치</div>
-                <div className='price_info-cost'>평균 9,000원</div>
-              </div>
-            </li>
-            <li>
-              <img className='profile2' src={vege} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>무</div>
-                <div className='price_info-cost'>평균 3,000원</div>
-              </div>
-            </li>
-            <li>
-              <img className='profile3' src={grain} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
-                <div className='price_info-cost'>평균 2,000원</div>
-              </div>
-            </li>
-          </PriceInfoList>
-        </PriceInfo>
-      </DetailInfo>
-      <PaymentBtnArea>
-        <Link to={staticServerUri + '/payment'}>
-          <PayBtn>참가비 결제</PayBtn>
-        </Link>
-      </PaymentBtnArea>
-    </DetailContainer>
-  );
-}
-
-export default DetailListPage;

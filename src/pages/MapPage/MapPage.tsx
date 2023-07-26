@@ -1,10 +1,172 @@
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
-import { getDistance } from 'common/utils/calDistanceFunc';
+import { getDistance } from './utils/calDistanceFunc';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
-import axios from 'axios';
 import { Spinner } from 'components/Spinner';
+import { PostApi } from 'apis/lib/post';
+
+export default function Map() {
+  const [latlngData, setLatlngData] = useState<any>([]);
+  const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
+  const [infoOpen, setInfoOpen] = useState<boolean>(false);
+  const [detailId, setDetailId] = useState<number>(0);
+  const [markerMenuname, setMarkerMenuname] = useState<string>('');
+  const [markerAddress, setMarkerAddress] = useState<string>('');
+  const [markerApplication, setMarkerApplication] = useState<number>(0);
+  const [markerNumber, setMarkerNumber] = useState<number>(0);
+  const [targetDistance, setTargetDistance] = useState<number>(0);
+
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const markerRef = useRef<HTMLDivElement | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+  const { kakao }: any = window;
+  const distanceLimitData = latlngData.filter((value: any) => value.DISTANCE < 1);
+
+  const getData = async () => {
+    try {
+      const res = await PostApi.getPosts();
+      setLatlngData(res);
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  for (let i = 0; i < latlngData.length; i++) {
+    const distance = getDistance(
+      currentMyLocation.lat,
+      currentMyLocation.lng,
+      latlngData[i].lat,
+      latlngData[i].lng,
+      'K',
+    );
+    latlngData[i].DISTANCE = distance;
+  }
+
+  // 내 현재 위치 불러오는 부분
+  useEffect(() => {
+    const success = (location: { coords: { latitude: number; longitude: number } }) => {
+      setCurrentMyLocation({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      });
+    };
+    const error = () => {
+      setCurrentMyLocation({ lat: 33.450701, lng: 126.570667 });
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  }, [setCurrentMyLocation]);
+
+  useEffect(() => {
+    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
+      const map = new kakao.maps.Map(mapRef.current, {
+        center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
+        level: 5,
+      });
+
+      const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
+      const imageSize = new kakao.maps.Size(50, 50);
+
+      // 마커의 이미지정보를 가지고 있는 마커이미지 생성
+      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+      // 내 현재 위치
+      new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
+        image: markerImage,
+      });
+
+      // 내 주변 마커
+      for (let i = 0; i < distanceLimitData.length; i++) {
+        markerRef.current = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(distanceLimitData[i].lat, distanceLimitData[i].lng),
+        });
+
+        // 내 주변 마커 클릭 이벤트
+        kakao.maps.event.addListener(markerRef.current, 'click', () => {
+          setMarkerMenuname(distanceLimitData[i].menuname);
+          setMarkerAddress(distanceLimitData[i].address);
+          setMarkerApplication(distanceLimitData[i].application);
+          setMarkerNumber(distanceLimitData[i].number);
+          setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
+          setInfoOpen(true);
+          setDetailId(distanceLimitData[i].post_idx);
+        });
+      }
+    }
+  }, [currentMyLocation]);
+
+  // 하단 정보창 외부 클릭 시 닫기 이벤트
+  useEffect(() => {
+    const handleOutsideClose = (e: MouseEvent) => {
+      if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
+        setMarkerMenuname('');
+        setMarkerAddress('');
+        setMarkerApplication(0);
+        setMarkerNumber(0);
+        setInfoOpen(false);
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClose);
+    }, 100);
+
+    return () => document.removeEventListener('click', handleOutsideClose);
+  }, [infoOpen]);
+
+  return (
+    <>
+      <MapHeader>
+        <div className='header_title'>내 주변 탐색</div>
+      </MapHeader>
+      {currentMyLocation.lat === 0 && currentMyLocation.lng === 0 ? (
+        <Spinner mt={200} />
+      ) : (
+        <MapContainer ref={mapRef}>
+          <Link to={`/detail/${detailId}`}>
+            <div ref={infoRef}>
+              {infoOpen && (
+                <UnderBar>
+                  <TitleArea>
+                    <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
+                    <div className='title_state'>
+                      <div className='title_state-text'>오늘 모집</div>
+                    </div>
+                  </TitleArea>
+                  <InfoArea>
+                    <Info>
+                      <div className='address'>{markerAddress}</div>
+                      <div className='distance'>
+                        <div className='text'>
+                          {markerApplication}/{markerNumber} 모집 완료
+                        </div>
+                        <div className='meter'>{targetDistance}m</div>
+                      </div>
+                      <div className='host_btn'>
+                        <div className='ex'>최고에요 37</div>
+                        <div className='good'>좋아요 15</div>
+                      </div>
+                    </Info>
+                    <Arrow>
+                      <ArrowChevron />
+                    </Arrow>
+                  </InfoArea>
+                </UnderBar>
+              )}
+            </div>
+          </Link>
+        </MapContainer>
+      )}
+    </>
+  );
+}
 
 const MapHeader = styled.div`
   display: flex;
@@ -173,170 +335,3 @@ const Arrow = styled.div`
   display: flex;
   align-items: center;
 `;
-
-function Map() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
-  const [latlngData, setLatlngData] = useState<any>([]);
-  const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
-  const [infoOpen, setInfoOpen] = useState<boolean>(false);
-  const [detailId, setDetailId] = useState<number>(0);
-  const [markerMenuname, setMarkerMenuname] = useState<string>('');
-  const [markerAddress, setMarkerAddress] = useState<string>('');
-  const [markerApplication, setMarkerApplication] = useState<number>(0);
-  const [markerNumber, setMarkerNumber] = useState<number>(0);
-  const [targetDistance, setTargetDistance] = useState<number>(0);
-
-  const mapRef = useRef<HTMLDivElement | null>(null);
-  const markerRef = useRef<HTMLDivElement | null>(null);
-  const infoRef = useRef<HTMLDivElement | null>(null);
-  const { kakao }: any = window;
-
-  const getData = async () => {
-    try {
-      const res = await axios.get('https://gochihankkihaku.shop/post/listall');
-      setLatlngData(res.data);
-    } catch (err: any) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  for (let i = 0; i < latlngData.length; i++) {
-    const distance = getDistance(
-      currentMyLocation.lat,
-      currentMyLocation.lng,
-      latlngData[i].lat,
-      latlngData[i].lng,
-      'K',
-    );
-    latlngData[i].DISTANCE = distance;
-  }
-
-  const distanceLimitData = latlngData.filter((value: any) => value.DISTANCE < 1);
-
-  // 내 현재 위치 불러오는 부분
-  useEffect(() => {
-    const success = (location: { coords: { latitude: number; longitude: number } }) => {
-      setCurrentMyLocation({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      });
-    };
-    const error = () => {
-      setCurrentMyLocation({ lat: 33.450701, lng: 126.570667 });
-    };
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-  }, [setCurrentMyLocation]);
-
-  useEffect(() => {
-    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
-      const map = new kakao.maps.Map(mapRef.current, {
-        center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
-        level: 5,
-      });
-
-      const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
-      const imageSize = new kakao.maps.Size(50, 50);
-
-      // 마커의 이미지정보를 가지고 있는 마커이미지 생성
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-      // 내 현재 위치
-      new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
-        image: markerImage,
-      });
-
-      // 내 주변 마커
-      for (let i = 0; i < distanceLimitData.length; i++) {
-        markerRef.current = new kakao.maps.Marker({
-          map: map,
-          position: new kakao.maps.LatLng(distanceLimitData[i].lat, distanceLimitData[i].lng),
-        });
-
-        // 내 주변 마커 클릭 이벤트
-        kakao.maps.event.addListener(markerRef.current, 'click', () => {
-          setMarkerMenuname(distanceLimitData[i].menuname);
-          setMarkerAddress(distanceLimitData[i].address);
-          setMarkerApplication(distanceLimitData[i].application);
-          setMarkerNumber(distanceLimitData[i].number);
-          setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
-          setInfoOpen(true);
-          setDetailId(distanceLimitData[i].post_idx);
-        });
-      }
-    }
-  }, [currentMyLocation]);
-
-  // 하단 정보창 외부 클릭 시 닫기 이벤트
-  useEffect(() => {
-    const handleOutsideClose = (e: MouseEvent) => {
-      if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
-        setMarkerMenuname('');
-        setMarkerAddress('');
-        setMarkerApplication(0);
-        setMarkerNumber(0);
-        setInfoOpen(false);
-      }
-    };
-    setTimeout(() => {
-      document.addEventListener('click', handleOutsideClose);
-    }, 100);
-
-    return () => document.removeEventListener('click', handleOutsideClose);
-  }, [infoOpen]);
-
-  return (
-    <>
-      <MapHeader>
-        <div className='header_title'>내 주변 탐색</div>
-      </MapHeader>
-      {currentMyLocation.lat === 0 && currentMyLocation.lng === 0 ? (
-        <Spinner mt={200} />
-      ) : (
-        <MapContainer ref={mapRef}>
-          <Link to={`${staticServerUri}/detail/${detailId}`}>
-            <div ref={infoRef}>
-              {infoOpen && (
-                <UnderBar>
-                  <TitleArea>
-                    <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
-                    <div className='title_state'>
-                      <div className='title_state-text'>오늘 모집</div>
-                    </div>
-                  </TitleArea>
-                  <InfoArea>
-                    <Info>
-                      <div className='address'>{markerAddress}</div>
-                      <div className='distance'>
-                        <div className='text'>
-                          {markerApplication}/{markerNumber} 모집 완료
-                        </div>
-                        <div className='meter'>{targetDistance}m</div>
-                      </div>
-                      <div className='host_btn'>
-                        <div className='ex'>최고에요 37</div>
-                        <div className='good'>좋아요 15</div>
-                      </div>
-                    </Info>
-                    <Arrow>
-                      <ArrowChevron />
-                    </Arrow>
-                  </InfoArea>
-                </UnderBar>
-              )}
-            </div>
-          </Link>
-        </MapContainer>
-      )}
-    </>
-  );
-}
-
-export default Map;

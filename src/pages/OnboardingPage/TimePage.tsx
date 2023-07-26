@@ -8,12 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function TimePage() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
-  const navigate = useNavigate();
-
   const [selectedDay, setSelectedDay] = useState('');
   const [selectedMealTime, setSelectedMealTime] = useState('');
+
+  const navigate = useNavigate();
 
   const handleDaySelect = (day: string) => {
     setSelectedDay(day);
@@ -26,7 +24,7 @@ export default function TimePage() {
   return (
     <Wrap>
       <ProgressBar currentStep={1} />
-      <Back page={staticServerUri + '/'} text='방문 목적' />
+      <Back page={'/'} text='방문 목적' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           언제 먹을까요?
@@ -88,7 +86,7 @@ export default function TimePage() {
         onClick={() => {
           localStorage.setItem('date', selectedDay);
           localStorage.setItem('time', selectedMealTime);
-          navigate(staticServerUri + '/onboarding/personal');
+          navigate('/onboarding/personal');
         }}
       >
         다음으로

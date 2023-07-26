@@ -1,5 +1,4 @@
 import { axiosClient } from 'apis/apiClient';
-import { AxiosResponse } from 'axios';
 
 export interface PostResponse {
   address: string;
@@ -11,11 +10,11 @@ export interface PostResponse {
 }
 
 export class PostApi {
-  static async getList(): Promise<PostResponse[]> {
+  static async getPosts(): Promise<PostResponse[]> {
     const res = await axiosClient.get('/post/listall', {});
-    // console.log('res :>> ', res);
     return res.data;
   }
+
   static async write(date: string, time: string, number: number, menuname: string, money: number) {
     const res = await axiosClient.post('/post/write', {
       menuname,
@@ -26,5 +25,11 @@ export class PostApi {
       lat: 33.449701,
       lng: 126.917109,
     });
+    return res;
+  }
+
+  static async getPost(id: string) {
+    const res = await axiosClient.get(`/post/${id}`);
+    return res.data;
   }
 }

@@ -1,15 +1,15 @@
-import DetailListPage from './DetailListPage';
+import GatheringApplyListPage from './GatheringApplyListPage';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { PostApi } from 'apis/lib/post';
 
-export default function DetailMainPage() {
+export default function GatheringApplyMainPage() {
   const [latlngData, setLatlngData] = useState<any>([]);
   const { post_idx } = useParams();
 
   const getData = async () => {
     try {
-      const res = await axios.get(`https://gochihankkihaku.shop/post/${post_idx}`);
+      const res = await PostApi.getPost(post_idx as string);
       setLatlngData(res.data);
     } catch (err: any) {
       console.error(err);
@@ -19,5 +19,5 @@ export default function DetailMainPage() {
     getData();
   }, []);
 
-  return <>{latlngData && <DetailListPage detailData={latlngData} />}</>;
+  return <>{latlngData && <GatheringApplyListPage detailData={latlngData} />}</>;
 }

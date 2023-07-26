@@ -7,21 +7,19 @@ import FoodPage from './OnboardingPage/FoodPage';
 import RecheckPage from './OnboardingPage/RecheckPage';
 import MainPage from './MainPage/MainPage';
 import MapPage from './MapPage/MapPage';
-import DetailMainPage from './DetailPage/DetailMainPage';
+import GatheringApplyMainPage from './GatheringApplyPage/GatheringApplyMainPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 import PaymentPage from './PayMentPage/PaymentPage';
 import ReviewPage from './ReviewPage/ReviewPage';
-import Gathering from './Gathering/Gathering';
+import GatheringDetail from './GatheringDetailPage/GatheringDetail';
 import CostPage from './OnboardingPage/CostPage';
-
-const staticServerUri = process.env.REACT_APP_PATH || '';
 
 export const Router = (): React.ReactElement => {
   return (
     <Routes>
-      <Route path={staticServerUri + '/'} element={<LandingPage />} />
-      <Route path={staticServerUri + '/onboarding'}>
+      <Route path={'/'} element={<LandingPage />} />
+      <Route path={'/onboarding'}>
         <Route path='time' element={<TimePage />} />
         <Route path='personal' element={<PersonalPage />} />
         <Route path='menu' element={<MenuPage />} />
@@ -29,14 +27,14 @@ export const Router = (): React.ReactElement => {
         <Route path='cost' element={<CostPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
-      <Route path={staticServerUri + '/'} element={<Layout />}>
+      <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<MapPage />} />
-        <Route path='gathering' element={<Gathering />} />
+        <Route path='gathering' element={<GatheringDetail />} />
       </Route>
-      <Route path={staticServerUri + '/detail/:post_idx'} element={<DetailMainPage />} />
-      <Route path={staticServerUri + '/payment'} element={<PaymentPage />} />
-      <Route path={staticServerUri + '/review'} element={<ReviewPage />} />
+      <Route path={'/detail/:post_idx'} element={<GatheringApplyMainPage />} />
+      <Route path={'/payment'} element={<PaymentPage />} />
+      <Route path={'/review'} element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

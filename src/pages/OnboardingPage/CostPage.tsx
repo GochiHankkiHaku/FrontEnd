@@ -21,8 +21,6 @@ const formatPrice = (value: string) => {
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 export default function CostPage() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
   const notify = () => {
     toast.success('모임이 생성되었습니다 !', {
       position: toast.POSITION.BOTTOM_CENTER,
@@ -46,7 +44,7 @@ export default function CostPage() {
     const menuname = localStorage.getItem('menuname') ?? '';
 
     const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
-    navigate(staticServerUri + '/main');
+    navigate('/main');
     console.log('res :>> ', res);
 
     localStorage.setItem('success', 'true');
@@ -57,7 +55,7 @@ export default function CostPage() {
   return (
     <Wrap>
       <ProgressBar currentStep={4} />
-      <Back page={staticServerUri + '/onboarding/menu'} text='요리' />
+      <Back page={'/onboarding/menu'} text='요리' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           얼마로 할까요?

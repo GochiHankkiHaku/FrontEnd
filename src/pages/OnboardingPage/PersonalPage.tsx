@@ -9,8 +9,6 @@ import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
 
 export default function PersonalPage() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
   const navigate = useNavigate();
 
   const [count, setCount] = useState(1);
@@ -30,7 +28,7 @@ export default function PersonalPage() {
   return (
     <Wrap>
       <ProgressBar currentStep={2} />
-      <Back page={staticServerUri + '/onboarding/time'} text='인원 수' />
+      <Back page={'/onboarding/time'} text='인원 수' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?
@@ -50,7 +48,7 @@ export default function PersonalPage() {
         col='white'
         bgCol={color.main[2]}
         onClick={() => {
-          navigate(staticServerUri + '/onboarding/menu');
+          navigate('/onboarding/menu');
           localStorage.setItem('number', String(count));
         }}
       >

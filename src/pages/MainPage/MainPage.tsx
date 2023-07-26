@@ -21,15 +21,13 @@ import { Spinner } from 'components/Spinner';
 //   '갈치 조림'
 // }
 
-const staticServerUri = process.env.REACT_APP_PATH || '';
-
 export default function MainPage() {
   const [posts, setPost] = useState<any>([]);
 
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await PostApi.getList();
+        const res = await PostApi.getPosts();
         // console.log('res :>> ', res);
         setPost(res);
       } catch (error) {
@@ -58,7 +56,7 @@ export default function MainPage() {
         ) : (
           posts.map((post: any, idx: number) => (
             <>
-              <Link to={`${staticServerUri}/detail/${post.post_idx}`}>
+              <Link to={`/detail/${post.post_idx}`}>
                 <GatheringInfo
                   key={idx}
                   idx={idx}

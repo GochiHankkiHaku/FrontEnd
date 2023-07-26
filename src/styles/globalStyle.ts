@@ -1,12 +1,13 @@
 import { MAXWIDTH } from 'common/constants';
 import { createGlobalStyle } from 'styled-components';
+
 export const GlobalStyle = createGlobalStyle`
-@font-face {
-    font-family: 'EF_jejudoldam';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
+  @font-face {
+      font-family: 'EF_jejudoldam';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+  }
 
   html {
     font-size: 62.5%; // 1rem = 10px 로 변경

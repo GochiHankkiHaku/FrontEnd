@@ -1,8 +1,7 @@
 import { Typography } from 'components/Typography';
-import React from 'react';
 import styled from 'styled-components';
 import { color, radius } from 'styles/constants';
-import { ReactComponent as CheckImg } from 'assets/imgs/check.svg';
+import { ReactComponent as CheckImg } from 'assets/images/check.svg';
 import { flexSet } from 'styles/minxin';
 
 const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];

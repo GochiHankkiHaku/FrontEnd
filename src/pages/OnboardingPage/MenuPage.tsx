@@ -39,8 +39,6 @@ export const menus = [
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
 export default function MenuPage() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
   const [selectedMenu, setSelectedMenu] = useState('구살국(성게국)');
 
   const navigate = useNavigate();
@@ -63,7 +61,7 @@ export default function MenuPage() {
     <ContentWrap>
       <Wrap>
         <ProgressBar currentStep={3} />
-        <Back page={staticServerUri + '/onboarding/time'} text='식사 일정' />
+        <Back page={'/onboarding/time'} text='식사 일정' />
         <Container>
           <Typography variant='title' size={3} color={color.gray[9]} mb={44}>
             어떤 요리를 할까요?
@@ -86,7 +84,7 @@ export default function MenuPage() {
           col='white'
           bgCol={color.main[2]}
           onClick={() => {
-            navigate(staticServerUri + '/onboarding/cost');
+            navigate('/onboarding/cost');
             localStorage.setItem('menuname', selectedMenu);
           }}
         >

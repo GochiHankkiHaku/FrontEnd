@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import landingImg from 'assets/imgs/landingImg.png';
+import landingImg from 'assets/images/landingImg.png';
 import CustomToast from 'components/CustomToast';
 import { Button } from 'components/Button';
-import { color, fontFamily } from 'styles/constants';
+import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
   const navigate = useNavigate();
   return (
     <Wrap>
@@ -32,7 +30,7 @@ export default function LandingPage() {
           marginBottom: '8px',
         }}
         onClick={() => {
-          navigate(staticServerUri + '/onboarding/time');
+          navigate('/onboarding/time');
         }}
       >
         모임을 주최하나요?
@@ -52,7 +50,7 @@ export default function LandingPage() {
           }
         }
         onClick={() => {
-          navigate(staticServerUri + '/main');
+          navigate('/main');
         }}
       >
         식사에 참여하나요?

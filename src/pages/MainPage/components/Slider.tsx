@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import { Navigation, Pagination } from 'swiper';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import gachiGookImg from 'assets/imgs/galchi-gook.png'; // 이미지를 import 합니다.
+import gachiGookImg from 'assets/images/galchi-gook.png'; // 이미지를 import 합니다.
 import { useRef, useState } from 'react';
 import { flexSet } from 'styles/minxin';
 

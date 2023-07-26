@@ -2,7 +2,57 @@ import styled from 'styled-components';
 import { ReactComponent as PayUser } from 'assets/icons/payUser.svg';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
-import fish from 'assets/icons/images/어류.png';
+import fish from 'assets/images/어류.png';
+
+export default function DetailListPage() {
+  return (
+    <>
+      <DetailHeader>
+        <div className='detail_header-text'>참가비 결제</div>
+      </DetailHeader>
+      <DetailInfo>
+        <MenuInfo>
+          <MenuInfoTitle>모임 정보</MenuInfoTitle>
+          <MenuInfoDate>2023. 07. 07</MenuInfoDate>
+          <MenuInfoContent>
+            <img className='menu_image' src={fish} />
+            <div className='menu_text'>
+              <div className='menu_text-title'>자리돔 조림</div>
+              <div className='menu_text-content'>
+                제주 연안에 서식하는 자리돔을 간장으로 조린 음식
+              </div>
+              <div className='menu_text-number'>2명이 만들었어요.</div>
+            </div>
+          </MenuInfoContent>
+        </MenuInfo>
+        <HostInfo>
+          <HostInfoContent>
+            <PayUser className='test' />
+            <div className='host_detail-info'>
+              <div className='name'>개설자 이름</div>
+              <div className='position_name'>장소 이름</div>
+              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
+            </div>
+          </HostInfoContent>
+        </HostInfo>
+      </DetailInfo>
+      <TotalPay>
+        <div className='total_text'> 모임 비용</div>
+        <div className='total_cost'>20,000원</div>
+      </TotalPay>
+      <BtnArea>
+        <button className='pay'>
+          <Kakaopay />
+          <div>pay 결제</div>
+        </button>
+        <button className='copy'>
+          <Copy />
+          <div>가상계좌 복사</div>
+        </button>
+      </BtnArea>
+    </>
+  );
+}
 
 const DetailHeader = styled.div`
   display: flex;
@@ -194,55 +244,3 @@ const BtnArea = styled.div`
     border: 1px solid #8b8b8b;
   }
 `;
-
-function DetailListPage() {
-  return (
-    <>
-      <DetailHeader>
-        <div className='detail_header-text'>참가비 결제</div>
-      </DetailHeader>
-      <DetailInfo>
-        <MenuInfo>
-          <MenuInfoTitle>모임 정보</MenuInfoTitle>
-          <MenuInfoDate>2023. 07. 07</MenuInfoDate>
-          <MenuInfoContent>
-            <img className='menu_image' src={fish} />
-            <div className='menu_text'>
-              <div className='menu_text-title'>자리돔 조림</div>
-              <div className='menu_text-content'>
-                제주 연안에 서식하는 자리돔을 간장으로 조린 음식
-              </div>
-              <div className='menu_text-number'>2명이 만들었어요.</div>
-            </div>
-          </MenuInfoContent>
-        </MenuInfo>
-        <HostInfo>
-          <HostInfoContent>
-            <PayUser className='test' />
-            <div className='host_detail-info'>
-              <div className='name'>개설자 이름</div>
-              <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
-            </div>
-          </HostInfoContent>
-        </HostInfo>
-      </DetailInfo>
-      <TotalPay>
-        <div className='total_text'> 모임 비용</div>
-        <div className='total_cost'>20,000원</div>
-      </TotalPay>
-      <BtnArea>
-        <button className='pay'>
-          <Kakaopay />
-          <div>pay 결제</div>
-        </button>
-        <button className='copy'>
-          <Copy />
-          <div>가상계좌 복사</div>
-        </button>
-      </BtnArea>
-    </>
-  );
-}
-
-export default DetailListPage;

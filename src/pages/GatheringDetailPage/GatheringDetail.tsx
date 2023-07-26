@@ -4,10 +4,115 @@ import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { ReactComponent as User2 } from 'assets/icons/user2.svg';
 import { ReactComponent as User3 } from 'assets/icons/user3.svg';
-import fish from 'assets/icons/images/어류.png';
-import vege from 'assets/icons/images/채소.png';
-import grain from 'assets/icons/images/곡류.png';
+import fish from 'assets/images/어류.png';
+import vege from 'assets/images/채소.png';
+import grain from 'assets/images/곡류.png';
 import { Link } from 'react-router-dom';
+
+export default function GatheringDetail() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <DetailContainer>
+      <DetailHeader>모임 정보</DetailHeader>
+      <DetailInfo>
+        <MenuInfo>
+          <GatheringDate>2023. 07. 07</GatheringDate>
+          <GatheringTitle>자리돔조림 요리 모집</GatheringTitle>
+          <MenuInfoContent>
+            <img className='menu_image' src={fish} />
+            <div className='menu_text'>
+              <div className='menu_text-title'>자라돔조림</div>
+              <div>
+                제주 연안에 서식하는 자리돔을 간장
+                <br />
+                으로 졸인 음식
+              </div>
+            </div>
+          </MenuInfoContent>
+        </MenuInfo>
+        <Divider></Divider>
+        <HostInfo>
+          <MenuInfoTitle>개설자 정보</MenuInfoTitle>
+          <HostInfoContent>
+            <User1 />
+            <div className='host_detail-info'>
+              <div className='name'>개설자 이름</div>
+              <div className='position_name'>장소 이름</div>
+              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
+              <div className='host_btn'>
+                <div className='ex'>최고에요 37</div>
+                <div className='good'>좋아요 15</div>
+              </div>
+            </div>
+          </HostInfoContent>
+        </HostInfo>
+        <Divider></Divider>
+        <HostInfo>
+          <MenuInfoTitle>
+            참여자 <span className='num'>3명</span>
+          </MenuInfoTitle>
+          <ParticipantsImages>
+            <li>
+              <User1 />
+              <div className='username'>유저 네임</div>
+            </li>
+            <li>
+              <User2 />
+              <div className='username'>유저 네임</div>
+            </li>
+            <li>
+              <User3 />
+              <div className='username'>유저 네임</div>
+            </li>
+          </ParticipantsImages>
+        </HostInfo>
+        <Divider></Divider>
+        <PriceInfo>
+          <PriceInfoTitleArea>
+            <div className='price_text'>시세 정보</div>
+            <Info onClick={openHandler} />
+            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
+          </PriceInfoTitleArea>
+          <PriceInfoList>
+            <li>
+              <img className='profile' src={fish} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>갈치</div>
+                <div className='price_info-cost'>평균 9,000원</div>
+              </div>
+            </li>
+            <li>
+              <img className='profile2' src={vege} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>무</div>
+                <div className='price_info-cost'>평균 3,000원</div>
+              </div>
+            </li>
+            <li>
+              <img className='profile3' src={grain} />
+              <div className='price_info'>
+                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
+                <div className='price_info-cost'>평균 2,000원</div>
+              </div>
+            </li>
+          </PriceInfoList>
+        </PriceInfo>
+      </DetailInfo>
+      <Center>
+        <PaymentBtnArea>
+          <Link to={'/payment'}>
+            <PayBtn>모임 끝내기</PayBtn>
+          </Link>
+        </PaymentBtnArea>
+      </Center>
+    </DetailContainer>
+  );
+}
 
 const DetailContainer = styled.div`
   margin-bottom: 25px;
@@ -329,112 +434,3 @@ const Center = styled.div`
   display: flex;
   justify-content: center;
 `;
-
-function Gathering() {
-  const staticServerUri = process.env.REACT_APP_PATH || '';
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const openHandler = () => {
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <DetailContainer>
-      <DetailHeader>모임 정보</DetailHeader>
-      <DetailInfo>
-        <MenuInfo>
-          <GatheringDate>2023. 07. 07</GatheringDate>
-          <GatheringTitle>자리돔조림 요리 모집</GatheringTitle>
-          <MenuInfoContent>
-            <img className='menu_image' src={fish} />
-            <div className='menu_text'>
-              <div className='menu_text-title'>자라돔조림</div>
-              <div>
-                제주 연안에 서식하는 자리돔을 간장
-                <br />
-                으로 졸인 음식
-              </div>
-            </div>
-          </MenuInfoContent>
-        </MenuInfo>
-        <Divider></Divider>
-        <HostInfo>
-          <MenuInfoTitle>개설자 정보</MenuInfoTitle>
-          <HostInfoContent>
-            <User1 />
-            <div className='host_detail-info'>
-              <div className='name'>개설자 이름</div>
-              <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
-              <div className='host_btn'>
-                <div className='ex'>최고에요 37</div>
-                <div className='good'>좋아요 15</div>
-              </div>
-            </div>
-          </HostInfoContent>
-        </HostInfo>
-        <Divider></Divider>
-        <HostInfo>
-          <MenuInfoTitle>
-            참여자 <span className='num'>3명</span>
-          </MenuInfoTitle>
-          <ParticipantsImages>
-            <li>
-              <User1 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User2 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User3 />
-              <div className='username'>유저 네임</div>
-            </li>
-          </ParticipantsImages>
-        </HostInfo>
-        <Divider></Divider>
-        <PriceInfo>
-          <PriceInfoTitleArea>
-            <div className='price_text'>시세 정보</div>
-            <Info onClick={openHandler} />
-            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
-          </PriceInfoTitleArea>
-          <PriceInfoList>
-            <li>
-              <img className='profile' src={fish} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>갈치</div>
-                <div className='price_info-cost'>평균 9,000원</div>
-              </div>
-            </li>
-            <li>
-              <img className='profile2' src={vege} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>무</div>
-                <div className='price_info-cost'>평균 3,000원</div>
-              </div>
-            </li>
-            <li>
-              <img className='profile3' src={grain} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
-                <div className='price_info-cost'>평균 2,000원</div>
-              </div>
-            </li>
-          </PriceInfoList>
-        </PriceInfo>
-      </DetailInfo>
-      <Center>
-        <PaymentBtnArea>
-          <Link to={staticServerUri + '/payment'}>
-            <PayBtn>모임 끝내기</PayBtn>
-          </Link>
-        </PaymentBtnArea>
-      </Center>
-    </DetailContainer>
-  );
-}
-
-export default Gathering;
