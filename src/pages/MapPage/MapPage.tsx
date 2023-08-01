@@ -11,6 +11,7 @@ export default function Map() {
   const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number>(0);
+
   const [markerMenuname, setMarkerMenuname] = useState<string>('');
   const [markerAddress, setMarkerAddress] = useState<string>('');
   const [markerApplication, setMarkerApplication] = useState<number>(0);
@@ -62,42 +63,40 @@ export default function Map() {
     }
   }, [setCurrentMyLocation]);
 
+  // 지도 및 마커 생성
   useEffect(() => {
     if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
+      // 내 위치를 중심으로 하는 지도 생성
       const map = new kakao.maps.Map(mapRef.current, {
         center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
         level: 5,
       });
 
       const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
-      const imageSize = new kakao.maps.Size(50, 50);
+      const imageSize = new kakao.maps.Size(45, 45);
 
-      // 마커의 이미지정보를 가지고 있는 마커이미지 생성
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-      // 내 현재 위치
+      // 내 현재 위치 마커 생성
       new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
-        image: markerImage,
+        image: new kakao.maps.MarkerImage(imageSrc, imageSize),
       });
 
-      // 내 주변 마커
+      // 내 주변 모임 마커 생성
       for (let i = 0; i < distanceLimitData.length; i++) {
         markerRef.current = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(distanceLimitData[i].lat, distanceLimitData[i].lng),
         });
 
-        // 내 주변 마커 클릭 이벤트
+        // 내 주변 모임 마커 클릭 이벤트 등록
         kakao.maps.event.addListener(markerRef.current, 'click', () => {
           setMarkerMenuname(distanceLimitData[i].menuname);
-          setMarkerAddress(distanceLimitData[i].address);
           setMarkerApplication(distanceLimitData[i].application);
           setMarkerNumber(distanceLimitData[i].number);
           setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
-          setInfoOpen(true);
           setDetailId(distanceLimitData[i].post_idx);
+          setInfoOpen(true);
         });
       }
     }
