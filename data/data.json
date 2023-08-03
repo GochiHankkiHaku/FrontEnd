@@ -1,0 +1,24 @@
+{
+  "info": [
+    {
+      "menuname": "자리돔조림",
+      "date": "오늘",
+      "time": "아침",
+      "application": 1,
+      "number": 2,
+      "lat": 37.505385,
+      "lng": 126.942561,
+      "money": 20000
+    },
+    {
+      "menuname": "구살국",
+      "date": "내일",
+      "time": "저녁",
+      "application": 2,
+      "number": 5,
+      "lat": 37.505819,
+      "lng": 126.946506,
+      "money": 30000
+    }
+  ]
+}
