@@ -6,8 +6,31 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.sv
 import { Spinner } from 'components/Spinner';
 import { PostApi } from 'apis/lib/post';
 
+const testData = [
+  {
+    menuname: '자리돔조림',
+    date: '오늘',
+    time: '아침',
+    application: 1,
+    number: 2,
+    lat: 37.505385,
+    lng: 126.942561,
+    money: 20000,
+  },
+  {
+    menuname: '구살국',
+    date: '내일',
+    time: '저녁',
+    application: 2,
+    number: 5,
+    lat: 37.505819,
+    lng: 126.946506,
+    money: 30000,
+  },
+];
+
 export default function Map() {
-  const [latlngData, setLatlngData] = useState<any>([]);
+  const [latlngData, setLatlngData] = useState<any>(testData);
   const [currentMyLocation, setCurrentMyLocation] = useState({ lat: 0, lng: 0 });
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number>(0);
@@ -22,19 +45,20 @@ export default function Map() {
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
   const { kakao }: any = window;
+
   const distanceLimitData = latlngData.filter((value: any) => value.DISTANCE < 1);
 
-  const getData = async () => {
-    try {
-      const res = await PostApi.getPosts();
-      setLatlngData(res);
-    } catch (err: any) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  // const getData = async () => {
+  //   try {
+  //     const res = await PostApi.getPosts();
+  //     setLatlngData(res);
+  //   } catch (err: any) {
+  //     console.error(err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   for (let i = 0; i < latlngData.length; i++) {
     const distance = getDistance(
@@ -65,6 +89,19 @@ export default function Map() {
 
   // 지도 및 마커 생성
   useEffect(() => {
+    // 좌표를 도로명 주소로 변환하는 함수
+    const getAddr = (lat: number, lng: number) => {
+      const geocoder = new kakao.maps.services.Geocoder();
+      const coord = new kakao.maps.LatLng(lat, lng);
+      const callback = (result: any, status: any) => {
+        if (status === kakao.maps.services.Status.OK) {
+          setMarkerAddress(result[0].road_address.address_name);
+        }
+      };
+
+      return geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+    };
+
     if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
       // 내 위치를 중심으로 하는 지도 생성
       const map = new kakao.maps.Map(mapRef.current, {
@@ -92,6 +129,7 @@ export default function Map() {
         // 내 주변 모임 마커 클릭 이벤트 등록
         kakao.maps.event.addListener(markerRef.current, 'click', () => {
           setMarkerMenuname(distanceLimitData[i].menuname);
+          getAddr(distanceLimitData[i].lat, distanceLimitData[i].lng);
           setMarkerApplication(distanceLimitData[i].application);
           setMarkerNumber(distanceLimitData[i].number);
           setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
