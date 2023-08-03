@@ -5,6 +5,7 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.sv
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/helperFunc/calDistanceFunc';
 import { useFetch } from './hooks/useFetch';
+import { useGeolocation } from './hooks/useGeolacation';
 
 export default function Map() {
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
@@ -21,7 +22,8 @@ export default function Map() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const { kakao }: any = window;
-  const { currentMyLocation, latlngData } = useFetch();
+  const latlngData = useFetch();
+  const currentMyLocation = useGeolocation();
 
   // latlngData에 DISTANCE 추가
   const updatedData = latlngData.map((item: any) => {
