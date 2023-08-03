@@ -14,7 +14,7 @@ export default function Map() {
   const [markerAddress, setMarkerAddress] = useState<string>('');
   const [markerApplication, setMarkerApplication] = useState<number>(0);
   const [markerNumber, setMarkerNumber] = useState<number>(0);
-  const [targetDistance, setTargetDistance] = useState<number>(0);
+  const [markerDistance, setMarkerDistance] = useState<number>(0);
 
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
@@ -85,7 +85,7 @@ export default function Map() {
           getAddr(distanceLimitData[i].lat, distanceLimitData[i].lng);
           setMarkerApplication(distanceLimitData[i].application);
           setMarkerNumber(distanceLimitData[i].number);
-          setTargetDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
+          setMarkerDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
           setDetailId(distanceLimitData[i].post_idx);
           setInfoOpen(true);
         });
@@ -137,7 +137,7 @@ export default function Map() {
                         <div className='text'>
                           {markerApplication}/{markerNumber} 모집 완료
                         </div>
-                        <div className='meter'>{targetDistance}m</div>
+                        <div className='meter'>{markerDistance}m</div>
                       </div>
                       <div className='host_btn'>
                         <div className='ex'>최고에요 37</div>
