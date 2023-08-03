@@ -17,29 +17,31 @@ export default function Map() {
   const [markerNumber, setMarkerNumber] = useState<number>(0);
   const [markerDistance, setMarkerDistance] = useState<number>(0);
 
+  const { kakao }: any = window;
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
 
-  const { kakao }: any = window;
   const latlngData = useFetch();
-  const currentMyLocation = useGeolocation();
+  const { currentMyLocation, locationLoading } = useGeolocation();
+
   // latlngData에 DISTANCE 추가
-  const distanceAddData = latlngData.map((item: any) => {
+  const distanceAddData = latlngData.map((gatheringData: any) => {
     const distance = getDistance(
       currentMyLocation.lat,
       currentMyLocation.lng,
-      item.lat,
-      item.lng,
+      gatheringData.lat,
+      gatheringData.lng,
       'K',
     );
     return {
-      ...item,
+      ...gatheringData,
       DISTANCE: distance,
     };
   });
   // 현재 내 위치에서 1km 이내의 모임만 필터링
   const distanceLimitData = distanceAddData.filter((value: any) => value.DISTANCE < 1);
+  // console.log(currentMyLocation);
 
   // 좌표를 도로명 주소로 변환하는 함수
   const getAddr = (lat: number, lng: number) => {
@@ -117,7 +119,7 @@ export default function Map() {
       <MapHeader>
         <div className='header_title'>내 주변 탐색</div>
       </MapHeader>
-      {currentMyLocation.lat === 0 && currentMyLocation.lng === 0 ? (
+      {locationLoading ? (
         <Spinner mt={200} />
       ) : (
         <MapContainer ref={mapRef}>
