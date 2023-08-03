@@ -24,9 +24,8 @@ export default function Map() {
   const { kakao }: any = window;
   const latlngData = useFetch();
   const currentMyLocation = useGeolocation();
-
   // latlngData에 DISTANCE 추가
-  const updatedData = latlngData.map((item: any) => {
+  const distanceAddData = latlngData.map((item: any) => {
     const distance = getDistance(
       currentMyLocation.lat,
       currentMyLocation.lng,
@@ -40,7 +39,7 @@ export default function Map() {
     };
   });
   // 현재 내 위치에서 1km 이내의 모임만 필터링
-  const distanceLimitData = updatedData.filter((value: any) => value.DISTANCE < 1);
+  const distanceLimitData = distanceAddData.filter((value: any) => value.DISTANCE < 1);
 
   // 좌표를 도로명 주소로 변환하는 함수
   const getAddr = (lat: number, lng: number) => {
