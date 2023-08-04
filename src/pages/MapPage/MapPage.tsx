@@ -6,27 +6,27 @@ import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/helperFunc/calDistanceFunc';
 import { useFetch } from './hooks/useFetch';
 import { useGeolocation } from './hooks/useGeolacation';
+import { useChangeAddr } from './hooks/useChangeAddr';
 
 export default function Map() {
-  const [infoOpen, setInfoOpen] = useState<boolean>(false);
-  const [detailId, setDetailId] = useState<number>(0);
-
   const [markerMenuname, setMarkerMenuname] = useState<string>('');
-  const [markerAddress, setMarkerAddress] = useState<string>('');
   const [markerApplication, setMarkerApplication] = useState<number>(0);
   const [markerNumber, setMarkerNumber] = useState<number>(0);
   const [markerDistance, setMarkerDistance] = useState<number>(0);
+  const [detailId, setDetailId] = useState<number>(0);
+  const [infoOpen, setInfoOpen] = useState<boolean>(false);
 
-  const { kakao }: any = window;
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
 
-  const latlngData = useFetch();
+  const { kakao }: any = window;
   const { currentMyLocation, locationLoading } = useGeolocation();
+  const gatheringData = useFetch();
+  const { address, setAddress, changeAddr } = useChangeAddr();
 
-  // latlngData에 DISTANCE 추가
-  const distanceAddData = latlngData.map((gatheringData: any) => {
+  // gatheringData에 DISTANCE 추가
+  const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
       currentMyLocation.lat,
       currentMyLocation.lng,
@@ -41,20 +41,6 @@ export default function Map() {
   });
   // 현재 내 위치에서 1km 이내의 모임만 필터링
   const distanceLimitData = distanceAddData.filter((value: any) => value.DISTANCE < 1);
-  // console.log(currentMyLocation);
-
-  // 좌표를 도로명 주소로 변환하는 함수
-  const getAddr = (lat: number, lng: number) => {
-    const geocoder = new kakao.maps.services.Geocoder();
-    const coord = new kakao.maps.LatLng(lat, lng);
-    const callback = (result: any, status: any) => {
-      if (status === kakao.maps.services.Status.OK) {
-        setMarkerAddress(result[0].road_address.address_name);
-      }
-    };
-
-    return geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-  };
 
   // 지도 및 마커 생성
   useEffect(() => {
@@ -85,7 +71,7 @@ export default function Map() {
         // 내 주변 모임 마커 클릭 이벤트 등록
         kakao.maps.event.addListener(markerRef.current, 'click', () => {
           setMarkerMenuname(distanceLimitData[i].menuname);
-          getAddr(distanceLimitData[i].lat, distanceLimitData[i].lng);
+          changeAddr(distanceLimitData[i].lat, distanceLimitData[i].lng);
           setMarkerApplication(distanceLimitData[i].application);
           setMarkerNumber(distanceLimitData[i].number);
           setMarkerDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
@@ -101,9 +87,10 @@ export default function Map() {
     const handleOutsideClose = (e: MouseEvent) => {
       if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
         setMarkerMenuname('');
-        setMarkerAddress('');
+        setAddress('');
         setMarkerApplication(0);
         setMarkerNumber(0);
+        setDetailId(0);
         setInfoOpen(false);
       }
     };
@@ -135,7 +122,7 @@ export default function Map() {
                   </TitleArea>
                   <InfoArea>
                     <Info>
-                      <div className='address'>{markerAddress}</div>
+                      <div className='address'>{address}</div>
                       <div className='distance'>
                         <div className='text'>
                           {markerApplication}/{markerNumber} 모집 완료
