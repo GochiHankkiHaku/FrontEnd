@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Typography } from './Typography';
+import { color } from 'styles/constants';
 
 interface ButtonProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -73,11 +74,11 @@ const StyledButton = styled.button<{
     filter: brightness(95%);
   }
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      color: ${theme.palette.grey[400]};
-      background-color: ${theme.palette.grey[100]};
+      color: ${color.gray[5]};
+      background-color: ${color.gray[2]};
       cursor: default;
 
       &:hover {

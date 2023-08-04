@@ -5,7 +5,6 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { Button } from 'components/Button';
 import { useNavigate } from 'react-router-dom';
-import { flexSet } from 'styles/minxin';
 import { useEffect, useState } from 'react';
 import { MenuApi } from 'apis/lib/menu';
 import MenuItem from './components/MenuItem';
@@ -39,16 +38,17 @@ export const menus = [
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
 export default function MenuPage() {
-  const [selectedMenu, setSelectedMenu] = useState('구살국(성게국)');
-
   const navigate = useNavigate();
+  const [selectedMenu, setSelectedMenu] = useState('');
+
+  const handleSelectMenu = (name: string) => {
+    setSelectedMenu(name);
+  };
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await MenuApi.getMenu();
-        // console.log('res :>> ', res);
-        // setMenus(res);
       } catch (error) {
         console.log('error :>> ', error);
       }
@@ -61,26 +61,28 @@ export default function MenuPage() {
     <ContentWrap>
       <Wrap>
         <ProgressBar currentStep={3} />
-        <Back page={'/onboarding/time'} text='식사 일정' />
+        <Back page={'/onboarding/personal'} text='인원수' />
         <Container>
           <Typography variant='title' size={3} color={color.gray[9]} mb={44}>
             어떤 요리를 할까요?
           </Typography>
-          {menus.map((menu, idx) => (
+          {menus.map((menu) => (
             <MenuItem
-              key={idx}
+              key={menu.idx}
               name={menu.name}
               content={menu.content}
               img={menu.img}
-              idx={idx}
-              setSelectedMenu={setSelectedMenu}
-              selectedMenu={selectedMenu}
+              idx={menu.idx}
+              onSelectMenu={() => handleSelectMenu(menu.name)}
+              isSelected={selectedMenu === menu.name}
+              isAnySelected={selectedMenu !== ''}
             />
           ))}
         </Container>
       </Wrap>
       <ButtonWrap>
         <Button
+          isDisabled={selectedMenu === ''}
           col='white'
           bgCol={color.main[2]}
           onClick={() => {
