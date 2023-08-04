@@ -28,7 +28,7 @@ export default function PersonalPage() {
   return (
     <Wrap>
       <ProgressBar currentStep={2} />
-      <Back page={'/onboarding/time'} text='인원 수' />
+      <Back page={'/onboarding/time'} text='식사 일정' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?
@@ -39,9 +39,9 @@ export default function PersonalPage() {
           그룹 단위로 방문합니다.
         </Typography>
         <CounterContainer>
-          <CntButton onClick={handleDecrement}>-</CntButton>
-          <CounterDisplay>{count} 명</CounterDisplay>
-          <CntButton onClick={handleIncrement}>+</CntButton>
+          <CountBtn onClick={handleDecrement}>-</CountBtn>
+          <CounterText>{count} 명</CounterText>
+          <CountBtn onClick={handleIncrement}>+</CountBtn>
         </CounterContainer>
       </Container>
       <Button
@@ -86,7 +86,7 @@ const CounterContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const CntButton = styled.button`
+const CountBtn = styled.button`
   ${flexSet()};
   width: 42px;
   height: 42px;
@@ -99,7 +99,10 @@ const CntButton = styled.button`
   border-radius: 50%;
 `;
 
-const CounterDisplay = styled.span`
+const CounterText = styled.span`
+  min-width: 100px;
+  text-align: center;
+
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
