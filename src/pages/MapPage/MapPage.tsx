@@ -109,6 +109,11 @@ export default function Map() {
         <Spinner mt={200} />
       ) : (
         <MapContainer ref={mapRef}>
+          <BtnArea>
+            <MarkerFilterBtn>전체 기간</MarkerFilterBtn>
+            <MarkerFilterBtn>오늘 모집</MarkerFilterBtn>
+            <MarkerFilterBtn>내일 모집</MarkerFilterBtn>
+          </BtnArea>
           {infoOpen && (
             <Infowindow
               infoRef={infoRef}
@@ -144,4 +149,29 @@ const MapHeader = styled.div`
 const MapContainer = styled.div`
   width: 100%;
   height: calc(100vh - 70px - 80px);
+`;
+
+const BtnArea = styled.div`
+  display: flex;
+  column-gap: 8px;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  z-index: 999;
+`;
+
+const MarkerFilterBtn = styled.button`
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  width: 85px;
+  height: 32px;
+  border: 1px solid #dfdfdf;
+  border-radius: 70px;
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px #00000026;
+
+  &:hover {
+    background-color: gray;
+  }
 `;
