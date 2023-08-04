@@ -6,6 +6,7 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.sv
 export default function Infowindow({
   infoRef,
   markerMenuname,
+  markerDate,
   address,
   markerApplication,
   markerNumber,
@@ -18,7 +19,7 @@ export default function Infowindow({
         <TitleArea>
           <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
           <div className='title_state'>
-            <div className='title_state-text'>오늘 모집</div>
+            <div className='title_state-text'>{markerDate} 모집</div>
           </div>
         </TitleArea>
         <InfoArea>

@@ -12,6 +12,7 @@ const { kakao }: any = window;
 export default function Map() {
   const [markers, setMarkers] = useState<any>([]);
   const [markerMenuname, setMarkerMenuname] = useState<string>('');
+  const [markerDate, setMarkerDate] = useState<string>('');
   const [markerApplication, setMarkerApplication] = useState<number>(0);
   const [markerNumber, setMarkerNumber] = useState<number>(0);
   const [markerDistance, setMarkerDistance] = useState<number>(0);
@@ -101,18 +102,19 @@ export default function Map() {
       });
 
       // 선택한 일자에 맞는 내 주변 모임 마커 생성 및 클릭 이벤트 등록
-      const newMarkers = filteredData.map((value: any) => {
+      const newMarkers = filteredData.map((gatheringData: any) => {
         const marker = new kakao.maps.Marker({
           map: mapRef.current,
-          position: new kakao.maps.LatLng(value.lat, value.lng),
+          position: new kakao.maps.LatLng(gatheringData.lat, gatheringData.lng),
         });
         const markerClickEvent = () => {
-          setMarkerMenuname(value.menuname);
-          changeAddr(value.lat, value.lng);
-          setMarkerApplication(value.application);
-          setMarkerNumber(value.number);
-          setMarkerDistance(Math.floor(value.DISTANCE * 1000));
-          setDetailId(value.post_idx);
+          setMarkerMenuname(gatheringData.menuname);
+          setMarkerDate(gatheringData.date);
+          changeAddr(gatheringData.lat, gatheringData.lng);
+          setMarkerApplication(gatheringData.application);
+          setMarkerNumber(gatheringData.number);
+          setMarkerDistance(Math.floor(gatheringData.DISTANCE * 1000));
+          setDetailId(gatheringData.post_idx);
           setIsInfoOpen(true);
         };
         kakao.maps.event.addListener(marker, 'click', markerClickEvent);
@@ -129,6 +131,7 @@ export default function Map() {
     const handleOutsideClose = (e: MouseEvent) => {
       if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
         setMarkerMenuname('');
+        setMarkerDate('');
         setAddress('');
         setMarkerApplication(0);
         setMarkerNumber(0);
@@ -167,6 +170,7 @@ export default function Map() {
             <Infowindow
               infoRef={infoRef}
               markerMenuname={markerMenuname}
+              markerDate={markerDate}
               address={address}
               markerApplication={markerApplication}
               markerNumber={markerNumber}
