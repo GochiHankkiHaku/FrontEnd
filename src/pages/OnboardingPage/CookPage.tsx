@@ -39,7 +39,7 @@ export const menus = [
 
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
-export default function MenuPage() {
+export default function CookPage() {
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = useState('');
 

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
 
-export default function PersonalPage() {
+export default function MemberCountPage() {
   const navigate = useNavigate();
 
   const [count, setCount] = useState(1);

@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './LandingPage/LandingPage';
 import SchedulePage from './OnboardingPage/SchedulePage';
-import PersonalPage from './OnboardingPage/PersonalPage';
-import MenuPage from './OnboardingPage/MenuPage';
-import FoodPage from './OnboardingPage/FoodPage';
+import MemberCountPage from './OnboardingPage/MemberCountPage';
+import CookPage from './OnboardingPage/CookPage';
 import RecheckPage from './OnboardingPage/RecheckPage';
 import MainPage from './MainPage/MainPage';
 import MapPage from './MapPage/MapPage';
@@ -24,8 +23,8 @@ export const Router = (): React.ReactElement => {
       <Route path={`${PATH.onBoarding}`} element={<OnBoardingLayout />}>
         <Route path={`${PATH.location}`} element={<SchedulePage />} />
         <Route path={`${PATH.schedule}`} element={<SchedulePage />} />
-        <Route path={`${PATH.memberCount}`} element={<PersonalPage />} />
-        <Route path={`${PATH.cook}`} element={<MenuPage />} />
+        <Route path={`${PATH.memberCount}`} element={<MemberCountPage />} />
+        <Route path={`${PATH.cook}`} element={<CookPage />} />
         <Route path={`${PATH.cost}`} element={<CostPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>

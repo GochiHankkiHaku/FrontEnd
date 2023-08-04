@@ -9,7 +9,7 @@ import { ChangeEvent, useState } from 'react';
 import { PostApi } from 'apis/lib/post';
 import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
-import { menus } from './MenuPage';
+import { menus } from './CookPage';
 
 const prices = {
   '구살국(성게국)': 13000,
@@ -20,6 +20,7 @@ const formatPrice = (value: string) => {
   const numericValue = value.replace(/\D/g, '');
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
 export default function CostPage() {
   const notify = () => {
     toast.success('모임이 생성되었습니다 !', {

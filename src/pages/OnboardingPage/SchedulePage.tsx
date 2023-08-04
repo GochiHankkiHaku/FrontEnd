@@ -1,11 +1,10 @@
 import styled, { css } from 'styled-components';
-import ProgressBar from './components/ProgressBar';
-import Back from './components/Back';
 import { Typography } from 'components/Typography';
 import { color, radius } from 'styles/constants';
 import { Button } from 'components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { getNextPageUrl } from './utils/pagesInformation';
 
 const day = {
   today: '오늘',
@@ -21,7 +20,8 @@ const time = {
 
 const getTextColor = (isSelected: boolean) => (isSelected ? color.white : color.gray[9]);
 
-export default function TimePage() {
+export default function SchedulePage() {
+  const location = useLocation().pathname;
   const [selectedDay, setSelectedDay] = useState('');
   const [selectedMealTime, setSelectedMealTime] = useState('');
 
@@ -36,9 +36,7 @@ export default function TimePage() {
   };
 
   return (
-    <Wrap>
-      <ProgressBar currentStep={1} />
-      <Back page={'/'} text='장소 선택' />
+    <>
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           언제 먹을까요?
@@ -123,29 +121,18 @@ export default function TimePage() {
         onClick={() => {
           localStorage.setItem('date', selectedDay);
           localStorage.setItem('time', selectedMealTime);
-          navigate('/onboarding/personal');
+          navigate(getNextPageUrl(location));
         }}
       >
         다음으로
       </Button>
-    </Wrap>
+    </>
   );
 }
 
-const Wrap = styled.div`
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-
-  height: 100%;
-  /* background-color: pink; */
-`;
 const Container = styled.div`
-  /* background-color: red; */
+  padding-top: 30px;
   flex: 1;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 `;
 
 const DayBtnsWrap = styled.div`
