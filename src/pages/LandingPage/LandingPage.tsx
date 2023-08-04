@@ -5,6 +5,7 @@ import { Button } from 'components/Button';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import { useNavigate } from 'react-router-dom';
+import { PATH } from 'common/constants';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function LandingPage() {
           marginBottom: '8px',
         }}
         onClick={() => {
-          navigate('/onboarding/time');
+          navigate(`/${PATH.onBoarding}/${PATH.location}`);
         }}
       >
         모임을 주최하나요?

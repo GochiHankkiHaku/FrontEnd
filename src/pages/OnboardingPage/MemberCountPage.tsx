@@ -1,14 +1,15 @@
 import { Typography } from 'components/Typography';
-import Back from './components/Back';
-import ProgressBar from './components/ProgressBar';
 import { Button } from 'components/Button';
 import { color } from 'styles/constants';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
+import { getNextPageUrl } from './utils/pagesInformation';
 
 export default function MemberCountPage() {
+  const location = useLocation().pathname;
+
   const navigate = useNavigate();
 
   const [count, setCount] = useState(1);
@@ -27,8 +28,6 @@ export default function MemberCountPage() {
 
   return (
     <Wrap>
-      <ProgressBar currentStep={2} />
-      <Back page={'/onboarding/time'} text='식사 일정' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?
@@ -48,7 +47,7 @@ export default function MemberCountPage() {
         col='white'
         bgCol={color.main[2]}
         onClick={() => {
-          navigate('/onboarding/menu');
+          navigate(getNextPageUrl(location));
           localStorage.setItem('number', String(count));
         }}
       >
@@ -57,21 +56,16 @@ export default function MemberCountPage() {
     </Wrap>
   );
 }
-
 const Wrap = styled.div`
-  padding: 24px 20px;
+  flex: 1;
+
+  padding: 30px 20px 20px 20px;
   display: flex;
   flex-direction: column;
-
-  height: 100%;
 `;
 
 const Container = styled.div`
-  /* background-color: red; */
   flex: 1;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 
   display: flex;
   flex-direction: column;

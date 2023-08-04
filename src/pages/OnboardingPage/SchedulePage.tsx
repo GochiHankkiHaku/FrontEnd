@@ -36,7 +36,7 @@ export default function SchedulePage() {
   };
 
   return (
-    <>
+    <Wrap>
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           언제 먹을까요?
@@ -126,9 +126,13 @@ export default function SchedulePage() {
       >
         다음으로
       </Button>
-    </>
+    </Wrap>
   );
 }
+
+const Wrap = styled.div`
+  padding: 0 20px;
+`;
 
 const Container = styled.div`
   padding-top: 30px;

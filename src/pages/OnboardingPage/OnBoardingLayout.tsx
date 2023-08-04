@@ -12,17 +12,22 @@ export default function OnBoardingLayout() {
 
   return (
     <Wrap>
-      <ProgressBar currentStep={currentStep} />
-      <Back page={previousPage.url} text={previousPage.name} />
+      <HeaderWrap>
+        <ProgressBar currentStep={currentStep} />
+        <Back page={previousPage.url} text={previousPage.name} />
+      </HeaderWrap>
       <Outlet />
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
-  padding: 24px 20px;
   display: flex;
   flex-direction: column;
 
   height: 100%;
+`;
+
+const HeaderWrap = styled.div`
+  padding: 24px 20px 0 20px;
 `;

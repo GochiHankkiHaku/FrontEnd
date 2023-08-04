@@ -14,6 +14,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
       <Step isActive={currentStep >= 2} />
       <Step isActive={currentStep >= 3} />
       <Step isActive={currentStep >= 4} />
+      <Step isActive={currentStep >= 5} />
     </ProgressBarContainer>
   );
 };

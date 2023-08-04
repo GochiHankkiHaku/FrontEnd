@@ -28,7 +28,7 @@ export const getCurrentPageStep = (currentLocation: string) =>
   pagesPerStep.findIndex(({ url }) => url === currentLocation);
 
 export const getPreviousPage = (currentLocation: string) => {
-  const nextPageStep = getCurrentPageStep(currentLocation) + 1;
+  const nextPageStep = getCurrentPageStep(currentLocation) - 1;
   return pagesPerStep[nextPageStep];
 };
 

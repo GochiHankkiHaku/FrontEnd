@@ -55,8 +55,6 @@ export default function CostPage() {
 
   return (
     <Wrap>
-      <ProgressBar currentStep={4} />
-      <Back page={'/onboarding/menu'} text='요리' />
       <Container>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           얼마로 할까요?
@@ -77,12 +75,10 @@ export default function CostPage() {
 }
 
 const Wrap = styled.div`
-  padding: 24px 20px;
+  flex: 1;
+  padding: 30px 20px 20px 20px;
   display: flex;
   flex-direction: column;
-
-  height: 100%;
-  /* background-color: pink; */
 `;
 const Container = styled.div`
   /* background-color: red; */

@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import ProgressBar from './components/ProgressBar';
-import Back from './components/Back';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { Button } from 'components/Button';
@@ -60,10 +58,8 @@ export default function CookPage() {
   }, []);
 
   return (
-    <ContentWrap>
+    <>
       <Wrap>
-        <ProgressBar currentStep={3} />
-        <Back page={'/onboarding/personal'} text='인원수' />
         <Container>
           <Search />
           <Typography variant='title' size={3} color={color.gray[9]} mt={24} mb={44}>
@@ -96,15 +92,12 @@ export default function CookPage() {
           다음으로
         </Button>
       </ButtonWrap>
-    </ContentWrap>
+    </>
   );
 }
-const ContentWrap = styled.div`
-  padding-bottom: 90px;
-  width: 100%;
-`;
+
 const Wrap = styled.div`
-  padding: 24px 20px;
+  padding: 12px 20px 100px 20px;
   display: flex;
   flex-direction: column;
 
@@ -123,6 +116,7 @@ const Container = styled.div`
 
 const ButtonWrap = styled.div`
   background-color: white;
+
   position: fixed;
   bottom: 0;
   width: 100%;
