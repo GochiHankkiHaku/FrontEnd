@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ProgressBar from './components/ProgressBar';
 import Back from './components/Back';
 import { Typography } from 'components/Typography';
@@ -6,6 +6,20 @@ import { color, radius } from 'styles/constants';
 import { Button } from 'components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+
+const day = {
+  today: '오늘',
+  tomorrow: '내일',
+};
+
+const time = {
+  breakfast: '아침 (8:00 ~ 10:00)',
+  lunchEarly: '점심 (10:00 ~ 12:00)',
+  lunchLate: '점심 (12:00 ~ 14:00)',
+  dinner: '저녁 (16:00 ~ 18:00)',
+};
+
+const getTextColor = (isSelected: boolean) => (isSelected ? color.white : color.gray[9]);
 
 export default function TimePage() {
   const [selectedDay, setSelectedDay] = useState('');
@@ -30,13 +44,19 @@ export default function TimePage() {
           언제 먹을까요?
         </Typography>
         <DayBtnsWrap>
-          <DayBtnLeft onClick={() => handleDaySelect('오늘')} selected={selectedDay === '오늘'}>
-            <Typography variant='title' size={6} color={color.gray[9]}>
+          <DayBtnLeft
+            onClick={() => handleDaySelect(day.today)}
+            selected={selectedDay === day.today}
+          >
+            <Typography variant='title' size={6} color={getTextColor(selectedDay === day.today)}>
               오늘
             </Typography>
           </DayBtnLeft>
-          <DayBtnRight onClick={() => handleDaySelect('내일')} selected={selectedDay === '내일'}>
-            <Typography variant='title' size={6} color={color.gray[9]}>
+          <DayBtnRight
+            onClick={() => handleDaySelect(day.tomorrow)}
+            selected={selectedDay === day.tomorrow}
+          >
+            <Typography variant='title' size={6} color={getTextColor(selectedDay === day.tomorrow)}>
               내일
             </Typography>
           </DayBtnRight>
@@ -46,35 +66,47 @@ export default function TimePage() {
         </Typography>
         <TimeBtnsWrap>
           <TimeBtn
-            onClick={() => handleMealTimeSelect('아침 (8:00 ~ 10:00)')}
-            selected={selectedMealTime === '아침 (8:00 ~ 10:00)'}
+            onClick={() => handleMealTimeSelect(time.breakfast)}
+            selected={selectedMealTime === time.breakfast}
           >
             <Typography variant='title' size={6} color={color.gray[9]}>
-              아침 (8:00 ~ 10:00)
+              {time.breakfast}
             </Typography>
           </TimeBtn>
           <TimeBtn
-            onClick={() => handleMealTimeSelect('점심 (10:00 ~ 12:00)')}
-            selected={selectedMealTime === '점심 (10:00 ~ 12:00)'}
+            onClick={() => handleMealTimeSelect(time.lunchEarly)}
+            selected={selectedMealTime === time.lunchEarly}
           >
-            <Typography variant='title' size={6} color={color.gray[9]}>
-              점심 (10:00 ~ 12:00)
+            <Typography
+              variant='title'
+              size={6}
+              color={getTextColor(selectedMealTime === time.lunchEarly)}
+            >
+              {time.lunchEarly}
             </Typography>
           </TimeBtn>
           <TimeBtn
-            onClick={() => handleMealTimeSelect('점심 (12:00 ~ 14:00)')}
-            selected={selectedMealTime === '점심 (12:00 ~ 14:00)'}
+            onClick={() => handleMealTimeSelect(time.lunchLate)}
+            selected={selectedMealTime === time.lunchLate}
           >
-            <Typography variant='title' size={6} color={color.gray[9]}>
-              점심 (12:00 ~ 14:00)
+            <Typography
+              variant='title'
+              size={6}
+              color={getTextColor(selectedMealTime === time.lunchLate)}
+            >
+              {time.lunchLate}
             </Typography>
           </TimeBtn>
           <TimeBtn
-            onClick={() => handleMealTimeSelect('저녁 (16:00 ~ 18:00)')}
-            selected={selectedMealTime === '저녁 (16:00 ~ 18:00)'}
+            onClick={() => handleMealTimeSelect(time.dinner)}
+            selected={selectedMealTime === time.dinner}
           >
-            <Typography variant='title' size={6} color={color.gray[9]}>
-              저녁 (16:00 ~ 18:00)
+            <Typography
+              variant='title'
+              size={6}
+              color={getTextColor(selectedMealTime === time.dinner)}
+            >
+              {time.dinner}
             </Typography>
           </TimeBtn>
         </TimeBtnsWrap>
@@ -124,8 +156,16 @@ const DayBtn = styled.button<{ selected: boolean }>`
   height: 50px;
   flex: 1;
 
-  background-color: ${({ selected }) => (selected ? color.gray[4] : color.gray[1])};
+  background-color: ${color.gray[1]};
   border: 1px solid ${color.gray[3]};
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      background-color: ${color.main[2]};
+      color: ${color.white};
+      border: none;
+    `}
 `;
 
 const DayBtnLeft = styled(DayBtn)`
@@ -146,13 +186,21 @@ const TimeBtn = styled.button<{ selected: boolean }>`
   width: 100%;
   height: 50px;
   flex: 1;
-  background-color: ${({ selected }) => (selected ? color.gray[4] : color.gray[1])};
+  background-color: ${color.gray[1]};
   border: 1px solid ${color.gray[3]};
   border-radius: 8px;
 
   & + & {
     margin-top: 24px;
   }
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      background-color: ${color.main[2]};
+      color: ${color.white};
+      border: none;
+    `}
 `;
 
 const LaterBtn = styled.button`
