@@ -7,21 +7,22 @@ import { useFetch } from './hooks/useFetch';
 import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
 
+const { kakao }: any = window;
+
 export default function Map() {
+  const [markers, setMarkers] = useState<any>([]);
   const [markerMenuname, setMarkerMenuname] = useState<string>('');
   const [markerApplication, setMarkerApplication] = useState<number>(0);
   const [markerNumber, setMarkerNumber] = useState<number>(0);
   const [markerDistance, setMarkerDistance] = useState<number>(0);
-  const [detailId, setDetailId] = useState<number>(0);
-  const [infoOpen, setInfoOpen] = useState<boolean>(false);
 
+  const [detailId, setDetailId] = useState<number>(0);
+  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
   const [selectDate, setSelectDate] = useState<number>(0);
 
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
 
-  const { kakao }: any = window;
   const { currentMyLocation, locationLoading } = useGeolocation();
   const gatheringData = useFetch();
   const { address, setAddress, changeAddr } = useChangeAddr();
@@ -41,66 +42,22 @@ export default function Map() {
     };
   });
   // 현재 내 위치에서 1km 이내의 모임만 필터링
-  const distanceLimitData = distanceAddData.filter((value: any) => value.DISTANCE < 1);
-
-  // 지도 및 마커 생성
-  useEffect(() => {
-    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
-      // 내 위치를 중심으로 하는 지도 생성
-      const map = new kakao.maps.Map(mapRef.current, {
-        center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
-        level: 5,
-      });
-
-      const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
-      const imageSize = new kakao.maps.Size(45, 45);
-
-      // 내 현재 위치 마커 생성
-      new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
-        image: new kakao.maps.MarkerImage(imageSrc, imageSize),
-      });
-
-      // 내 주변 모임 마커 생성
-      for (let i = 0; i < distanceLimitData.length; i++) {
-        markerRef.current = new kakao.maps.Marker({
-          map: map,
-          position: new kakao.maps.LatLng(distanceLimitData[i].lat, distanceLimitData[i].lng),
-        });
-
-        // 내 주변 모임 마커 클릭 이벤트 등록
-        kakao.maps.event.addListener(markerRef.current, 'click', () => {
-          setMarkerMenuname(distanceLimitData[i].menuname);
-          changeAddr(distanceLimitData[i].lat, distanceLimitData[i].lng);
-          setMarkerApplication(distanceLimitData[i].application);
-          setMarkerNumber(distanceLimitData[i].number);
-          setMarkerDistance(Math.floor(distanceLimitData[i].DISTANCE * 1000));
-          setDetailId(distanceLimitData[i].post_idx);
-          setInfoOpen(true);
-        });
-      }
+  const distanceLimitData = distanceAddData.filter(
+    (gatheringData: any) => gatheringData.DISTANCE < 1,
+  );
+  // 모임 일자 선택 버튼 클릭 시 해당하는 날의 모임만 필터링
+  const filteredData = distanceLimitData.filter((gatheringData: any) => {
+    // 전체 기간 선택 시 모든 데이터를 보여줌
+    if (selectDate === 0) {
+      return true;
+      // 오늘 모집 데이터만 보여줌
+    } else if (selectDate === 1) {
+      return gatheringData.date === '오늘';
+      // 내일 모집 데이터만 보여줌
+    } else if (selectDate === 2) {
+      return gatheringData.date === '내일';
     }
-  }, [currentMyLocation]);
-
-  // 하단 정보창 외부 클릭 시 닫기 이벤트
-  useEffect(() => {
-    const handleOutsideClose = (e: MouseEvent) => {
-      if (infoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
-        setMarkerMenuname('');
-        setAddress('');
-        setMarkerApplication(0);
-        setMarkerNumber(0);
-        setDetailId(0);
-        setInfoOpen(false);
-      }
-    };
-    setTimeout(() => {
-      document.addEventListener('click', handleOutsideClose);
-    }, 100);
-
-    return () => document.removeEventListener('click', handleOutsideClose);
-  }, [infoOpen]);
+  });
 
   const filterAll = () => {
     setSelectDate(0);
@@ -113,6 +70,78 @@ export default function Map() {
   const filterTomorrow = () => {
     setSelectDate(2);
   };
+
+  // 현재 내 위치를 중심으로 하는 지도 및 현재 내 위치 마커 생성
+  useEffect(() => {
+    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
+      // 현재 내 위치를 중심으로 하는 지도 생성
+      mapRef.current = new kakao.maps.Map(mapRef.current, {
+        center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
+        level: 5,
+      });
+
+      const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
+      const imageSize = new kakao.maps.Size(45, 45);
+
+      // 내 현재 위치 마커 생성
+      new kakao.maps.Marker({
+        map: mapRef.current,
+        position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
+        image: new kakao.maps.MarkerImage(imageSrc, imageSize),
+      });
+    }
+  }, [currentMyLocation]);
+
+  // 내 주변 모임 마커 생성
+  useEffect(() => {
+    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
+      // 이전에 생성되어 있는 마커 삭제
+      markers.forEach((marker: any) => {
+        marker.setMap(null);
+      });
+
+      // 선택한 일자에 맞는 내 주변 모임 마커 생성 및 클릭 이벤트 등록
+      const newMarkers = filteredData.map((value: any) => {
+        const marker = new kakao.maps.Marker({
+          map: mapRef.current,
+          position: new kakao.maps.LatLng(value.lat, value.lng),
+        });
+        const markerClickEvent = () => {
+          setMarkerMenuname(value.menuname);
+          changeAddr(value.lat, value.lng);
+          setMarkerApplication(value.application);
+          setMarkerNumber(value.number);
+          setMarkerDistance(Math.floor(value.DISTANCE * 1000));
+          setDetailId(value.post_idx);
+          setIsInfoOpen(true);
+        };
+        kakao.maps.event.addListener(marker, 'click', markerClickEvent);
+
+        return marker;
+      });
+
+      setMarkers(newMarkers);
+    }
+  }, [currentMyLocation, selectDate]);
+
+  // 하단 인포윈도우 외부 클릭 시 닫기 이벤트
+  useEffect(() => {
+    const handleOutsideClose = (e: MouseEvent) => {
+      if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
+        setMarkerMenuname('');
+        setAddress('');
+        setMarkerApplication(0);
+        setMarkerNumber(0);
+        setDetailId(0);
+        setIsInfoOpen(false);
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClose);
+    }, 100);
+
+    return () => document.removeEventListener('click', handleOutsideClose);
+  }, [isInfoOpen]);
 
   return (
     <>
@@ -134,7 +163,7 @@ export default function Map() {
               내일 모집
             </MarkerFilterBtn>
           </BtnArea>
-          {infoOpen && (
+          {isInfoOpen && (
             <Infowindow
               infoRef={infoRef}
               markerMenuname={markerMenuname}
