@@ -13,15 +13,14 @@ export const color = {
     1: '#f7f7f7',
   } as const,
   white: '#ffffff',
-  alert: '#f22222',
+  alert: '#FF5C37',
   warning: '#ffc123',
   complete: '#00c974',
-  active: '#007df0',
+  active: '#128FE9',
   main: {
-    // main 색상 변경 가능
     1: '#FF5C00',
-    2: '#FFA51F',
-    3: '#dff157',
+    2: '#FF9900',
+    3: '#2EC0FF',
     4: '#966E57',
   },
 } as const;
