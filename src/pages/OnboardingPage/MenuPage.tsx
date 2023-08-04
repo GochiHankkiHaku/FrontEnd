@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuApi } from 'apis/lib/menu';
 import MenuItem from './components/MenuItem';
+import { MAXWIDTH } from 'common/constants';
+import Search from './components/Search';
 export const menus = [
   {
     idx: 1,
@@ -63,7 +65,8 @@ export default function MenuPage() {
         <ProgressBar currentStep={3} />
         <Back page={'/onboarding/personal'} text='인원수' />
         <Container>
-          <Typography variant='title' size={3} color={color.gray[9]} mb={44}>
+          <Search />
+          <Typography variant='title' size={3} color={color.gray[9]} mt={24} mb={44}>
             어떤 요리를 할까요?
           </Typography>
           {menus.map((menu) => (
@@ -109,11 +112,8 @@ const Wrap = styled.div`
 `;
 
 const Container = styled.div`
-  /* background-color: red; */
   flex: 1;
-  /* display: flex;
-flex-direction: column;
-align-items: center; */
+  padding-top: 12px;
 
   display: flex;
   flex-direction: column;
@@ -126,6 +126,7 @@ const ButtonWrap = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: ${MAXWIDTH}px;
   height: 90px;
 
   border-top: 1px solid var(--gray-scale-04, #c1c1c1);

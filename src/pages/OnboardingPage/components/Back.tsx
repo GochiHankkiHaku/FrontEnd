@@ -17,8 +17,9 @@ export default function Back({ page, text }: { page: string; text: string }) {
 const Wrap = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
+
+  padding: 12px 0;
+  margin-top: 12px;
 `;
 
 const Text = styled.span`
