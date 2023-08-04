@@ -15,6 +15,8 @@ export default function Map() {
   const [detailId, setDetailId] = useState<number>(0);
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
 
+  const [selectDate, setSelectDate] = useState<number>(0);
+
   const mapRef = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
@@ -100,6 +102,18 @@ export default function Map() {
     return () => document.removeEventListener('click', handleOutsideClose);
   }, [infoOpen]);
 
+  const filterAll = () => {
+    setSelectDate(0);
+  };
+
+  const filterToday = () => {
+    setSelectDate(1);
+  };
+
+  const filterTomorrow = () => {
+    setSelectDate(2);
+  };
+
   return (
     <>
       <MapHeader>
@@ -110,9 +124,15 @@ export default function Map() {
       ) : (
         <MapContainer ref={mapRef}>
           <BtnArea>
-            <MarkerFilterBtn>전체 기간</MarkerFilterBtn>
-            <MarkerFilterBtn>오늘 모집</MarkerFilterBtn>
-            <MarkerFilterBtn>내일 모집</MarkerFilterBtn>
+            <MarkerFilterBtn onClick={filterAll} active={selectDate === 0}>
+              전체 기간
+            </MarkerFilterBtn>
+            <MarkerFilterBtn onClick={filterToday} active={selectDate === 1}>
+              오늘 모집
+            </MarkerFilterBtn>
+            <MarkerFilterBtn onClick={filterTomorrow} active={selectDate === 2}>
+              내일 모집
+            </MarkerFilterBtn>
           </BtnArea>
           {infoOpen && (
             <Infowindow
@@ -156,22 +176,18 @@ const BtnArea = styled.div`
   column-gap: 8px;
   position: absolute;
   left: 20px;
-  top: 10px;
+  top: 15px;
   z-index: 999;
 `;
 
-const MarkerFilterBtn = styled.button`
-  color: #333333;
+const MarkerFilterBtn = styled.button<{ active: boolean }>`
   font-size: 14px;
   font-weight: 500;
   width: 85px;
   height: 32px;
-  border: 1px solid #dfdfdf;
   border-radius: 70px;
-  background-color: white;
+  color: ${({ active }) => (active ? '#FFFFFF' : '#333333')};
+  border: 1px solid ${({ active }) => (active ? '#AD3E00' : '#DFDFDF')};
+  background-color: ${({ active }) => (active ? '#FF5C00' : '#FFFFFF')};
   box-shadow: 0px 0px 4px 0px #00000026;
-
-  &:hover {
-    background-color: gray;
-  }
 `;
