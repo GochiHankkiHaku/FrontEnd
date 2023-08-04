@@ -3,10 +3,12 @@ export const STORAGE = {
 } as const;
 
 export const PATH = {
-  login: 'login',
-  dashboard: 'dashboard',
-  userList: 'userlist',
-  bodyStatus: 'bodystatus',
+  onBoarding: 'onboarding',
+  location: 'location',
+  schedule: 'schedule',
+  memberCount: 'membercount',
+  cook: 'cook',
+  cost: 'cost',
 } as const;
 
 export const MAXWIDTH = 600;
