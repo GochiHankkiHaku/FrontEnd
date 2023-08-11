@@ -10,6 +10,7 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
     navigate(`/detail/${markerInfo.post_idx}`, {
       state: {
         markerInfo,
+        address,
       },
     });
   };

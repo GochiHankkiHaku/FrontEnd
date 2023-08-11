@@ -8,10 +8,12 @@ import { ReactComponent as User3 } from 'assets/icons/user3.svg';
 import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function GatheringApplyListPage({ detailData }: any) {
+export default function GatheringApplyListPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const location = useLocation();
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -28,18 +30,22 @@ export default function GatheringApplyListPage({ detailData }: any) {
         <MenuInfo>
           <MenuInfoTitle>요리 정보</MenuInfoTitle>
           <MenuInfoContent>
-            <img className='menu_image' src={detailData.img} />
+            <img className='menu_image' />
             <div className='menu_text'>
-              <div className='menu_text-title'>{detailData.menuname}</div>
-              <div className='menu_text-content'>{detailData.menucontent}</div>
-              <div className='menu_text-number'>{detailData.application}명이 만들었어요.</div>
+              <div className='menu_text-title'>{location.state.markerInfo.markerMenuname}</div>
+              <div className='menu_text-content'>
+                제주 연안에 서식하는 자리돔을 간장으로 조린 음식
+              </div>
+              <div className='menu_text-number'>
+                {location.state.markerInfo.application}명이 만들었어요.
+              </div>
             </div>
           </MenuInfoContent>
         </MenuInfo>
         <Divider></Divider>
         <MenuInfo>
           <MenuInfoTitle>모임 시간대</MenuInfoTitle>
-          <ReservationTiem>{detailData.time}</ReservationTiem>
+          <ReservationTiem>점심 (12:00 ~ 14:00)</ReservationTiem>
         </MenuInfo>
         <Divider></Divider>
         <HostInfo>
@@ -49,7 +55,7 @@ export default function GatheringApplyListPage({ detailData }: any) {
             <div className='host_detail-info'>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
-              <div className='address'>{detailData.address}</div>
+              <div className='address'>{location.state.markerInfo.address}</div>
               <div className='host_btn'>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
