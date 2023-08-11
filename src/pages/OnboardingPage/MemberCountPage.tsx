@@ -6,20 +6,25 @@ import { flexSet } from 'styles/minxin';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 
+type COMMAND = 'max' | 'min';
+
 export default function MemberCountPage() {
   const { goNextPage } = usePage();
 
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState({
+    max: 4,
+    min: 1,
+  });
 
-  const handleIncrement = () => {
-    if (count < 4) {
-      setCount(count + 1);
+  const handleIncrement = (command: COMMAND) => {
+    if (count[command] < 4) {
+      setCount({ ...count, [command]: count[command] + 1 });
     }
   };
 
-  const handleDecrement = () => {
-    if (count > 1) {
-      setCount(count - 1);
+  const handleDecrement = (command: COMMAND) => {
+    if (count[command] > 1) {
+      setCount({ ...count, [command]: count[command] - 1 });
     }
   };
 
@@ -29,15 +34,26 @@ export default function MemberCountPage() {
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?
         </Typography>
-        <Typography variant='paragraph' size={6} color={color.gray[6]}>
+        <Typography variant='paragraph' size={6} color={color.gray[6]} mb={30}>
           최대 4명까지 선택 가능합니다.
           <br />
           그룹 단위로 방문합니다.
         </Typography>
+        <StyledTypography variant='paragraph' size={2} $color={color.active}>
+          <span className='color'>최대</span> 인원 선택
+        </StyledTypography>
         <CounterContainer>
-          <CountBtn onClick={handleDecrement}>-</CountBtn>
-          <CounterText>{count} 명</CounterText>
-          <CountBtn onClick={handleIncrement}>+</CountBtn>
+          <CountBtn onClick={() => handleDecrement('max')}>-</CountBtn>
+          <CounterText $color={color.active}>{count.max} 명</CounterText>
+          <CountBtn onClick={() => handleIncrement('max')}>+</CountBtn>
+        </CounterContainer>
+        <StyledTypography variant='paragraph' size={2} $color={color.alert}>
+          <span className='color'>최소</span> 인원 선택
+        </StyledTypography>
+        <CounterContainer>
+          <CountBtn onClick={() => handleDecrement('min')}>-</CountBtn>
+          <CounterText $color={color.alert}>{count.min} 명</CounterText>
+          <CountBtn onClick={() => handleIncrement('min')}>+</CountBtn>
         </CounterContainer>
       </Wrap>
       <Footer
@@ -59,12 +75,13 @@ const Wrap = styled.div`
 `;
 
 const CounterContainer = styled.div`
-  /* background-color: aliceblue; */
-  flex: 1;
+  margin-top: 24px;
+  margin-bottom: 30px;
+
   display: flex;
   align-items: center;
-
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 12px;
 `;
 
 const CountBtn = styled.button`
@@ -80,13 +97,19 @@ const CountBtn = styled.button`
   border-radius: 50%;
 `;
 
-const CounterText = styled.span`
+const CounterText = styled.span<{ $color: string }>`
   min-width: 100px;
   text-align: center;
 
-  font-size: 40px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
-  color: ${color.gray[9]};
+  color: ${({ $color }) => $color};
+`;
+
+const StyledTypography = styled(Typography)<{ $color: string }>`
+  .color {
+    color: ${({ $color }) => $color};
+  }
 `;

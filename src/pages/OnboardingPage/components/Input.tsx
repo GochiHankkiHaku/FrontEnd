@@ -21,9 +21,9 @@ const InputContainer = styled.div`
   position: relative;
 
   width: 100%;
+  height: 50px;
   display: flex;
   align-items: center;
-  height: 50px;
   border: 1px solid ${color.gray[4]};
   border-radius: 8px;
   padding: 11px 20px;

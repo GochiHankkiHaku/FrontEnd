@@ -64,6 +64,7 @@ export const GlobalStyle = createGlobalStyle`
   button {
     border: 0;
     cursor: pointer;
+    background-color: transparent;
   }
   a {
     text-decoration: none;

@@ -14,7 +14,7 @@ export default function Back({ page, text }: { page: string; text: string }) {
   );
 }
 
-const Wrap = styled.div`
+const Wrap = styled.button`
   display: flex;
   align-items: center;
 
