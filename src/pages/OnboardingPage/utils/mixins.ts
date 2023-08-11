@@ -6,6 +6,6 @@ export const GrayBorderBtnStyle = () => css`
   padding: 11.5px 20px;
 
   background-color: ${color.gray[1]};
-  border: 1px solid ${color.gray[3]};
+  border: 1px solid ${color.gray[4]};
   border-radius: 8px;
 `;
