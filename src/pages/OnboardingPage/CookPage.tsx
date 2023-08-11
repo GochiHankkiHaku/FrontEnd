@@ -48,7 +48,7 @@ export default function CookPage() {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await MenuApi.getMenu();
+        // const res = await MenuApi.getMenu();
       } catch (error) {
         console.log('error :>> ', error);
       }

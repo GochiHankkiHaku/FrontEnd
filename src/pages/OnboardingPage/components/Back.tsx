@@ -7,8 +7,8 @@ export default function Back({ page, text }: { page: string; text: string }) {
   const navigate = useNavigate();
 
   return (
-    <Wrap>
-      <BackIcon onClick={() => navigate(page)} />
+    <Wrap onClick={() => navigate(page)}>
+      <BackIcon />
       <Text>{text}</Text>
     </Wrap>
   );
