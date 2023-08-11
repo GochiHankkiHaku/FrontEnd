@@ -4,8 +4,8 @@ import { color } from 'styles/constants';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import Footer from './components/Footer';
-import { ReactComponent as InfoIcon } from 'assets/icons/info.svg';
 import { usePage } from './hooks/usePage';
+import HelperText from './components/HelperText';
 
 const prices = {
   '구살국(성게국)': 13000,
@@ -46,7 +46,6 @@ export default function CostPage() {
 
     localStorage.setItem('success', 'true');
   };
-  InfoIcon;
   const menuName = localStorage.getItem('menuname') ?? '';
 
   return (
@@ -62,13 +61,10 @@ export default function CostPage() {
           <Input type='text' value={price} onChange={handleChange} placeholder='13,000' />
           <Text>원</Text>
         </InputContainer>
-        <Caption>
-          <InfoIcon />
-          <Typography variant='caption' size={1} color={color.gray[5]} ml={4}>
-            가격 측정 기준은 해양 수산부의 수산물이력제를 기반으로
-            <br /> 측정 되었습니다.
-          </Typography>
-        </Caption>
+        <HelperText>
+          가격 측정 기준은 해양 수산부의 수산물이력제를 기반으로
+          <br /> 측정 되었습니다.
+        </HelperText>
       </Wrap>
       <Footer onClick={handleNext} />
     </>
@@ -84,6 +80,7 @@ const Wrap = styled.div`
 
 const InputContainer = styled.div`
   margin-top: 30px;
+  margin-bottom: 40px;
   position: relative;
 
   width: 100%;
@@ -102,11 +99,6 @@ const Input = styled.input`
   margin-right: 5px;
 `;
 
-const Caption = styled.div`
-  margin-top: 40px;
-
-  display: flex;
-`;
 const Text = styled.span`
   font-size: 18px;
   font-style: normal;
