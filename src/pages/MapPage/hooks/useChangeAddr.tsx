@@ -9,7 +9,7 @@ export const useChangeAddr = () => {
     const coord = new kakao.maps.LatLng(lat, lng);
     const callback = (result: any, status: string) => {
       if (status === kakao.maps.services.Status.OK) {
-        setAddress(result[0].road_address.address_name);
+        setAddress(result[0].road_address?.address_name);
       }
     };
 
