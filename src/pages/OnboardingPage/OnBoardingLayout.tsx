@@ -27,6 +27,8 @@ const Wrap = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+
+  height: 100%;
 `;
 
 const HeaderWrap = styled.div`

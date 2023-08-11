@@ -1,10 +1,9 @@
 import styled, { css } from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color, radius } from 'styles/constants';
-import { Button } from 'components/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { getNextPageUrl } from './utils/pagesInformation';
+import { usePage } from './hooks/usePage';
+import Footer from './components/Footer';
 
 const day = {
   today: '오늘',
@@ -21,11 +20,10 @@ const time = {
 const getTextColor = (isSelected: boolean) => (isSelected ? color.white : color.gray[9]);
 
 export default function SchedulePage() {
-  const location = useLocation().pathname;
+  const { goNextPage } = usePage();
+
   const [selectedDay, setSelectedDay] = useState('');
   const [selectedMealTime, setSelectedMealTime] = useState('');
-
-  const navigate = useNavigate();
 
   const handleDaySelect = (day: string) => {
     setSelectedDay(day);
@@ -36,8 +34,8 @@ export default function SchedulePage() {
   };
 
   return (
-    <Wrap>
-      <Container>
+    <>
+      <Wrap>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           언제 먹을까요?
         </Typography>
@@ -108,35 +106,23 @@ export default function SchedulePage() {
             </Typography>
           </TimeBtn>
         </TimeBtnsWrap>
-      </Container>
-
-      <LaterBtn>
-        <Typography variant='paragraph' size={5} color={color.gray[5]}>
-          나중에 선택하기
-        </Typography>
-      </LaterBtn>
-      <Button
-        col='white'
-        bgCol={color.main[2]}
+      </Wrap>
+      <Footer
+        saveLater
         onClick={() => {
+          goNextPage();
           localStorage.setItem('date', selectedDay);
           localStorage.setItem('time', selectedMealTime);
-          navigate(getNextPageUrl(location));
         }}
-      >
-        다음으로
-      </Button>
-    </Wrap>
+      />
+    </>
   );
 }
 
 const Wrap = styled.div`
-  padding: 0 20px;
-`;
+  padding: 30px 20px;
 
-const Container = styled.div`
-  padding-top: 30px;
-  flex: 1;
+  overflow: auto;
 `;
 
 const DayBtnsWrap = styled.div`

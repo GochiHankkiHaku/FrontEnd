@@ -1,15 +1,11 @@
 import styled from 'styled-components';
-import ProgressBar from './components/ProgressBar';
-import Back from './components/Back';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { Button } from 'components/Button';
-import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import { PostApi } from 'apis/lib/post';
-import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
-import { menus } from './CookPage';
+import Footer from './components/Footer';
+import { ReactComponent as InfoIcon } from 'assets/icons/info.svg';
+import { usePage } from './hooks/usePage';
 
 const prices = {
   '구살국(성게국)': 13000,
@@ -22,12 +18,13 @@ const formatPrice = (value: string) => {
 };
 
 export default function CostPage() {
+  const { goNextPage } = usePage();
+
   const notify = () => {
     toast.success('모임이 생성되었습니다 !', {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
-  const navigate = useNavigate();
 
   const [price, setPrice] = useState('');
 
@@ -44,33 +41,37 @@ export default function CostPage() {
     const money = localStorage.getItem('money') ?? '';
     const menuname = localStorage.getItem('menuname') ?? '';
 
-    const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
-    navigate('/main');
-    console.log('res :>> ', res);
+    // const res = await PostApi.write(date2, time, Number(number), menuname, Number(money));
+    goNextPage();
 
     localStorage.setItem('success', 'true');
   };
-
+  InfoIcon;
   const menuName = localStorage.getItem('menuname') ?? '';
 
   return (
-    <Wrap>
-      <Container>
+    <>
+      <Wrap>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           얼마로 할까요?
         </Typography>
         <Typography variant='paragraph' size={6} color={color.gray[6]}>
-          {localStorage.getItem('menuname')}의 평균 가격은 1인당 13,000원이에요.
+          {localStorage.getItem('menuname')}의 평균 가격은 1인당 <b>13,000</b>원이에요.
         </Typography>
         <InputContainer>
-          <Input type='text' value={price} onChange={handleChange} placeholder='Enter price' />
+          <Input type='text' value={price} onChange={handleChange} placeholder='13,000' />
           <Text>원</Text>
         </InputContainer>
-      </Container>
-      <Button col='white' bgCol={color.main[2]} onClick={handleNext}>
-        다음으로
-      </Button>
-    </Wrap>
+        <Caption>
+          <InfoIcon />
+          <Typography variant='caption' size={1} color={color.gray[5]} ml={4}>
+            가격 측정 기준은 해양 수산부의 수산물이력제를 기반으로
+            <br /> 측정 되었습니다.
+          </Typography>
+        </Caption>
+      </Wrap>
+      <Footer onClick={handleNext} />
+    </>
   );
 }
 
@@ -79,13 +80,6 @@ const Wrap = styled.div`
   padding: 30px 20px 20px 20px;
   display: flex;
   flex-direction: column;
-`;
-const Container = styled.div`
-  /* background-color: red; */
-  flex: 1;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 `;
 
 const InputContainer = styled.div`
@@ -108,8 +102,10 @@ const Input = styled.input`
   margin-right: 5px;
 `;
 
-const Currency = styled.span`
-  font-size: 16px;
+const Caption = styled.div`
+  margin-top: 40px;
+
+  display: flex;
 `;
 const Text = styled.span`
   font-size: 18px;

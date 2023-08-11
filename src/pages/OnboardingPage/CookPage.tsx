@@ -1,13 +1,12 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { Button } from 'components/Button';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuApi } from 'apis/lib/menu';
 import MenuItem from './components/MenuItem';
-import { MAXWIDTH } from 'common/constants';
 import Search from './components/Search';
+import Footer from './components/Footer';
+import { usePage } from './hooks/usePage';
 export const menus = [
   {
     idx: 1,
@@ -38,7 +37,8 @@ export const menus = [
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
 export default function CookPage() {
-  const navigate = useNavigate();
+  const { goNextPage } = usePage();
+
   const [selectedMenu, setSelectedMenu] = useState('');
 
   const handleSelectMenu = (name: string) => {
@@ -60,11 +60,11 @@ export default function CookPage() {
   return (
     <>
       <Wrap>
+        <Search />
+        <Typography variant='title' size={3} color={color.gray[9]} mt={24} mb={44}>
+          어떤 요리를 할까요?
+        </Typography>
         <Container>
-          <Search />
-          <Typography variant='title' size={3} color={color.gray[9]} mt={24} mb={44}>
-            어떤 요리를 할까요?
-          </Typography>
           {menus.map((menu) => (
             <MenuItem
               key={menu.idx}
@@ -79,51 +79,32 @@ export default function CookPage() {
           ))}
         </Container>
       </Wrap>
-      <ButtonWrap>
-        <Button
-          isDisabled={selectedMenu === ''}
-          col='white'
-          bgCol={color.main[2]}
-          onClick={() => {
-            navigate('/onboarding/cost');
-            localStorage.setItem('menuname', selectedMenu);
-          }}
-        >
-          다음으로
-        </Button>
-      </ButtonWrap>
+      <Footer
+        isDisabled={selectedMenu === ''}
+        onClick={() => {
+          goNextPage();
+          localStorage.setItem('menuname', selectedMenu);
+        }}
+      />
     </>
   );
 }
 
 const Wrap = styled.div`
+  position: relative;
+
   padding: 12px 20px 100px 20px;
   display: flex;
   flex-direction: column;
 
-  height: 100%;
+  flex: 1;
 `;
 
 const Container = styled.div`
   flex: 1;
-  padding-top: 12px;
 
   display: flex;
   flex-direction: column;
 
   overflow: auto;
-`;
-
-const ButtonWrap = styled.div`
-  background-color: white;
-
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: ${MAXWIDTH}px;
-  height: 90px;
-
-  border-top: 1px solid var(--gray-scale-04, #c1c1c1);
-
-  padding: 16px 20px;
 `;

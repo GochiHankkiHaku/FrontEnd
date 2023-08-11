@@ -1,16 +1,13 @@
 import { Typography } from 'components/Typography';
-import { Button } from 'components/Button';
 import { color } from 'styles/constants';
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
-import { getNextPageUrl } from './utils/pagesInformation';
+import Footer from './components/Footer';
+import { usePage } from './hooks/usePage';
 
 export default function MemberCountPage() {
-  const location = useLocation().pathname;
-
-  const navigate = useNavigate();
+  const { goNextPage } = usePage();
 
   const [count, setCount] = useState(1);
 
@@ -27,8 +24,8 @@ export default function MemberCountPage() {
   };
 
   return (
-    <Wrap>
-      <Container>
+    <>
+      <Wrap>
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           몇 명을 초대할까요?
         </Typography>
@@ -42,31 +39,21 @@ export default function MemberCountPage() {
           <CounterText>{count} 명</CounterText>
           <CountBtn onClick={handleIncrement}>+</CountBtn>
         </CounterContainer>
-      </Container>
-      <Button
-        col='white'
-        bgCol={color.main[2]}
+      </Wrap>
+      <Footer
+        saveLater
         onClick={() => {
-          navigate(getNextPageUrl(location));
+          goNextPage();
           localStorage.setItem('number', String(count));
         }}
-      >
-        다음으로
-      </Button>
-    </Wrap>
+      />
+    </>
   );
 }
 const Wrap = styled.div`
   flex: 1;
 
   padding: 30px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Container = styled.div`
-  flex: 1;
-
   display: flex;
   flex-direction: column;
 `;
