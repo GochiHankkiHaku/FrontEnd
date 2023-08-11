@@ -11,13 +11,14 @@ const { kakao }: any = window;
 
 export default function Map() {
   const [markers, setMarkers] = useState<any>([]);
-  const [markerMenuname, setMarkerMenuname] = useState<string>('');
-  const [markerDate, setMarkerDate] = useState<string>('');
-  const [markerApplication, setMarkerApplication] = useState<number>(0);
-  const [markerNumber, setMarkerNumber] = useState<number>(0);
-  const [markerDistance, setMarkerDistance] = useState<number>(0);
-
-  const [detailId, setDetailId] = useState<number>(0);
+  const [markerInfo, setMarkerInfo] = useState<any>({
+    markerId: 0,
+    markerMenuname: '',
+    markerDate: '',
+    markerApplication: 0,
+    markerNumber: 0,
+    markerDistance: 0,
+  });
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
   const [selectDate, setSelectDate] = useState<number>(0);
 
@@ -107,14 +108,17 @@ export default function Map() {
           map: mapRef.current,
           position: new kakao.maps.LatLng(gatheringData.lat, gatheringData.lng),
         });
+
         const markerClickEvent = () => {
-          setMarkerMenuname(gatheringData.menuname);
-          setMarkerDate(gatheringData.date);
+          setMarkerInfo({
+            markerId: gatheringData.post_idx,
+            markerMenuname: gatheringData.menuname,
+            markerDate: gatheringData.date,
+            markerApplication: gatheringData.application,
+            markerNumber: gatheringData.number,
+            markerDistance: Math.floor(gatheringData.DISTANCE * 1000),
+          });
           changeAddr(gatheringData.lat, gatheringData.lng);
-          setMarkerApplication(gatheringData.application);
-          setMarkerNumber(gatheringData.number);
-          setMarkerDistance(Math.floor(gatheringData.DISTANCE * 1000));
-          setDetailId(gatheringData.post_idx);
           setIsInfoOpen(true);
         };
         kakao.maps.event.addListener(marker, 'click', markerClickEvent);
@@ -130,12 +134,15 @@ export default function Map() {
   useEffect(() => {
     const handleOutsideClose = (e: MouseEvent) => {
       if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
-        setMarkerMenuname('');
-        setMarkerDate('');
+        setMarkerInfo({
+          markerId: 0,
+          markerMenuname: '',
+          markerDate: '',
+          markerApplication: 0,
+          markerNumber: 0,
+          markerDistance: 0,
+        });
         setAddress('');
-        setMarkerApplication(0);
-        setMarkerNumber(0);
-        setDetailId(0);
         setIsInfoOpen(false);
       }
     };
@@ -169,13 +176,13 @@ export default function Map() {
           {isInfoOpen && (
             <Infowindow
               infoRef={infoRef}
-              markerMenuname={markerMenuname}
-              markerDate={markerDate}
+              detailId={markerInfo.post_idx}
+              markerMenuname={markerInfo.markerMenuname}
+              markerDate={markerInfo.markerDate}
               address={address}
-              markerApplication={markerApplication}
-              markerNumber={markerNumber}
-              markerDistance={markerDistance}
-              detailId={detailId}
+              markerApplication={markerInfo.markerApplication}
+              markerNumber={markerInfo.markerNumber}
+              markerDistance={markerInfo.markerDistance}
             />
           )}
         </MapContainer>

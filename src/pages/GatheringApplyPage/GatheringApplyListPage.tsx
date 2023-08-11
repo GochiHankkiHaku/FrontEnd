@@ -17,8 +17,6 @@ export default function GatheringApplyListPage({ detailData }: any) {
     setIsOpen(!isOpen);
   };
 
-  // console.log(detailData.item);
-
   return (
     <DetailContainer>
       <DetailHeader>

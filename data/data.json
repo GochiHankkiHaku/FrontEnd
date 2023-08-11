@@ -8,7 +8,8 @@
       "number": 2,
       "lat": 37.505385,
       "lng": 126.942561,
-      "money": 20000
+      "money": 20000,
+      "post_idx": 1
     },
     {
       "menuname": "구살국",
@@ -18,7 +19,8 @@
       "number": 5,
       "lat": 37.505819,
       "lng": 126.946506,
-      "money": 30000
+      "money": 30000,
+      "post_idx": 2
     },
     {
       "menuname": "피자",
@@ -28,7 +30,8 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000
+      "money": 40000,
+      "post_idx": 3
     }
   ]
 }
