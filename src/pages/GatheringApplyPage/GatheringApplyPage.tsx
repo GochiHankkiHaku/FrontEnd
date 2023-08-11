@@ -36,9 +36,6 @@ export default function GatheringApplyPage() {
               <div className='menu_text-content'>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
               </div>
-              <div className='menu_text-number'>
-                {location.state.markerInfo.application}명이 만들었어요.
-              </div>
             </div>
           </MenuInfoContent>
         </MenuInfo>
@@ -210,16 +207,6 @@ const MenuInfoContent = styled.div`
       font-size: 14px;
       color: #6f6f6f;
       /* border: 1px solid red; */
-    }
-
-    > .menu_text-number {
-      width: 100%;
-      font-size: 12px;
-      font-weight: 400;
-      padding: 4px 10px;
-      background-color: #f5f4f3;
-      border-radius: 22px;
-      color: #128fe9;
     }
   }
 `;
