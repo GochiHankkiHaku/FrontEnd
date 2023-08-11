@@ -15,17 +15,20 @@ import GatheringDetail from './GatheringDetailPage/GatheringDetail';
 import CostPage from './OnboardingPage/CostPage';
 import OnBoardingLayout from './OnboardingPage/OnBoardingLayout';
 import { PATH } from 'common/constants';
+import LocationPage from './OnboardingPage/LocationPage';
+import ContactPage from './OnboardingPage/ContactPage';
 
 export const Router = (): React.ReactElement => {
   return (
     <Routes>
       <Route path={'/'} element={<LandingPage />} />
       <Route path={`${PATH.onBoarding}`} element={<OnBoardingLayout />}>
-        <Route path={`${PATH.location}`} element={<SchedulePage />} />
+        <Route path={`${PATH.location}`} element={<LocationPage />} />
         <Route path={`${PATH.schedule}`} element={<SchedulePage />} />
         <Route path={`${PATH.memberCount}`} element={<MemberCountPage />} />
         <Route path={`${PATH.cook}`} element={<CookPage />} />
         <Route path={`${PATH.cost}`} element={<CostPage />} />
+        <Route path={`${PATH.contact}`} element={<ContactPage />} />
         <Route path='recheck' element={<RecheckPage />} />
       </Route>
       <Route path={'/'} element={<Layout />}>

@@ -9,6 +9,8 @@ export const PATH = {
   memberCount: 'membercount',
   cook: 'cook',
   cost: 'cost',
+  contact: 'contact',
+  main: 'main',
 } as const;
 
-export const MAXWIDTH = 600;
+export const MAXWIDTH = 400;

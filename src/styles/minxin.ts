@@ -24,5 +24,5 @@ export const typoStyles = (style: TypoStyles) => css`
   font-family: ${style.fontFamily};
   font-size: ${style.fontSize}px;
   font-weight: ${style.fontWeight};
-  line-height: ${style.lineHeight};
+  line-height: ${style.lineHeight}%;
 `;

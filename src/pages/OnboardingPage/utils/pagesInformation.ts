@@ -20,7 +20,11 @@ const pagesPerStep = [
   },
   {
     url: `/${PATH.onBoarding}/${PATH.cost}`,
-    name: '가격',
+    name: '금액',
+  },
+  {
+    url: `/${PATH.onBoarding}/${PATH.contact}`,
+    name: '연락처',
   },
 ];
 
