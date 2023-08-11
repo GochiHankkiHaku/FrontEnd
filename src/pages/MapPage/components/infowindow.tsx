@@ -1,25 +1,18 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { InfowindowProps } from '../utils/interface';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 
-export default function Infowindow({
-  infoRef,
-  markerMenuname,
-  markerDate,
-  address,
-  markerApplication,
-  markerNumber,
-  markerDistance,
-  detailId,
-}: InfowindowProps) {
+export default function Infowindow({ infoRef, markerInfo, address }: InfowindowProps) {
+  const navigate = useNavigate();
+
   return (
-    <Link to={`/detail/${detailId}`}>
+    <Link to={`/detail${markerInfo.markerId}`}>
       <UnderBar ref={infoRef}>
         <TitleArea>
-          <div className='title'>{markerMenuname} 요리 모임 합니다.</div>
+          <div className='title'>{markerInfo.markerMenuname} 요리 모임 합니다.</div>
           <div className='title_state'>
-            <div className='title_state-text'>{markerDate} 모집</div>
+            <div className='title_state-text'>{markerInfo.markerDate} 모집</div>
           </div>
         </TitleArea>
         <InfoArea>
@@ -27,9 +20,9 @@ export default function Infowindow({
             <div className='address'>{address}</div>
             <div className='distance'>
               <div className='text'>
-                {markerApplication}/{markerNumber} 모집 완료
+                {markerInfo.markerApplication}/{markerInfo.markerNumber} 모집 완료
               </div>
-              <div className='meter'>{markerDistance}m</div>
+              <div className='meter'>{markerInfo.markerDistance}m</div>
             </div>
             <div className='host_btn'>
               <div className='ex'>최고에요 37</div>

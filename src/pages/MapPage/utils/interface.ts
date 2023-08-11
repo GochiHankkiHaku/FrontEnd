@@ -1,10 +1,5 @@
 export interface InfowindowProps {
   infoRef: React.RefObject<HTMLDivElement>;
-  markerMenuname: string;
-  markerDate: string;
+  markerInfo: any;
   address: string;
-  markerApplication: number;
-  markerNumber: number;
-  markerDistance: number;
-  detailId: number;
 }

@@ -173,18 +173,7 @@ export default function Map() {
               내일 모집
             </MarkerFilterBtn>
           </BtnArea>
-          {isInfoOpen && (
-            <Infowindow
-              infoRef={infoRef}
-              detailId={markerInfo.post_idx}
-              markerMenuname={markerInfo.markerMenuname}
-              markerDate={markerInfo.markerDate}
-              address={address}
-              markerApplication={markerInfo.markerApplication}
-              markerNumber={markerInfo.markerNumber}
-              markerDistance={markerInfo.markerDistance}
-            />
-          )}
+          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} address={address} />}
         </MapContainer>
       )}
     </>
