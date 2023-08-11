@@ -10,7 +10,7 @@ import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
 import { Link, useLocation } from 'react-router-dom';
 
-export default function GatheringApplyListPage() {
+export default function GatheringApplyPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const location = useLocation();
