@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
-import { ReactComponent as User2 } from 'assets/icons/user2.svg';
-import { ReactComponent as User3 } from 'assets/icons/user3.svg';
 import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
@@ -25,7 +23,7 @@ export default function GatheringApplyPage() {
         <ArrowChevron />
         <div className='detail_header-text'>모임 신청하기</div>
       </DetailHeader>
-      <DetailCheck>모임 정보를 확인해보세요.</DetailCheck>
+      <DetailCheck>어떤 모임인지 확인하세요.</DetailCheck>
       <DetailInfo>
         <MenuInfo>
           <MenuInfoTitle>요리 정보</MenuInfoTitle>
@@ -63,7 +61,7 @@ export default function GatheringApplyPage() {
         <Divider></Divider>
         <PriceInfo>
           <PriceInfoTitleArea>
-            <div className='price_text'>시세 정보</div>
+            <div className='price_text'>재료 시세 정보</div>
             <Info onClick={openHandler} />
             {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
           </PriceInfoTitleArea>
@@ -136,6 +134,7 @@ const DetailInfo = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 36px;
+  border: 1px solid red;
 `;
 
 const MenuInfo = styled.div`
@@ -274,25 +273,6 @@ const HostInfoContent = styled.div`
         border-radius: 70px;
         border: 1px solid #c1c1c1;
       }
-    }
-  }
-`;
-
-const ParticipantsImages = styled.ul`
-  display: flex;
-  gap: 10px;
-  width: 350px;
-
-  > li {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    > .username {
-      font-size: 14px;
-      font-weight: 400;
-      color: #333333;
-      text-align: center;
     }
   }
 `;

@@ -7,7 +7,7 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/detail/${markerInfo.post_idx}`, {
+    navigate(`/detail/${markerInfo.markerId}`, {
       state: {
         markerInfo,
         address,
