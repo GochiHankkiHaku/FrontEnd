@@ -52,33 +52,13 @@ export default function GatheringApplyPage() {
             <div className='host_detail-info'>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
-              <div className='address'>{location.state.markerInfo.address}</div>
+              <div className='address'>{location.state.address}</div>
               <div className='host_btn'>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
               </div>
             </div>
           </HostInfoContent>
-        </HostInfo>
-        <Divider></Divider>
-        <HostInfo>
-          <MenuInfoTitle>
-            참여자 <span className='num'>3명</span>
-          </MenuInfoTitle>
-          <ParticipantsImages>
-            <li>
-              <User1 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User2 />
-              <div className='username'>유저 네임</div>
-            </li>
-            <li>
-              <User3 />
-              <div className='username'>유저 네임</div>
-            </li>
-          </ParticipantsImages>
         </HostInfo>
         <Divider></Divider>
         <PriceInfo>
