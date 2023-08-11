@@ -1,40 +1,46 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { InfowindowProps } from '../utils/interface';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 
 export default function Infowindow({ infoRef, markerInfo, address }: InfowindowProps) {
   const navigate = useNavigate();
 
+  const moveDetailPage = () => {
+    navigate(`/detail/${markerInfo.post_idx}`, {
+      state: {
+        markerInfo,
+      },
+    });
+  };
+
   return (
-    <Link to={`/detail${markerInfo.markerId}`}>
-      <UnderBar ref={infoRef}>
-        <TitleArea>
-          <div className='title'>{markerInfo.markerMenuname} 요리 모임 합니다.</div>
-          <div className='title_state'>
-            <div className='title_state-text'>{markerInfo.markerDate} 모집</div>
+    <UnderBar ref={infoRef} onClick={moveDetailPage}>
+      <TitleArea>
+        <div className='title'>{markerInfo.markerMenuname} 요리 모임 합니다.</div>
+        <div className='title_state'>
+          <div className='title_state-text'>{markerInfo.markerDate} 모집</div>
+        </div>
+      </TitleArea>
+      <InfoArea>
+        <Info>
+          <div className='address'>{address}</div>
+          <div className='distance'>
+            <div className='text'>
+              {markerInfo.markerApplication}/{markerInfo.markerNumber} 모집 완료
+            </div>
+            <div className='meter'>{markerInfo.markerDistance}m</div>
           </div>
-        </TitleArea>
-        <InfoArea>
-          <Info>
-            <div className='address'>{address}</div>
-            <div className='distance'>
-              <div className='text'>
-                {markerInfo.markerApplication}/{markerInfo.markerNumber} 모집 완료
-              </div>
-              <div className='meter'>{markerInfo.markerDistance}m</div>
-            </div>
-            <div className='host_btn'>
-              <div className='ex'>최고에요 37</div>
-              <div className='good'>좋아요 15</div>
-            </div>
-          </Info>
-          <Arrow>
-            <ArrowChevron />
-          </Arrow>
-        </InfoArea>
-      </UnderBar>
-    </Link>
+          <div className='host_btn'>
+            <div className='ex'>최고에요 37</div>
+            <div className='good'>좋아요 15</div>
+          </div>
+        </Info>
+        <Arrow>
+          <ArrowChevron />
+        </Arrow>
+      </InfoArea>
+    </UnderBar>
   );
 }
 
