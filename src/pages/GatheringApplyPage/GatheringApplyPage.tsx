@@ -6,28 +6,34 @@ import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 export default function GatheringApplyPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
 
+  const movePaymentPage = () => {
+    navigate('/payment');
+  };
+
   return (
-    <DetailContainer>
-      <DetailHeader>
+    <>
+      <ApplyHeader>
         <ArrowChevron />
-        <div className='detail_header-text'>모임 신청하기</div>
-      </DetailHeader>
-      <DetailCheck>어떤 모임인지 확인하세요.</DetailCheck>
-      <DetailInfo>
-        <MenuInfo>
-          <MenuInfoTitle>요리 정보</MenuInfoTitle>
-          <MenuInfoContent>
+        <div className='apply_header-text'>모임 신청하기</div>
+        <div className='none'></div>
+      </ApplyHeader>
+      <ApplyCheckText>어떤 모임인지 확인하세요.</ApplyCheckText>
+      <ApplyInfoContainer>
+        <ApplyItem>
+          <ApplyItemTitle>요리 정보</ApplyItemTitle>
+          <ApplyMenuItemContent>
             <img className='menu_image' />
             <div className='menu_text'>
               <div className='menu_text-title'>{location.state.markerInfo.markerMenuname}</div>
@@ -35,19 +41,19 @@ export default function GatheringApplyPage() {
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
               </div>
             </div>
-          </MenuInfoContent>
-        </MenuInfo>
+          </ApplyMenuItemContent>
+        </ApplyItem>
         <Divider></Divider>
-        <MenuInfo>
-          <MenuInfoTitle>모임 시간대</MenuInfoTitle>
-          <ReservationTiem>점심 (12:00 ~ 14:00)</ReservationTiem>
-        </MenuInfo>
+        <ApplyItem>
+          <ApplyItemTitle>모임 시간대</ApplyItemTitle>
+          <ReservationTime>점심 (12:00 ~ 14:00)</ReservationTime>
+        </ApplyItem>
         <Divider></Divider>
         <HostInfo>
-          <MenuInfoTitle>개설자 정보</MenuInfoTitle>
-          <HostInfoContent>
+          <ApplyItemTitle>개설자 정보</ApplyItemTitle>
+          <ApplyHostItemContent>
             <User1 />
-            <div className='host_detail-info'>
+            <ApplyHostItemDetailContent>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
               <div className='address'>{location.state.address}</div>
@@ -55,113 +61,104 @@ export default function GatheringApplyPage() {
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
               </div>
-            </div>
-          </HostInfoContent>
+            </ApplyHostItemDetailContent>
+          </ApplyHostItemContent>
         </HostInfo>
         <Divider></Divider>
-        <PriceInfo>
-          <PriceInfoTitleArea>
+        <ApplyItem>
+          <ApplyIngredientTitle>
             <div className='price_text'>재료 시세 정보</div>
             <Info onClick={openHandler} />
             {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
-          </PriceInfoTitleArea>
-          <PriceInfoList>
-            <li>
+          </ApplyIngredientTitle>
+          <ApplyIngredientItemContent>
+            <IngredientItem>
               <img className='profile' src={fish} />
               <div className='price_info'>
                 <div className='price_info-menuname'>갈치</div>
                 <div className='price_info-cost'>평균 9,000원</div>
               </div>
-            </li>
-            <li>
-              <img className='profile2' src={vege} />
+            </IngredientItem>
+            <IngredientItem>
+              <img className='profile' src={vege} />
               <div className='price_info'>
                 <div className='price_info-menuname'>무</div>
                 <div className='price_info-cost'>평균 3,000원</div>
               </div>
-            </li>
-            <li>
-              <img className='profile3' src={grain} />
+            </IngredientItem>
+            <IngredientItem>
+              <img className='profile' src={grain} />
               <div className='price_info'>
                 <div className='price_info-menuname'>흰쌀밥 (200g)</div>
                 <div className='price_info-cost'>평균 2,000원</div>
               </div>
-            </li>
-          </PriceInfoList>
-        </PriceInfo>
-      </DetailInfo>
+            </IngredientItem>
+          </ApplyIngredientItemContent>
+        </ApplyItem>
+      </ApplyInfoContainer>
       <PaymentBtnArea>
-        <Link to={'/payment'}>
-          <PayBtn>참가비 결제</PayBtn>
-        </Link>
+        <PayBtn onClick={movePaymentPage}>참가비 결제</PayBtn>
       </PaymentBtnArea>
-    </DetailContainer>
+    </>
   );
 }
 
-const DetailContainer = styled.div`
-  margin-bottom: 25px;
-`;
-
-const DetailHeader = styled.div`
+const ApplyHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  gap: 8px;
-  color: #333333;
+  padding: 10px 20px;
+  height: 44px;
   border-bottom: 1px solid #dfdfdf;
 
-  > .detail_header-text {
-    width: 288px;
-    text-align: center;
+  > .apply_header-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+  }
+
+  > .none {
+    width: 24px;
+    height: 24px;
   }
 `;
 
-const DetailCheck = styled.div`
+const ApplyCheckText = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 20px;
+  padding: 10px 20px;
   font-size: 20px;
   font-weight: 500;
   color: #333333;
 `;
 
-const DetailInfo = styled.div`
+const ApplyInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 36px;
-  border: 1px solid red;
+  row-gap: 36px;
 `;
 
-const MenuInfo = styled.div`
+const ApplyItem = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  width: 350px;
-  /* border: 1px solid red; */
+  width: 100%;
+  row-gap: 16px;
+  padding: 10px 19.5px;
 `;
 
-const MenuInfoTitle = styled.div`
+const ApplyItemTitle = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: #333333;
-
-  > .num {
-    color: #128fe9;
-  }
 `;
 
-const MenuInfoContent = styled.div`
+const ApplyMenuItemContent = styled.div`
   display: flex;
-  align-items: flex-start;
   gap: 12px;
-  width: 350px;
-  /* border: 1px solid red; */
 
   > .menu_image {
     width: 144px;
@@ -173,7 +170,8 @@ const MenuInfoContent = styled.div`
   > .menu_text {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    row-gap: 10px;
+    width: calc(100% - 12px - 144px);
 
     > .menu_text-title {
       font-size: 16px;
@@ -182,28 +180,27 @@ const MenuInfoContent = styled.div`
     }
 
     > .menu_text-content {
-      width: 190px;
       font-size: 14px;
+      font-weight: 400;
       color: #6f6f6f;
-      /* border: 1px solid red; */
     }
   }
 `;
 
 const Divider = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 14px;
   background-color: #f5f4f3;
 `;
 
-const ReservationTiem = styled.div`
+const ReservationTime = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   font-size: 18px;
   font-weight: 500;
-  padding: 11.5px 20px;
+  padding: 12px 20px;
   color: #333333;
   border-radius: 8px;
   border: 1px solid #c1c1c1;
@@ -213,88 +210,74 @@ const ReservationTiem = styled.div`
 const HostInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  width: 100%;
   gap: 24px;
-  width: 350px;
-  /* border: 1px solid red; */
+  padding: 10px 19.5px;
 `;
 
-const HostInfoContent = styled.div`
+const ApplyHostItemContent = styled.div`
   display: flex;
-  width: 100%;
-  align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
   border-radius: 8px;
   padding: 12px;
   border: 1px solid #c1c1c1;
+`;
 
-  > .host_detail-info {
+const ApplyHostItemDetailContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 24px - 81px);
+  gap: 4px;
+
+  > .name {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+  }
+
+  > .position_name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+  }
+
+  > .address {
+    font-size: 12px;
+    font-weight: 500;
+    color: #8b8b8b;
+  }
+
+  > .host_btn {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: flex-start;
+    gap: 5px;
 
-    > .name {
-      font-size: 16px;
-      font-weight: 400;
-      color: #333333;
+    > .ex {
+      font-size: 10px;
+      font-weight: 600;
+      color: #ff5c00;
+      padding: 4.5px 12px;
+      border-radius: 70px;
+      border: 1px solid #c1c1c1;
     }
 
-    > .position_name {
-      font-size: 16px;
-      font-weight: 500;
-      color: #333333;
-    }
-
-    > .address {
-      font-size: 12px;
-      font-weight: 500;
-      color: #8b8b8b;
-    }
-
-    > .host_btn {
-      display: flex;
-      gap: 5px;
-
-      > .ex {
-        font-size: 10px;
-        font-weight: 600;
-        color: #ff5c00;
-        padding: 4.5px 12px;
-        border-radius: 70px;
-        border: 1px solid #c1c1c1;
-      }
-
-      > .good {
-        font-size: 10px;
-        font-weight: 600;
-        color: #ffa51f;
-        padding: 4.5px 12px;
-        border-radius: 70px;
-        border: 1px solid #c1c1c1;
-      }
+    > .good {
+      font-size: 10px;
+      font-weight: 600;
+      color: #ffa51f;
+      padding: 4.5px 12px;
+      border-radius: 70px;
+      border: 1px solid #c1c1c1;
     }
   }
 `;
 
-const PriceInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  width: 350px;
-  /* width: 350px; */
-`;
-
-const PriceInfoTitleArea = styled.div`
+const ApplyIngredientTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
 
   > .price_text {
     color: #333333;
-
     font-size: 18px;
     font-weight: 700;
   }
@@ -324,64 +307,51 @@ const PriceInfoTitleArea = styled.div`
   }
 `;
 
-const PriceInfoList = styled.ul`
+const ApplyIngredientItemContent = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 70px;
+  padding-bottom: 80px;
+`;
 
-  > li {
+const IngredientItem = styled.li`
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  > .profile {
+    width: 80px;
+    height: 80px;
+    background-color: #aed8ff;
+    border-radius: 4px;
+  }
+
+  > .price_info {
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: column;
+    width: calc(100% - 80px - 8px);
+    gap: 4px;
 
-    > .profile {
-      width: 80px;
-      height: 80px;
-      background-color: #aed8ff;
-      border-radius: 4px;
+    > .price_info-menuname {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333333;
     }
 
-    > .profile2 {
-      width: 80px;
-      height: 80px;
-      background-color: #a2f5e6;
-      border-radius: 4px;
-    }
-
-    > .profile3 {
-      width: 80px;
-      height: 80px;
-      background-color: #dbfbff;
-      border-radius: 4px;
-    }
-
-    > .price_info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      > .price_info-menuname {
-        font-size: 18px;
-        font-weight: 600;
-        color: #333333;
-      }
-
-      > .price_info-cost {
-        font-size: 16px;
-        font-weight: 500;
-        color: #333333;
-      }
+    > .price_info-cost {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333333;
     }
   }
 `;
 
 const PaymentBtnArea = styled.div`
-  display: flex;
-  justify-content: center;
   position: fixed;
   bottom: 0;
-  padding: 16px 20px 24px 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px 8px 20px;
   border-top: 1px solid #c1c1c1;
   background-color: white;
 `;
@@ -389,9 +359,9 @@ const PaymentBtnArea = styled.div`
 const PayBtn = styled.button`
   display: flex;
   justify-content: center;
-  width: 350px;
-  padding: 11.5px 20px;
   align-items: center;
+  width: 100%;
+  padding: 12px 20px;
   font-size: 18px;
   font-weight: 600;
   color: white;
