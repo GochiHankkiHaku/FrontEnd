@@ -68,8 +68,21 @@ export default function GatheringApplyPage() {
         <ApplyItem>
           <ApplyIngredientTitle>
             <div className='price_text'>재료 시세 정보</div>
-            <Info onClick={openHandler} />
-            {isOpen && <p>가격 측정 기준 해양 수산부의 수산물이력제를 기반으로 작성되었습니다.</p>}
+            <PriceAlert>
+              <Info className='info_icon' onClick={openHandler} />
+              {isOpen && (
+                <div className='price_alert-text'>
+                  가격 측정 기준 해양 수산부의&nbsp;
+                  <Link
+                    to='https://www.fishtrace.go.kr/home/mpInfo/actionFishPrice.do'
+                    target='_blank'
+                  >
+                    수산물이력제
+                  </Link>
+                  를 기반으로 작성되었습니다.
+                </div>
+              )}
+            </PriceAlert>
           </ApplyIngredientTitle>
           <ApplyIngredientItemContent>
             <IngredientItem>
@@ -281,28 +294,40 @@ const ApplyIngredientTitle = styled.div`
     font-size: 18px;
     font-weight: 700;
   }
+`;
 
-  p {
-    width: 280px;
+const PriceAlert = styled.div`
+  position: relative;
+
+  > .info_icon {
+    cursor: pointer;
+  }
+
+  > .price_alert-text {
     position: absolute;
-    padding: 12px;
-    right: 15px;
-    bottom: -343px;
+    width: 273px;
     font-size: 14px;
     font-weight: 400;
+    top: 43px;
+    right: -1px;
+    padding: 12px;
     border-radius: 4px;
-    background-color: #f5f4f3;
+    background: #f5f4f3;
     box-shadow: 0px 0px 8px 0px #00000066;
+
+    > a {
+      text-decoration: underline;
+    }
 
     &::before {
       position: absolute;
       content: '';
-      border: 10px solid transparent;
-      border-bottom: 13px solid #f5f4f3;
-      border-right: 6px solid transparent;
-      border-left: 6px solid transparent;
-      top: -20px;
-      right: 8px;
+      border-top: 0px solid transparent;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 10px solid #f5f4f3;
+      top: -10px;
+      right: 5px;
     }
   }
 `;
