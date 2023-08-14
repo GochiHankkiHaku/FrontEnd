@@ -326,7 +326,7 @@ const PaymentBtnArea = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   padding: 12px 20px 8px 20px;
   border-top: 1px solid #c1c1c1;
   background-color: white;

@@ -165,7 +165,7 @@ const BtnArea = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   gap: 12px;
   padding: 0 20px 32px 20px;
 
