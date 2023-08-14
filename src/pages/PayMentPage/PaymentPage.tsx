@@ -25,31 +25,43 @@ export default function PaymentPage() {
       </Typography>
       <PaymentInfoContainer>
         <MenuArea>
-          <MenuInfoDate>2023. 07. 07</MenuInfoDate>
+          <Typography variant='paragraph' size={2} color={color.gray[9]}>
+            2023. 07. 07
+          </Typography>
           <Line />
           <MenuInfoContent>
             <img className='menu_image' src={fish} />
-            <div className='menu_text'>
-              <div className='menu_text-title'>자리돔 조림</div>
+            <MenuInfoTextArea>
+              <Typography variant='paragraph' size={1} color={color.gray[9]}>
+                자리돔 조림
+              </Typography>
               <div className='menu_text-content'>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
               </div>
-            </div>
+            </MenuInfoTextArea>
           </MenuInfoContent>
         </MenuArea>
         <HostArea>
           <HostInfoContent>
             <PayUser />
-            <div className='host_detail-info'>
+            <HostDetailInfo>
               <div className='name'>개설자 이름</div>
-              <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
-            </div>
+              <Typography variant='paragraph' size={4} color={color.gray[9]}>
+                장소 이름
+              </Typography>
+              <Typography variant='caption' size={2} color={color.gray[6]}>
+                제주 서귀포시 성산읍 고성리 296-8
+              </Typography>
+            </HostDetailInfo>
           </HostInfoContent>
           <Line />
           <TotalPayArea>
-            <div className='total_text'> 모임 비용</div>
-            <div className='total_cost'>20,000원</div>
+            <Typography variant='paragraph' size={2} color={color.gray[11]}>
+              모임 비용
+            </Typography>
+            <Typography variant='title' size={1} color={color.main[1]}>
+              20,000원
+            </Typography>
           </TotalPayArea>
         </HostArea>
       </PaymentInfoContainer>
@@ -88,12 +100,6 @@ const MenuArea = styled.div`
   row-gap: 19px;
 `;
 
-const MenuInfoDate = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  color: #333333;
-`;
-
 const MenuInfoContent = styled.div`
   display: flex;
   gap: 12px;
@@ -104,24 +110,18 @@ const MenuInfoContent = styled.div`
     border-radius: 4px;
     background-color: peachpuff;
   }
+`;
 
-  > .menu_text {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: calc(100% - 12px - 144px);
+const MenuInfoTextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: calc(100% - 12px - 144px);
 
-    > .menu_text-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #333333;
-    }
-
-    > .menu_text-content {
-      font-size: 14px;
-      font-weight: 400;
-      color: #6f6f6f;
-    }
+  > .menu_text-content {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6f6f6f;
   }
 `;
 
@@ -134,39 +134,20 @@ const HostArea = styled.div`
 
 const HostInfoContent = styled.div`
   display: flex;
-  width: 100%;
-  align-items: flex-start;
   gap: 16px;
   padding: 14px 0;
+`;
 
-  > .host_detail-info {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 60px - 16px);
-    gap: 4px;
+const HostDetailInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 60px - 16px);
+  gap: 4px;
 
-    > .name {
-      font-size: 16px;
-      font-weight: 400;
-      color: #333333;
-    }
-
-    > .position_name {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333333;
-    }
-
-    > .address {
-      font-size: 12px;
-      font-weight: 500;
-      color: #8b8b8b;
-    }
-
-    > .host_btn {
-      display: flex;
-      gap: 5px;
-    }
+  > .name {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
   }
 `;
 
@@ -175,18 +156,6 @@ const TotalPayArea = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-
-  > .total_text {
-    font-size: 16px;
-    font-weight: 500;
-    color: #242424;
-  }
-
-  > .total_cost {
-    font-size: 20px;
-    font-weight: 700;
-    color: #ff5c00;
-  }
 `;
 
 const BtnArea = styled.div`

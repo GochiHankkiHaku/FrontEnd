@@ -9,7 +9,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ApplyHeader from 'components/ApplyHeader';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { Button } from 'components/Button';
 
 export default function GatheringApplyPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
