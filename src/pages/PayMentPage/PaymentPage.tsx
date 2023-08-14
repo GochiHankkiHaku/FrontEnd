@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { ReactComponent as PayUser } from 'assets/icons/payUser.svg';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
@@ -8,6 +9,10 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
 export default function PaymentPage() {
+  const location = useLocation();
+  const markerInfo = location.state.location.state.markerInfo;
+  const address = location.state.location.state.address;
+
   return (
     <>
       <ApplyHeader title={'참가비 결제'} />
@@ -33,7 +38,7 @@ export default function PaymentPage() {
             <img className='menu_image' src={fish} />
             <MenuInfoTextArea>
               <Typography variant='paragraph' size={1} color={color.gray[9]}>
-                자리돔 조림
+                {markerInfo.markerMenuname}
               </Typography>
               <div className='menu_text-content'>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
@@ -50,7 +55,7 @@ export default function PaymentPage() {
                 장소 이름
               </Typography>
               <Typography variant='caption' size={2} color={color.gray[6]}>
-                제주 서귀포시 성산읍 고성리 296-8
+                {address}
               </Typography>
             </HostDetailInfo>
           </HostInfoContent>

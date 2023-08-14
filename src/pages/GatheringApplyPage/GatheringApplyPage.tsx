@@ -15,13 +15,19 @@ export default function GatheringApplyPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const markerInfo = location.state.markerInfo;
+  const address = location.state.address;
 
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
 
   const movePaymentPage = () => {
-    navigate('/payment');
+    navigate('/payment', {
+      state: {
+        location,
+      },
+    });
   };
 
   return (
@@ -39,7 +45,7 @@ export default function GatheringApplyPage() {
             <img className='menu_image' />
             <MenuItemTextArea>
               <Typography variant='paragraph' size={1} color={color.gray[9]}>
-                {location.state.markerInfo.markerMenuname}
+                {markerInfo.markerMenuname}
               </Typography>
               <div className='menu_text-content'>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
@@ -67,7 +73,7 @@ export default function GatheringApplyPage() {
                 장소 이름
               </Typography>
               <Typography variant='caption' size={2} color={color.gray[6]}>
-                {location.state.address}
+                {address}
               </Typography>
               <TagArea>
                 <div className='ex'>최고에요 37</div>
