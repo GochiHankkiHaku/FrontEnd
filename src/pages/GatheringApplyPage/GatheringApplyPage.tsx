@@ -27,7 +27,7 @@ export default function GatheringApplyPage() {
       <ApplyHeader>
         <ArrowChevron />
         <div className='apply_header-text'>모임 신청하기</div>
-        <div className='none'></div>
+        <div className='none' />
       </ApplyHeader>
       <ApplyCheckText>어떤 모임인지 확인하세요.</ApplyCheckText>
       <ApplyInfoContainer>
@@ -43,12 +43,12 @@ export default function GatheringApplyPage() {
             </div>
           </ApplyMenuItemContent>
         </ApplyItem>
-        <Divider></Divider>
+        <Divider />
         <ApplyItem>
           <ApplyItemTitle>모임 시간대</ApplyItemTitle>
           <ReservationTime>점심 (12:00 ~ 14:00)</ReservationTime>
         </ApplyItem>
-        <Divider></Divider>
+        <Divider />
         <HostInfo>
           <ApplyItemTitle>개설자 정보</ApplyItemTitle>
           <ApplyHostItemContent>
@@ -64,7 +64,7 @@ export default function GatheringApplyPage() {
             </ApplyHostItemDetailContent>
           </ApplyHostItemContent>
         </HostInfo>
-        <Divider></Divider>
+        <Divider />
         <ApplyItem>
           <ApplyIngredientTitle>
             <div className='price_text'>재료 시세 정보</div>
@@ -125,9 +125,6 @@ const ApplyHeader = styled.div`
   border-bottom: 1px solid #dfdfdf;
 
   > .apply_header-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 16px;
     font-weight: 600;
     color: #333333;
@@ -140,8 +137,6 @@ const ApplyHeader = styled.div`
 `;
 
 const ApplyCheckText = styled.div`
-  display: flex;
-  align-items: center;
   padding: 10px 20px;
   font-size: 20px;
   font-weight: 500;
@@ -208,8 +203,8 @@ const Divider = styled.div`
 
 const ReservationTime = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 18px;
   font-weight: 500;
@@ -336,12 +331,11 @@ const ApplyIngredientItemContent = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-bottom: 80px;
+  padding-bottom: 85px;
 `;
 
 const IngredientItem = styled.li`
   display: flex;
-  align-items: flex-start;
   gap: 8px;
 
   > .profile {
@@ -382,9 +376,6 @@ const PaymentBtnArea = styled.div`
 `;
 
 const PayBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   padding: 12px 20px;
   font-size: 18px;

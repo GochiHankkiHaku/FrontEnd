@@ -100,7 +100,6 @@ const InfoArea = styled.div`
   padding: 12px 0px 0px 0px;
   border: 1px 0px 0px 0px;
   border-top: 1px solid #dfdfdf;
-  /* border: 1px solid red; */
 `;
 
 const Info = styled.div`
@@ -108,7 +107,6 @@ const Info = styled.div`
   flex-direction: column;
   gap: 8px;
   width: 322px;
-  /* border: 1px solid red; */
 
   > .address {
     height: 18px;
