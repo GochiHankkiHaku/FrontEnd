@@ -16,7 +16,7 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
   };
 
   return (
-    <UnderBar ref={infoRef} onClick={moveDetailPage}>
+    <InfowindowContainer ref={infoRef} onClick={moveDetailPage}>
       <TitleArea>
         <div className='title'>{markerInfo.markerMenuname} 요리 모임 합니다.</div>
         <div className='title_state'>
@@ -41,11 +41,11 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
           <ArrowChevron />
         </Arrow>
       </InfoArea>
-    </UnderBar>
+    </InfowindowContainer>
   );
 }
 
-const UnderBar = styled.div`
+const InfowindowContainer = styled.div`
   display: flex;
   flex-direction: column;
   bottom: 0;
@@ -59,6 +59,7 @@ const UnderBar = styled.div`
   border-radius: 8px 8px 0px 0px;
   box-shadow: 0px 0px 8px 0px #00000066;
   gap: 8px;
+  cursor: pointer;
 `;
 
 const TitleArea = styled.div`
