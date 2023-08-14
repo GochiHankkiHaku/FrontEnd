@@ -1,19 +1,28 @@
 import styled from 'styled-components';
-import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { ReactComponent as PayUser } from 'assets/icons/payUser.svg';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
 import fish from 'assets/images/어류.png';
+import ApplyHeader from 'components/ApplyHeader';
+import { Typography } from 'components/Typography';
+import { color } from 'styles/constants';
 
 export default function PaymentPage() {
   return (
     <>
-      <PaymentHeader>
-        <ArrowChevron />
-        <div className='payment_header-text'>참가비 결제</div>
-        <div className='none' />
-      </PaymentHeader>
-      <PaymentCheckText>결제 정보</PaymentCheckText>
+      <ApplyHeader title={'참가비 결제'} />
+      <Typography
+        variant='title'
+        size={3}
+        color={color.gray[9]}
+        mb={20}
+        pt={10}
+        pr={20}
+        pb={10}
+        pl={20}
+      >
+        결제 정보
+      </Typography>
       <PaymentInfoContainer>
         <MenuArea>
           <MenuInfoDate>2023. 07. 07</MenuInfoDate>
@@ -28,7 +37,6 @@ export default function PaymentPage() {
             </div>
           </MenuInfoContent>
         </MenuArea>
-
         <HostArea>
           <HostInfoContent>
             <PayUser />
@@ -58,34 +66,6 @@ export default function PaymentPage() {
     </>
   );
 }
-
-const PaymentHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  height: 44px;
-  border-bottom: 1px solid #dfdfdf;
-
-  > .payment_header-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333333;
-  }
-
-  > .none {
-    width: 24px;
-    height: 24px;
-  }
-`;
-
-const PaymentCheckText = styled.div`
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333333;
-`;
 
 const PaymentInfoContainer = styled.div`
   display: flex;

@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import ApplyHeader from 'components/ApplyHeader';
+import { Typography } from 'components/Typography';
+import { color } from 'styles/constants';
 
 export default function GatheringApplyPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -24,12 +26,10 @@ export default function GatheringApplyPage() {
 
   return (
     <>
-      <ApplyHeader>
-        <ArrowChevron />
-        <div className='apply_header-text'>모임 신청하기</div>
-        <div className='none' />
-      </ApplyHeader>
-      <ApplyCheckText>어떤 모임인지 확인하세요.</ApplyCheckText>
+      <ApplyHeader title={'참가비 결제'} />
+      <Typography variant='title' size={3} color={color.gray[9]} pt={10} pr={20} pb={10} pl={20}>
+        어떤 모임인지 확인하세요.
+      </Typography>
       <ApplyInfoContainer>
         <ApplyItem>
           <ApplyItemTitle>요리 정보</ApplyItemTitle>
@@ -115,33 +115,6 @@ export default function GatheringApplyPage() {
     </>
   );
 }
-
-const ApplyHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  height: 44px;
-  border-bottom: 1px solid #dfdfdf;
-
-  > .apply_header-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333333;
-  }
-
-  > .none {
-    width: 24px;
-    height: 24px;
-  }
-`;
-
-const ApplyCheckText = styled.div`
-  padding: 10px 20px;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333333;
-`;
 
 const ApplyInfoContainer = styled.div`
   display: flex;
