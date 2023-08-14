@@ -58,7 +58,7 @@ export default function GatheringApplyPage() {
           <Typography variant='title' size={5} color={color.gray[9]}>
             모임 시간대
           </Typography>
-          <ReservationTime>점심 (12:00 ~ 14:00)</ReservationTime>
+          <ReservationTime>{markerInfo.markerTime} (12:00 ~ 14:00)</ReservationTime>
         </ApplyItem>
         <Divider />
         <HostInfo>

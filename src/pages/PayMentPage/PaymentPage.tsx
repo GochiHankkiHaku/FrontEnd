@@ -65,7 +65,7 @@ export default function PaymentPage() {
               모임 비용
             </Typography>
             <Typography variant='title' size={1} color={color.main[1]}>
-              20,000원
+              {markerInfo.markerMoney}원
             </Typography>
           </TotalPayArea>
         </HostArea>

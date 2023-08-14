@@ -15,8 +15,10 @@ export default function Map() {
     markerId: 0,
     markerMenuname: '',
     markerDate: '',
+    markerTime: '',
     markerApplication: 0,
     markerNumber: 0,
+    markerMoney: 0,
     markerDistance: 0,
   });
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
@@ -114,8 +116,10 @@ export default function Map() {
             markerId: gatheringData.post_idx,
             markerMenuname: gatheringData.menuname,
             markerDate: gatheringData.date,
+            markerTime: gatheringData.time,
             markerApplication: gatheringData.application,
             markerNumber: gatheringData.number,
+            markerMoney: gatheringData.money,
             markerDistance: Math.floor(gatheringData.DISTANCE * 1000),
           });
           changeAddr(gatheringData.lat, gatheringData.lng);
@@ -138,8 +142,10 @@ export default function Map() {
           markerId: 0,
           markerMenuname: '',
           markerDate: '',
+          markerTime: '',
           markerApplication: 0,
           markerNumber: 0,
+          markerMoney: 0,
           markerDistance: 0,
         });
         setAddress('');
