@@ -9,6 +9,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ApplyHeader from 'components/ApplyHeader';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { Button } from 'components/Button';
 
 export default function GatheringApplyPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,42 +33,56 @@ export default function GatheringApplyPage() {
       </Typography>
       <ApplyInfoContainer>
         <ApplyItem>
-          <ApplyItemTitle>요리 정보</ApplyItemTitle>
+          <Typography variant='title' size={5} color={color.gray[9]}>
+            요리 정보
+          </Typography>
           <ApplyMenuItemContent>
             <img className='menu_image' />
-            <div className='menu_text'>
-              <div className='menu_text-title'>{location.state.markerInfo.markerMenuname}</div>
+            <MenuItemTextArea>
+              <Typography variant='paragraph' size={1} color={color.gray[9]}>
+                {location.state.markerInfo.markerMenuname}
+              </Typography>
               <div className='menu_text-content'>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
               </div>
-            </div>
+            </MenuItemTextArea>
           </ApplyMenuItemContent>
         </ApplyItem>
         <Divider />
         <ApplyItem>
-          <ApplyItemTitle>모임 시간대</ApplyItemTitle>
+          <Typography variant='title' size={5} color={color.gray[9]}>
+            모임 시간대
+          </Typography>
           <ReservationTime>점심 (12:00 ~ 14:00)</ReservationTime>
         </ApplyItem>
         <Divider />
         <HostInfo>
-          <ApplyItemTitle>개설자 정보</ApplyItemTitle>
+          <Typography variant='title' size={5} color={color.gray[9]}>
+            개설자 정보
+          </Typography>
           <ApplyHostItemContent>
             <User1 />
             <ApplyHostItemDetailContent>
               <div className='name'>개설자 이름</div>
-              <div className='position_name'>장소 이름</div>
-              <div className='address'>{location.state.address}</div>
-              <div className='host_btn'>
+              <Typography variant='paragraph' size={2} color={color.gray[9]}>
+                장소 이름
+              </Typography>
+              <Typography variant='caption' size={2} color={color.gray[6]}>
+                {location.state.address}
+              </Typography>
+              <TagArea>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
-              </div>
+              </TagArea>
             </ApplyHostItemDetailContent>
           </ApplyHostItemContent>
         </HostInfo>
         <Divider />
         <ApplyItem>
           <ApplyIngredientTitle>
-            <div className='price_text'>재료 시세 정보</div>
+            <Typography variant='title' size={5} color={color.gray[9]}>
+              재료 시세 정보
+            </Typography>
             <PriceAlert>
               <Info className='info_icon' onClick={openHandler} />
               {isOpen && (
@@ -87,24 +102,36 @@ export default function GatheringApplyPage() {
           <ApplyIngredientItemContent>
             <IngredientItem>
               <img className='profile' src={fish} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>갈치</div>
-                <div className='price_info-cost'>평균 9,000원</div>
-              </div>
+              <PriceInfo>
+                <Typography variant='title' size={5} color={color.gray[9]}>
+                  갈치
+                </Typography>
+                <Typography variant='paragraph' size={2} color={color.gray[9]}>
+                  평균 9,000원
+                </Typography>
+              </PriceInfo>
             </IngredientItem>
             <IngredientItem>
               <img className='profile' src={vege} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>무</div>
-                <div className='price_info-cost'>평균 3,000원</div>
-              </div>
+              <PriceInfo>
+                <Typography variant='title' size={5} color={color.gray[9]}>
+                  무
+                </Typography>
+                <Typography variant='paragraph' size={2} color={color.gray[9]}>
+                  평균 3,000원
+                </Typography>
+              </PriceInfo>
             </IngredientItem>
             <IngredientItem>
               <img className='profile' src={grain} />
-              <div className='price_info'>
-                <div className='price_info-menuname'>흰쌀밥 (200g)</div>
-                <div className='price_info-cost'>평균 2,000원</div>
-              </div>
+              <PriceInfo>
+                <Typography variant='title' size={5} color={color.gray[9]}>
+                  흰쌀밥 (200g)
+                </Typography>
+                <Typography variant='paragraph' size={2} color={color.gray[9]}>
+                  평균 2,000원
+                </Typography>
+              </PriceInfo>
             </IngredientItem>
           </ApplyIngredientItemContent>
         </ApplyItem>
@@ -131,12 +158,6 @@ const ApplyItem = styled.div`
   padding: 10px 19.5px;
 `;
 
-const ApplyItemTitle = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  color: #333333;
-`;
-
 const ApplyMenuItemContent = styled.div`
   display: flex;
   gap: 12px;
@@ -147,24 +168,18 @@ const ApplyMenuItemContent = styled.div`
     border-radius: 4px;
     background-color: peachpuff;
   }
+`;
 
-  > .menu_text {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    width: calc(100% - 12px - 144px);
+const MenuItemTextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: calc(100% - 12px - 144px);
 
-    > .menu_text-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #333333;
-    }
-
-    > .menu_text-content {
-      font-size: 14px;
-      font-weight: 400;
-      color: #6f6f6f;
-    }
+  > .menu_text-content {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6f6f6f;
   }
 `;
 
@@ -215,40 +230,28 @@ const ApplyHostItemDetailContent = styled.div`
     font-weight: 400;
     color: #333333;
   }
+`;
 
-  > .position_name {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333333;
+const TagArea = styled.div`
+  display: flex;
+  gap: 5px;
+
+  > .ex {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ff5c00;
+    padding: 4.5px 12px;
+    border-radius: 70px;
+    border: 1px solid #c1c1c1;
   }
 
-  > .address {
-    font-size: 12px;
-    font-weight: 500;
-    color: #8b8b8b;
-  }
-
-  > .host_btn {
-    display: flex;
-    gap: 5px;
-
-    > .ex {
-      font-size: 10px;
-      font-weight: 600;
-      color: #ff5c00;
-      padding: 4.5px 12px;
-      border-radius: 70px;
-      border: 1px solid #c1c1c1;
-    }
-
-    > .good {
-      font-size: 10px;
-      font-weight: 600;
-      color: #ffa51f;
-      padding: 4.5px 12px;
-      border-radius: 70px;
-      border: 1px solid #c1c1c1;
-    }
+  > .good {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ffa51f;
+    padding: 4.5px 12px;
+    border-radius: 70px;
+    border: 1px solid #c1c1c1;
   }
 `;
 
@@ -256,12 +259,6 @@ const ApplyIngredientTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  > .price_text {
-    color: #333333;
-    font-size: 18px;
-    font-weight: 700;
-  }
 `;
 
 const PriceAlert = styled.div`
@@ -317,25 +314,13 @@ const IngredientItem = styled.li`
     background-color: #aed8ff;
     border-radius: 4px;
   }
+`;
 
-  > .price_info {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 80px - 8px);
-    gap: 4px;
-
-    > .price_info-menuname {
-      font-size: 18px;
-      font-weight: 600;
-      color: #333333;
-    }
-
-    > .price_info-cost {
-      font-size: 16px;
-      font-weight: 500;
-      color: #333333;
-    }
-  }
+const PriceInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 80px - 8px);
+  gap: 4px;
 `;
 
 const PaymentBtnArea = styled.div`
