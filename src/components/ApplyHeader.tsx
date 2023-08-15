@@ -3,12 +3,13 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg
 
 interface ApplyHeaderProps {
   title: string;
+  movePageHandler: () => void;
 }
 
-export default function ApplyHeader({ title }: ApplyHeaderProps) {
+export default function ApplyHeader({ title, movePageHandler }: ApplyHeaderProps) {
   return (
     <Header>
-      <ArrowChevron />
+      <ArrowChevron className='back_button' onClick={movePageHandler} />
       <HeaderTitle>{title}</HeaderTitle>
       <None className='none' />
     </Header>
@@ -22,6 +23,10 @@ const Header = styled.div`
   padding: 10px 20px;
   height: 44px;
   border-bottom: 1px solid #dfdfdf;
+
+  > .back_button {
+    cursor: pointer;
+  }
 `;
 
 const HeaderTitle = styled.div`

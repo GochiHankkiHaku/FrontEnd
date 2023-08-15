@@ -22,6 +22,10 @@ export default function GatheringApplyPage() {
     setIsOpen(!isOpen);
   };
 
+  const moveMapPage = () => {
+    navigate(-1);
+  };
+
   const movePaymentPage = () => {
     navigate('/payment', {
       state: {
@@ -32,7 +36,7 @@ export default function GatheringApplyPage() {
 
   return (
     <>
-      <ApplyHeader title={'참가비 결제'} />
+      <ApplyHeader title={'참가비 결제'} movePageHandler={moveMapPage} />
       <Typography variant='title' size={3} color={color.gray[9]} pt={10} pr={20} pb={10} pl={20}>
         어떤 모임인지 확인하세요.
       </Typography>

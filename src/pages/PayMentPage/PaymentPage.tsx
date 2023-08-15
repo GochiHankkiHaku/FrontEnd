@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ReactComponent as PayUser } from 'assets/icons/payUser.svg';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
@@ -9,13 +9,18 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
 export default function PaymentPage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const markerInfo = location.state.location.state.markerInfo;
   const address = location.state.location.state.address;
 
+  const moveDetailPage = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <ApplyHeader title={'참가비 결제'} />
+      <ApplyHeader title={'참가비 결제'} movePageHandler={moveDetailPage} />
       <Typography
         variant='title'
         size={3}
