@@ -45,9 +45,9 @@ export default function PaymentPage() {
               <Typography variant='paragraph' size={1} color={color.gray[9]}>
                 {markerInfo.markerMenuname}
               </Typography>
-              <div className='menu_text-content'>
+              <Typography variant='paragraph' size={7} color={color.gray[7]}>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
-              </div>
+              </Typography>
             </MenuInfoTextArea>
           </MenuInfoContent>
         </MenuArea>
@@ -55,7 +55,9 @@ export default function PaymentPage() {
           <HostInfoContent>
             <PayUser />
             <HostDetailInfo>
-              <div className='name'>개설자 이름</div>
+              <Typography variant='paragraph' size={3} color={color.gray[9]}>
+                개설자 이름
+              </Typography>
               <Typography variant='paragraph' size={4} color={color.gray[9]}>
                 장소 이름
               </Typography>
@@ -127,12 +129,6 @@ const MenuInfoTextArea = styled.div`
   flex-direction: column;
   gap: 10px;
   width: calc(100% - 12px - 144px);
-
-  > .menu_text-content {
-    font-size: 14px;
-    font-weight: 400;
-    color: #6f6f6f;
-  }
 `;
 
 const HostArea = styled.div`
@@ -153,12 +149,6 @@ const HostDetailInfo = styled.div`
   flex-direction: column;
   width: calc(100% - 60px - 16px);
   gap: 4px;
-
-  > .name {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333333;
-  }
 `;
 
 const TotalPayArea = styled.div`

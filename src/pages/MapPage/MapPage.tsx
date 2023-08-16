@@ -189,12 +189,12 @@ export default function Map() {
 const MapHeader = styled.div`
   display: flex;
   align-items: center;
-  height: 70px;
-  padding: 20px;
+  height: 50px;
+  padding: 10px 20px;
   border-bottom: 1px solid #333333;
 
   > .header_title {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
     line-height: 30px;
     color: #333333;
@@ -203,7 +203,7 @@ const MapHeader = styled.div`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 70px - 80px);
+  height: calc(100vh - 50px - 80px);
 `;
 
 const BtnArea = styled.div`
@@ -211,7 +211,7 @@ const BtnArea = styled.div`
   column-gap: 8px;
   position: absolute;
   left: 20px;
-  top: 15px;
+  top: 16px;
   z-index: 999;
 `;
 
