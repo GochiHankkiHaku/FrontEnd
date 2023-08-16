@@ -18,6 +18,10 @@ export default function PaymentPage() {
     navigate(-1);
   };
 
+  const moveMainPage = () => {
+    navigate('/main');
+  };
+
   return (
     <>
       <ApplyHeader title={'참가비 결제'} movePageHandler={moveDetailPage} />
@@ -78,7 +82,7 @@ export default function PaymentPage() {
         </HostArea>
       </PaymentInfoContainer>
       <BtnArea>
-        <button className='pay'>
+        <button className='pay' onClick={moveMainPage}>
           <Kakaopay />
           <div>pay 결제</div>
         </button>
