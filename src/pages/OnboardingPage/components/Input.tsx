@@ -7,24 +7,31 @@ interface InputProps {
   onChange: React.ChangeEventHandler;
   placeholder?: string;
   children?: React.ReactNode;
+  isError?: boolean;
 }
-export default function Input({ value, onChange, placeholder, children }: InputProps) {
+export default function Input({
+  value,
+  onChange,
+  placeholder,
+  isError = false,
+  children,
+}: InputProps) {
   return (
-    <InputContainer>
+    <InputContainer $isError={isError}>
       <InputBox type='text' value={value} onChange={onChange} placeholder={placeholder} />
       {children}
     </InputContainer>
   );
 }
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ $isError: boolean }>`
   position: relative;
 
   width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
-  border: 1px solid ${color.gray[4]};
+  border: 1px solid ${({ $isError }) => ($isError ? color.alert : color.gray[4])};
   border-radius: 8px;
   padding: 11px 20px;
 

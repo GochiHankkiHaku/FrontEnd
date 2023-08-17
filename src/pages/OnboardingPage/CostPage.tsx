@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ChangeEvent, useState } from 'react';
-import { toast } from 'react-toastify';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 import HelperText from './components/HelperText';
@@ -19,12 +18,6 @@ const formatPrice = (value: string) => {
 
 export default function CostPage() {
   const { goNextPage } = usePage();
-
-  const notify = () => {
-    toast.success('모임이 생성되었습니다 !', {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   const [price, setPrice] = useState('');
 

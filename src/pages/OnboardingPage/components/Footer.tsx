@@ -9,6 +9,7 @@ interface FooterProps {
   saveLater?: boolean;
   onClick?: VoidFunction;
   btnText?: string;
+  btnColor?: string;
 }
 
 export default function Footer({
@@ -16,6 +17,7 @@ export default function Footer({
   onClick,
   saveLater = false,
   btnText = '다음으로',
+  btnColor = color.main[2],
 }: FooterProps) {
   return (
     <>
@@ -27,7 +29,7 @@ export default function Footer({
             </Typography>
           </LaterBtn>
         )}
-        <Button isDisabled={isDisabled} col='white' bgCol={color.main[2]} onClick={onClick}>
+        <Button isDisabled={isDisabled} col='white' bgCol={btnColor} onClick={onClick}>
           {btnText}
         </Button>
       </BtnWrap>

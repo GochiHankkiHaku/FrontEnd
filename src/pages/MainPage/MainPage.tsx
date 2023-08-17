@@ -10,7 +10,6 @@ import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { flexSet } from 'styles/minxin';
 import CustomToast from 'components/CustomToast';
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'components/Spinner';
 
