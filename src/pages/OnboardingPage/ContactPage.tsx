@@ -21,13 +21,13 @@ export default function ContactPage() {
         <Typography variant='title' size={3} color={color.gray[9]} mb={3}>
           연락처를 작성해주세요.
         </Typography>
-        <Typography variant='paragraph' size={6} color={color.gray[6]} mb={30}>
+        <Typography variant='paragraph' size={5} color={color.gray[6]} mb={30}>
           참가자들에게 연락을 받을 수 있는
           <br /> 카카오톡 ID / 오픈 채팅방/ 전화번호 중 하나를 작성해주세요.
         </Typography>
         <SelectBox options={options} />
         <InputWrap>
-          <Input value={input} onChange={handleChangeInput} placeholder='연락처 입력' />
+          <Input value={input} onChange={handleChangeInput} placeholder={`연락처 입력`} />
         </InputWrap>
         <HelperText>연락처 오류 시, 모임 참여에 불이익이 발생할 수 있습니다.</HelperText>
       </Wrap>
@@ -52,5 +52,5 @@ const Wrap = styled.div`
 `;
 
 const InputWrap = styled.div`
-  margin: 30px 0;
+  margin: 12px 0 30px 0;
 `;

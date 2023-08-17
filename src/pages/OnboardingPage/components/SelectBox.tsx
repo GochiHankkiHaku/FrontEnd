@@ -96,7 +96,7 @@ const Option = styled.div`
   justify-content: space-between;
 
   padding: 11.5px 20px;
-  padding-left: 50px;
+  padding-left: 40px;
   ${typoStyles(typograpy.title[6])}
   cursor: pointer;
   &:hover {
@@ -110,5 +110,5 @@ const Option = styled.div`
 
 const Checked = styled.span`
   position: absolute;
-  left: 20px;
+  left: 12px;
 `;
