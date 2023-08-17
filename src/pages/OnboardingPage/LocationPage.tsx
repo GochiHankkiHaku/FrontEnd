@@ -6,25 +6,46 @@ import Input from './components/Input';
 import { GrayBorderBtnStyle } from './utils/mixins';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
+import { ReactComponent as GeolocationIcon } from 'assets/icons/geolocation.svg';
+import { useAddress } from './hooks/useAddress';
+import { Address } from 'react-daum-postcode';
+import { useState } from 'react';
 
 export default function LocationPage() {
   const { goNextPage } = usePage();
+  const { open, handleComplete } = useAddress();
+  const [address, setAddress] = useState('장소 정보 내용');
 
-  const { input, handleChangeInput } = useInput();
+  const { input: businessNumber, handleChangeInput: handleChangeBusinessNumber } = useInput();
+  const { input: detailAddress, handleChangeInput: handleChangeDetailAddress } = useInput();
+
+  const handleFindLocation = () => {
+    open({
+      onComplete: (address: Address) => {
+        handleComplete(address, setAddress);
+      },
+    });
+  };
   return (
     <>
       <Wrap>
         <Typography variant='title' size={3} color={color.gray[9]} mb={24}>
           어디서 식사하나요?
         </Typography>
-        <Input value={input} onChange={handleChangeInput} placeholder='사업자 번호 입력' />
-        <LocationBtn>
+        <Input
+          value={businessNumber}
+          onChange={handleChangeBusinessNumber}
+          placeholder='사업자 번호 입력'
+        />
+        <LocationBtn onClick={handleFindLocation}>
+          <GeolocationIcon />
           <Typography variant='paragraph' size={3}>
-            장소 정보 내용
+            {address}
           </Typography>
         </LocationBtn>
+        <Input value={detailAddress} onChange={handleChangeDetailAddress} placeholder='상세 장소' />
       </Wrap>
-      <Footer onClick={() => goNextPage()} />
+      <Footer saveLater onClick={() => goNextPage()} />
     </>
   );
 }
@@ -35,7 +56,14 @@ const Wrap = styled.div`
 `;
 
 const LocationBtn = styled.button`
-  margin-top: 12px;
+  margin: 12px 0;
+
+  display: flex;
+  gap: 10px;
 
   ${GrayBorderBtnStyle()}
+
+  &:hover {
+    filter: brightness(95%);
+  }
 `;
