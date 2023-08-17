@@ -7,11 +7,18 @@ import { Address } from 'react-daum-postcode';
 import { ReactComponent as GeolocationIcon } from 'assets/icons/geolocation.svg';
 import Input from './Input';
 import { GrayBorderBtnStyle } from '../utils/mixins';
+import { useFormStore } from '../store/formStore';
 
 export default function Location() {
   const { open, handleComplete } = useAddress();
-  const [address, setAddress] = useState('장소 정보 내용');
-  const { input: detailAddress, handleChangeInput: handleChangeDetailAddress } = useInput();
+  const address = useFormStore((state) => state.address);
+  const setAddress = useFormStore((state) => state.setAddress);
+  const detailAddress = useFormStore((state) => state.detailAddress);
+  const setDetailAddress = useFormStore((state) => state.setDetailAddress);
+
+  const handleChangeDetailAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDetailAddress(e.currentTarget.value);
+  };
 
   const handleFindLocation = () => {
     open({

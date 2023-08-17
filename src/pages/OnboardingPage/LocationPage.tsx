@@ -1,16 +1,37 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { useInput } from 'common/hooks/useInput';
 import Input from './components/Input';
-import { GrayBorderBtnStyle } from './utils/mixins';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
 import Location from './components/Location';
+import { toast } from 'react-toastify';
+import CustomToast from 'components/CustomToast';
+import { DEFAULT_ADDRESS, useFormStore } from './store/formStore';
 
 export default function LocationPage() {
   const { goNextPage } = usePage();
-  const { input: businessNumber, handleChangeInput: handleChangeBusinessNumber } = useInput();
+
+  const businessNumber = useFormStore((state) => state.businessNumber);
+  const setBusinessNumber = useFormStore((state) => state.setBusinessNumber);
+  const address = useFormStore((state) => state.address);
+  const detailAddress = useFormStore((state) => state.detailAddress);
+
+  const handleChangeBusinessNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusinessNumber(e.currentTarget.value);
+  };
+
+  const error = {
+    businessNumber: businessNumber.length === 0 && '사업자 등록 번호를 입력해주세요',
+    address: address === DEFAULT_ADDRESS && '주소를 선택해주세요',
+    detailAddress: detailAddress.length === 0 && '상세주소를 입력해주세요',
+  };
+
+  const notify = () => {
+    toast.error(error.businessNumber || error.address || error.detailAddress, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
 
   return (
     <>
@@ -25,7 +46,18 @@ export default function LocationPage() {
         />
         <Location />
       </Wrap>
-      <Footer saveLater onClick={() => goNextPage()} />
+      <Footer
+        saveLater
+        onClick={() => {
+          console.log('error :>> ', error);
+          if (Object.values(error).every((value) => !value)) {
+            goNextPage();
+            return;
+          }
+          notify();
+        }}
+      />
+      <CustomToast hideProggressBar={false} />
     </>
   );
 }
