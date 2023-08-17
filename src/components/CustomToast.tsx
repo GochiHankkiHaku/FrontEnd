@@ -1,19 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Slide, toast, ToastContainer } from 'react-toastify';
+import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { color, radius } from 'styles/constants';
 
-export default function CustomToast() {
+interface CustomToastProps {
+  hideProggressBar?: boolean;
+}
+export default function CustomToast({ hideProggressBar = true }: CustomToastProps) {
   return (
     <Wrap>
       <ToastContainer
         closeButton={false}
         position='bottom-center'
         autoClose={2000}
-        hideProgressBar={true}
+        hideProgressBar={hideProggressBar}
         theme='dark'
         transition={Slide}
+        className={'custom-toast-position'}
       />
     </Wrap>
   );
@@ -48,5 +52,10 @@ const Wrap = styled.div`
     border-radius: ${radius[8]}px;
     font-size: 16px;
     font-weight: 500;
+  }
+
+  .custom-toast-position {
+    /* top: 50px !important; */
+    bottom: 80px !important;
   }
 `;
