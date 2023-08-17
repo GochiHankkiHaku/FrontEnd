@@ -31,8 +31,8 @@ export const Router = (): React.ReactElement => {
         <Route path={`${PATH.cook}`} element={<CookPage />} />
         <Route path={`${PATH.cost}`} element={<CostPage />} />
         <Route path={`${PATH.contact}`} element={<ContactPage />} />
-        <Route path='recheck' element={<RecheckPage />} />
       </Route>
+      <Route path={`/${PATH.recheck}`} element={<RecheckPage />} />
       <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<SearchPage />} />

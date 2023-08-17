@@ -34,7 +34,7 @@ export default function ContactPage() {
       <Footer
         btnText='완료하기'
         onClick={() => {
-          navigate(`/${PATH.main}`);
+          navigate(`/${PATH.recheck}`);
         }}
       />
     </>

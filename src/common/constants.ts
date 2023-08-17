@@ -11,6 +11,7 @@ export const PATH = {
   cost: 'cost',
   contact: 'contact',
   main: 'main',
+  recheck: 'recheck',
 } as const;
 
 export const MAXWIDTH = 400;
