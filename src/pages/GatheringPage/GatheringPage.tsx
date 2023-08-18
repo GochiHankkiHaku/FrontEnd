@@ -22,17 +22,19 @@ export default function GatheringPage() {
         <div className='header_title'>모임 정보</div>
       </MapHeader>
       <ListArea>
-        <GatheringLabel>
-          <Typography variant='title' size={5} color={color.white}>
-            현재 모임
-          </Typography>
-        </GatheringLabel>
+        {notDoneData.length !== 0 && (
+          <GatheringLabel>
+            <Typography variant='title' size={5} color={color.white}>
+              현재 모임
+            </Typography>
+          </GatheringLabel>
+        )}
         <GatheringCompleteListArea>
           {notDoneData.map((value: any, index: number) => {
             return <GatheringItem list={value} key={index} />;
           })}
         </GatheringCompleteListArea>
-        <Divider />
+        {notDoneData.length !== 0 && <Divider />}
         <GatheringListArea>
           {groupedDoneData.map((value: any, index: number) => {
             return <GroupedGatheringItem list={value} key={index} />;
@@ -61,15 +63,12 @@ const MapHeader = styled.div`
 `;
 
 const ListArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 36px;
   padding: 0 20px;
 `;
 
 const GatheringLabel = styled.div`
   height: 43px;
-  margin-bottom: -20px;
+  margin-bottom: 16px;
   padding: 8px 12px;
   border-bottom: 1px solid ${color.gray[3]};
   border-radius: 12px 12px 0px 0px;
@@ -87,6 +86,7 @@ const GatheringCompleteListArea = styled.ul`
 const Divider = styled.div`
   width: 100%;
   height: 14px;
+  margin: 36px 0;
   background-color: #f5f4f3;
 
   &:last-child {
