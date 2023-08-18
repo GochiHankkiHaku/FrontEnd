@@ -16,8 +16,8 @@ export default function GatheringItem({ list }: any) {
 
   return (
     <ItemWrap onClick={moveDetailPage}>
-      <Typography variant='paragraph' size={1} color={color.active}>
-        모임 완료
+      <Typography variant='paragraph' size={1} color={color.complete}>
+        {list.gathering_state}
       </Typography>
       <MenuInfoArea>
         <MenuImg />
@@ -45,12 +45,6 @@ const ItemWrap = styled.div`
   font-size: 15px;
 
   /* border: 1px solid green; */
-`;
-
-const GatheringState = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-  color: #128fe9;
 `;
 
 const MenuInfoArea = styled.div`

@@ -10,7 +10,8 @@
       "number": 2,
       "lat": 37.505385,
       "lng": 126.942561,
-      "money": 20000
+      "money": 20000,
+      "gathering_state": "모임 중"
     },
     {
       "post_idx": 2,
@@ -22,11 +23,12 @@
       "number": 5,
       "lat": 37.505819,
       "lng": 126.946506,
-      "money": 30000
+      "money": 30000,
+      "gathering_state": "모임 중"
     },
     {
       "post_idx": 3,
-      "gathering_date": "2023. 07. 05",
+      "gathering_date": "2023. 07. 07",
       "menuname": "피자",
       "date": "내일",
       "time": "점심",
@@ -34,7 +36,8 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000
+      "money": 40000,
+      "gathering_state": "모임 완료"
     },
     {
       "post_idx": 4,
@@ -46,7 +49,8 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000
+      "money": 40000,
+      "gathering_state": "모임 완료"
     },
     {
       "post_idx": 5,
@@ -58,7 +62,8 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000
+      "money": 40000,
+      "gathering_state": "모임 완료"
     },
     {
       "post_idx": 6,
@@ -70,7 +75,8 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000
+      "money": 40000,
+      "gathering_state": "모임 완료"
     }
   ]
 }
