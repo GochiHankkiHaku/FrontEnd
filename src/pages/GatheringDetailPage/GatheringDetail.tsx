@@ -7,31 +7,35 @@ import { ReactComponent as User3 } from 'assets/icons/user3.svg';
 import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useChangeAddr } from 'pages/MapPage/hooks/useChangeAddr';
 
-export default function GatheringDetail({ list }: any) {
+export default function GatheringDetail() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const location = useLocation();
+  const detailInfo = location.state.list;
+  const { address, changeAddr } = useChangeAddr();
+  changeAddr(detailInfo.lat, detailInfo.lng);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
+
+  // console.log(location.state.list);
 
   return (
     <DetailContainer>
       <DetailHeader>모임 정보</DetailHeader>
       <DetailInfo>
         <MenuInfo>
-          <GatheringDate>2023. 07. 07</GatheringDate>
-          <GatheringTitle>{list.menuname} 요리 모집</GatheringTitle>
+          <GatheringDate>{detailInfo.gathering_date}</GatheringDate>
+          <GatheringTitle>{detailInfo.menuname} 요리 모집</GatheringTitle>
           <MenuInfoContent>
             <img className='menu_image' src={fish} />
             <div className='menu_text'>
-              <div className='menu_text-title'>자라돔조림</div>
-              <div>
-                제주 연안에 서식하는 자리돔을 간장
-                <br />
-                으로 졸인 음식
-              </div>
+              <div className='menu_text-title'>{detailInfo.menuname}</div>
+              <div>제주 연안에 서식하는 자리돔을 간장으로 졸인 음식</div>
             </div>
           </MenuInfoContent>
         </MenuInfo>
@@ -43,7 +47,7 @@ export default function GatheringDetail({ list }: any) {
             <div className='host_detail-info'>
               <div className='name'>개설자 이름</div>
               <div className='position_name'>장소 이름</div>
-              <div className='address'>제주 서귀포시 성산읍 고성리 296-8</div>
+              <div className='address'>{address}</div>
               <div className='host_btn'>
                 <div className='ex'>최고에요 37</div>
                 <div className='good'>좋아요 15</div>
