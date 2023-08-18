@@ -1,12 +1,23 @@
 import styled from 'styled-components';
+import GroupedGatheringItem from './components/GroupedGatheringItem';
+import { useFetch } from 'pages/MapPage/hooks/useFetch';
+import { groupedDate } from './utils/helperFunc/groupedDate';
 
 export default function GatheringListPage() {
+  const gatheringData = useFetch();
+  const groupedGatheringData = groupedDate(gatheringData);
+
   return (
-    <Test>
+    <>
       <MapHeader>
         <div className='header_title'>모임 정보</div>
       </MapHeader>
-    </Test>
+      <ListArea>
+        {groupedGatheringData.map((value: any, index: number) => {
+          return <GroupedGatheringItem list={value} key={index} />;
+        })}
+      </ListArea>
+    </>
   );
 }
 
@@ -26,4 +37,13 @@ const MapHeader = styled.div`
     line-height: 30px;
     color: #333333;
   }
+`;
+
+const ListArea = styled.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  padding: 20px;
+
+  border: 1px solid red;
 `;

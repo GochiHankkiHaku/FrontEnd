@@ -1,6 +1,8 @@
 {
   "info": [
     {
+      "post_idx": 1,
+      "gathering_date": "2023. 07. 07",
       "menuname": "자리돔조림",
       "date": "오늘",
       "time": "아침",
@@ -8,10 +10,11 @@
       "number": 2,
       "lat": 37.505385,
       "lng": 126.942561,
-      "money": 20000,
-      "post_idx": 1
+      "money": 20000
     },
     {
+      "post_idx": 2,
+      "gathering_date": "2023. 07. 05",
       "menuname": "구살국",
       "date": "내일",
       "time": "저녁",
@@ -19,10 +22,11 @@
       "number": 5,
       "lat": 37.505819,
       "lng": 126.946506,
-      "money": 30000,
-      "post_idx": 2
+      "money": 30000
     },
     {
+      "post_idx": 3,
+      "gathering_date": "2023. 07. 05",
       "menuname": "피자",
       "date": "내일",
       "time": "점심",
@@ -30,8 +34,43 @@
       "number": 4,
       "lat": 37.505383,
       "lng": 126.94532,
-      "money": 40000,
-      "post_idx": 3
+      "money": 40000
+    },
+    {
+      "post_idx": 4,
+      "gathering_date": "2023. 07. 03",
+      "menuname": "치킨",
+      "date": "내일",
+      "time": "점심",
+      "application": 3,
+      "number": 4,
+      "lat": 37.505383,
+      "lng": 126.94532,
+      "money": 40000
+    },
+    {
+      "post_idx": 5,
+      "gathering_date": "2023. 07. 03",
+      "menuname": "햄버거",
+      "date": "내일",
+      "time": "점심",
+      "application": 3,
+      "number": 4,
+      "lat": 37.505383,
+      "lng": 126.94532,
+      "money": 40000
+    },
+    {
+      "post_idx": 6,
+      "gathering_date": "2023. 07. 01",
+      "menuname": "소고기",
+      "date": "내일",
+      "time": "점심",
+      "application": 3,
+      "number": 4,
+      "lat": 37.505383,
+      "lng": 126.94532,
+      "money": 40000
     }
   ]
 }

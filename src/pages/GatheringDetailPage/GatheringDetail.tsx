@@ -9,7 +9,7 @@ import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
 import { Link } from 'react-router-dom';
 
-export default function GatheringDetail() {
+export default function GatheringDetail({ list }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openHandler = () => {
@@ -22,7 +22,7 @@ export default function GatheringDetail() {
       <DetailInfo>
         <MenuInfo>
           <GatheringDate>2023. 07. 07</GatheringDate>
-          <GatheringTitle>자리돔조림 요리 모집</GatheringTitle>
+          <GatheringTitle>{list.menuname} 요리 모집</GatheringTitle>
           <MenuInfoContent>
             <img className='menu_image' src={fish} />
             <div className='menu_text'>
