@@ -3,7 +3,7 @@ import Infowindow from './components/infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/helperFunc/calDistanceFunc';
-import { useFetch } from './hooks/useFetch';
+import { useFetch } from '../../common/hooks/useFetch';
 import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
 

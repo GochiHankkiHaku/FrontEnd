@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import GroupedGatheringItem from './components/GroupedGatheringItem';
-import { useFetch } from 'pages/MapPage/hooks/useFetch';
+import { useFetch } from 'common/hooks/useFetch';
 import { groupedDate } from './utils/helperFunc/groupedDate';
 
 export default function GatheringListPage() {
