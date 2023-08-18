@@ -21,10 +21,6 @@ export default function GatheringPage() {
   );
 }
 
-const Test = styled.div`
-  /* border: 1px solid red; */
-`;
-
 const MapHeader = styled.div`
   display: flex;
   align-items: center;
@@ -42,8 +38,8 @@ const MapHeader = styled.div`
 const ListArea = styled.ul`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
-  padding: 20px;
+  row-gap: 36px;
+  padding: 20px 20px 56px 20px;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
