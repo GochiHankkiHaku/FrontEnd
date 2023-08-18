@@ -16,8 +16,8 @@ import OnBoardingLayout from './OnboardingPage/OnBoardingLayout';
 import { PATH } from 'common/constants';
 import LocationPage from './OnboardingPage/LocationPage';
 import ContactPage from './OnboardingPage/ContactPage';
-import GatheringListPage from './GatheringDetailPage/GatheringListPage';
-import GatheringDetail from './GatheringDetailPage/GatheringDetail';
+import GatheringPage from './GatheringPage/GatheringPage';
+import GatheringDetailPage from './GatheringDetailPage/GatheringDetailPage';
 
 export const Router = (): React.ReactElement => {
   return (
@@ -35,8 +35,8 @@ export const Router = (): React.ReactElement => {
       <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
         <Route path='map' element={<MapPage />} />
-        <Route path='gathering' element={<GatheringListPage />} />
-        <Route path={'gathering/:post_idx'} element={<GatheringDetail />} />
+        <Route path='gathering' element={<GatheringPage />} />
+        <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
       </Route>
       <Route path={'/detail/:post_idx'} element={<GatheringApplyPage />} />
       <Route path={'/payment'} element={<PaymentPage />} />

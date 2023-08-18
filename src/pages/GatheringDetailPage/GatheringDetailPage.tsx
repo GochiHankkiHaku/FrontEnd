@@ -10,7 +10,7 @@ import grain from 'assets/images/곡류.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useChangeAddr } from 'pages/MapPage/hooks/useChangeAddr';
 
-export default function GatheringDetail() {
+export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const location = useLocation();

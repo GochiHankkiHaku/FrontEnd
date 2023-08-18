@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import GroupedGatheringItem from './components/GroupedGatheringItem';
+import GroupedGatheringItem from '../GatheringDetailPage/components/GroupedGatheringItem';
 import { useFetch } from 'common/hooks/useFetch';
 import { groupedDate } from './utils/helperFunc/groupedDate';
 
-export default function GatheringListPage() {
+export default function GatheringPage() {
   const gatheringData = useFetch();
   const groupedGatheringData = groupedDate(gatheringData);
 
