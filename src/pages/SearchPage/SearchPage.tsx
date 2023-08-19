@@ -9,7 +9,7 @@ import { useChangeAddr } from './hooks/useChangeAddr';
 
 const { kakao }: any = window;
 
-export default function Map() {
+export default function SearchPage() {
   const [markers, setMarkers] = useState<any>([]);
   const [markerInfo, setMarkerInfo] = useState<any>({
     markerId: 0,
