@@ -6,7 +6,7 @@ import CookPage from './OnboardingPage/CookPage';
 import RecheckPage from './OnboardingPage/RecheckPage';
 import MainPage from './MainPage/MainPage';
 import SearchPage from './SearchPage/SearchPage';
-import GatheringApplyPage from './GatheringApplyPage/GatheringApplyPage';
+import SearchDetailPage from './SearchPage/SearchDetailPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
 import PaymentPage from './PayMentPage/PaymentPage';
@@ -38,7 +38,7 @@ export const Router = (): React.ReactElement => {
         <Route path='gathering' element={<GatheringPage />} />
         <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
       </Route>
-      <Route path={'/detail/:post_idx'} element={<GatheringApplyPage />} />
+      <Route path={'/detail/:post_idx'} element={<SearchDetailPage />} />
       <Route path={'/payment'} element={<PaymentPage />} />
       <Route path={'/review'} element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}

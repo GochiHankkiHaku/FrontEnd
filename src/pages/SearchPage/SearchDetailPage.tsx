@@ -10,7 +10,7 @@ import ApplyHeader from 'components/ApplyHeader';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
-export default function GatheringApplyPage() {
+export default function SearchDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
