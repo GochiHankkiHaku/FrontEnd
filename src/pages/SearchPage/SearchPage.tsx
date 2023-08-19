@@ -29,7 +29,7 @@ export default function SearchPage() {
 
   const { currentMyLocation, locationLoading } = useGeolocation();
   const gatheringData = useFetch();
-  const { address, setAddress, changeAddr } = useChangeAddr();
+  const { address, changeAddr } = useChangeAddr();
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
@@ -125,17 +125,6 @@ export default function SearchPage() {
   useEffect(() => {
     const handleOutsideClose = (e: MouseEvent) => {
       if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
-        setMarkerInfo({
-          markerId: 0,
-          markerMenuname: '',
-          markerDate: '',
-          markerTime: '',
-          markerApplication: 0,
-          markerNumber: 0,
-          markerMoney: 0,
-          markerDistance: 0,
-        });
-        setAddress('');
         setIsInfoOpen(false);
       }
     };
