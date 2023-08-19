@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Infowindow from './components/infowindow';
+import Infowindow from './components/Infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { InfowindowProps } from '../utils/interface';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
+import { Typography } from 'components/Typography';
+import { color } from 'styles/constants';
 
 export default function Infowindow({ infoRef, markerInfo, address }: InfowindowProps) {
   const navigate = useNavigate();
@@ -17,176 +19,102 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
 
   return (
     <InfowindowContainer ref={infoRef} onClick={moveDetailPage}>
-      <TitleArea>
-        <div className='title'>{markerInfo.markerMenuname} 요리 모임 합니다.</div>
-        <div className='title_state'>
-          <div className='title_state-text'>{markerInfo.markerDate} 모집</div>
-        </div>
-      </TitleArea>
-      <InfoArea>
-        <Info>
-          <div className='address'>{address}</div>
-          <div className='distance'>
-            <div className='text'>
+      <InfowindowTitleArea>
+        <Typography variant='title' size={4} color={color.gray[9]}>
+          {markerInfo.markerMenuname} 요리 모임 합니다.
+        </Typography>
+        <GatheringDateTag>
+          <Typography variant='caption' size={4} color={color.main[6]}>
+            {markerInfo.markerDate} 모집
+          </Typography>
+        </GatheringDateTag>
+      </InfowindowTitleArea>
+      <InfowindowBodyArea>
+        <InfowindowContentArea>
+          <Typography variant='caption' size={2} color={color.gray[6]}>
+            {address}
+          </Typography>
+          <GatheringDistanceArea>
+            <Typography variant='paragraph' size={4} color={color.gray[9]}>
               {markerInfo.markerApplication}/{markerInfo.markerNumber} 모집 완료
-            </div>
-            <div className='meter'>{markerInfo.markerDistance}m</div>
-          </div>
-          <div className='host_btn'>
-            <div className='ex'>최고에요 37</div>
-            <div className='good'>좋아요 15</div>
-          </div>
-        </Info>
-        <Arrow>
-          <ArrowChevron />
-        </Arrow>
-      </InfoArea>
+            </Typography>
+            <Typography variant='paragraph' size={7} color={color.active}>
+              {markerInfo.markerDistance}m
+            </Typography>
+          </GatheringDistanceArea>
+          <GatheringPopularityTagArea>
+            <GatheringPopularityTag>
+              <Typography variant='caption' size={4} color={color.main[1]}>
+                최고에요 37
+              </Typography>
+            </GatheringPopularityTag>
+            <GatheringPopularityTag>
+              <Typography variant='caption' size={4} color={color.main[2]}>
+                좋아요 15
+              </Typography>
+            </GatheringPopularityTag>
+          </GatheringPopularityTagArea>
+        </InfowindowContentArea>
+        <ArrowChevron />
+      </InfowindowBodyArea>
     </InfowindowContainer>
   );
 }
 
 const InfowindowContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  bottom: 0;
-  position: absolute;
-  z-index: 999;
   width: 100%;
-  height: 164px;
-  font-size: 20px;
-  background-color: white;
-  padding: 16px 20px 16px 20px;
+  padding: 16px 20px;
+  flex-direction: column;
+  row-gap: 8px;
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
   border-radius: 8px 8px 0px 0px;
+  background-color: ${color.white};
   box-shadow: 0px 0px 8px 0px #00000066;
-  gap: 8px;
   cursor: pointer;
 `;
 
-const TitleArea = styled.div`
+const InfowindowTitleArea = styled.div`
   display: flex;
   align-items: center;
-  height: 27px;
-  gap: 8px;
-
-  > .title {
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  > .title_state {
-    display: flex;
-    align-items: center;
-    width: 62px;
-    height: 24px;
-    padding: 5px 12px 5px 12px;
-    border-radius: 70px;
-    border: 1px;
-    gap: 10px;
-    color: #ff5325;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 15px;
-    border: 1px solid #ff5325;
-
-    > .title_state-text {
-      width: 38px;
-    }
-  }
+  column-gap: 8px;
 `;
 
-const InfoArea = styled.div`
+const GatheringDateTag = styled.div`
+  padding: 4.5px 12px;
+  border-radius: 70px;
+  border: 1px solid ${color.main[6]};
+`;
+
+const InfowindowBodyArea = styled.div`
   display: flex;
+  padding-top: 12px;
   justify-content: space-between;
-  height: 85px;
-  padding: 12px 0px 0px 0px;
-  border: 1px 0px 0px 0px;
-  border-top: 1px solid #dfdfdf;
+  align-items: center;
+  border-top: 1px solid ${color.gray[3]};
 `;
 
-const Info = styled.div`
+const InfowindowContentArea = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  width: 322px;
-
-  > .address {
-    height: 18px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    color: #8b8b8b;
-  }
-
-  > .distance {
-    display: flex;
-    gap: 8px;
-
-    > .text {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 21px;
-      color: #333333;
-    }
-
-    > .meter {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 21px;
-      color: #128fe9;
-    }
-  }
-
-  > .ingredient {
-    display: flex;
-    align-items: center;
-    width: 205px;
-    height: 30px;
-    gap: 8px;
-
-    > .ingredient_title {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 21px;
-      color: #333333;
-    }
-
-    > .ingredient_list {
-      display: flex;
-      gap: 8px;
-
-      > .ingredient_item {
-        width: 30px;
-        height: 30px;
-        background-color: #d9d9d9;
-      }
-    }
-  }
-
-  > .host_btn {
-    display: flex;
-    gap: 5px;
-
-    > .ex {
-      font-size: 10px;
-      font-weight: 600;
-      color: #ff5c00;
-      padding: 4.5px 12px;
-      border-radius: 70px;
-      border: 1px solid #c1c1c1;
-    }
-
-    > .good {
-      font-size: 10px;
-      font-weight: 600;
-      color: #ffa51f;
-      padding: 4.5px 12px;
-      border-radius: 70px;
-      border: 1px solid #c1c1c1;
-    }
-  }
+  row-gap: 8px;
+  flex: 1 0 0;
 `;
 
-const Arrow = styled.div`
+const GatheringDistanceArea = styled.div`
   display: flex;
-  align-items: center;
+  column-gap: 8px;
+`;
+
+const GatheringPopularityTagArea = styled.div`
+  display: flex;
+  column-gap: 4px;
+`;
+
+const GatheringPopularityTag = styled.div`
+  padding: 4.5px 12px;
+  border-radius: 70px;
+  border: 1px solid ${color.gray[4]};
 `;

@@ -24,6 +24,7 @@ export const color = {
     3: '#2EC0FF',
     4: '#966E57',
     5: '#AD3E00', // 컬러 추가
+    6: '#FF5325', // 컬러 추가
   },
 } as const;
 
