@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Infowindow from './components/infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
-import { getDistance } from './utils/helperFunc/calDistanceFunc';
+import { getDistance } from './utils/getDistance';
 import { useFetch } from '../../common/hooks/useFetch';
 import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
@@ -31,7 +31,6 @@ export default function SearchPage() {
   const gatheringData = useFetch();
   const { address, setAddress, changeAddr } = useChangeAddr();
 
-  // gatheringData에 DISTANCE 추가
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
       currentMyLocation.lat,
@@ -45,19 +44,14 @@ export default function SearchPage() {
       DISTANCE: distance,
     };
   });
-  // 현재 내 위치에서 1km 이내의 모임만 필터링
   const distanceLimitData = distanceAddData.filter(
     (gatheringData: any) => gatheringData.DISTANCE < 1,
   );
-  // 모임 일자 선택 버튼 클릭 시 해당하는 날의 모임만 필터링
   const filteredData = distanceLimitData.filter((gatheringData: any) => {
-    // 전체 기간 선택 시 모든 데이터를 보여줌
     if (selectDate === 0) {
       return true;
-      // 오늘 모집 데이터만 보여줌
     } else if (selectDate === 1) {
       return gatheringData.date === '오늘';
-      // 내일 모집 데이터만 보여줌
     } else if (selectDate === 2) {
       return gatheringData.date === '내일';
     }
@@ -75,10 +69,8 @@ export default function SearchPage() {
     setSelectDate(2);
   };
 
-  // 현재 내 위치를 중심으로 하는 지도 및 현재 내 위치 마커 생성
   useEffect(() => {
     if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
-      // 현재 내 위치를 중심으로 하는 지도 생성
       mapRef.current = new kakao.maps.Map(mapRef.current, {
         center: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
         level: 5,
@@ -87,7 +79,6 @@ export default function SearchPage() {
       const imageSrc = 'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
       const imageSize = new kakao.maps.Size(45, 45);
 
-      // 내 현재 위치 마커 생성
       new kakao.maps.Marker({
         map: mapRef.current,
         position: new kakao.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng),
@@ -96,15 +87,12 @@ export default function SearchPage() {
     }
   }, [currentMyLocation]);
 
-  // 내 주변 모임 마커 생성
   useEffect(() => {
     if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
-      // 이전에 생성되어 있는 마커 삭제
       markers.forEach((marker: any) => {
         marker.setMap(null);
       });
 
-      // 선택한 일자에 맞는 내 주변 모임 마커 생성 및 클릭 이벤트 등록
       const newMarkers = filteredData.map((gatheringData: any) => {
         const marker = new kakao.maps.Marker({
           map: mapRef.current,
@@ -134,7 +122,6 @@ export default function SearchPage() {
     }
   }, [currentMyLocation, selectDate]);
 
-  // 하단 인포윈도우 외부 클릭 시 닫기 이벤트
   useEffect(() => {
     const handleOutsideClose = (e: MouseEvent) => {
       if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
