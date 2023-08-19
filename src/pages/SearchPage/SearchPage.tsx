@@ -6,6 +6,8 @@ import { getDistance } from './utils/getDistance';
 import { useFetch } from '../../common/hooks/useFetch';
 import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
+import { Typography } from 'components/Typography';
+import { color } from 'styles/constants';
 
 const { kakao }: any = window;
 
@@ -137,24 +139,32 @@ export default function SearchPage() {
 
   return (
     <>
-      <MapHeader>
-        <div className='header_title'>내 주변 탐색</div>
-      </MapHeader>
+      <SearchPageHeader>
+        <Typography variant='title' size={2} color={color.gray[9]}>
+          내 주변 탐색
+        </Typography>
+      </SearchPageHeader>
       {locationLoading ? (
         <Spinner mt={200} />
       ) : (
         <MapContainer ref={mapRef}>
-          <BtnArea>
-            <MarkerFilterBtn onClick={filterAll} active={selectDate === 0}>
-              전체 기간
-            </MarkerFilterBtn>
-            <MarkerFilterBtn onClick={filterToday} active={selectDate === 1}>
-              오늘 모집
-            </MarkerFilterBtn>
-            <MarkerFilterBtn onClick={filterTomorrow} active={selectDate === 2}>
-              내일 모집
-            </MarkerFilterBtn>
-          </BtnArea>
+          <MarkerFilteringBtnArea>
+            <MarkerFilteringBtn onClick={filterAll} active={selectDate === 0}>
+              <Typography variant='paragraph' size={4}>
+                전체 기간
+              </Typography>
+            </MarkerFilteringBtn>
+            <MarkerFilteringBtn onClick={filterToday} active={selectDate === 1}>
+              <Typography variant='paragraph' size={4}>
+                오늘 모집
+              </Typography>
+            </MarkerFilteringBtn>
+            <MarkerFilteringBtn onClick={filterTomorrow} active={selectDate === 2}>
+              <Typography variant='paragraph' size={4}>
+                내일 모집
+              </Typography>
+            </MarkerFilteringBtn>
+          </MarkerFilteringBtnArea>
           {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} address={address} />}
         </MapContainer>
       )}
@@ -162,27 +172,19 @@ export default function SearchPage() {
   );
 }
 
-const MapHeader = styled.div`
+const SearchPageHeader = styled.header`
   display: flex;
   align-items: center;
-  height: 50px;
   padding: 10px 20px;
-  border-bottom: 1px solid #333333;
-
-  > .header_title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 30px;
-    color: #333333;
-  }
+  border-bottom: 1px solid #c1c1c1;
 `;
 
-const MapContainer = styled.div`
+const MapContainer = styled.main`
   width: 100%;
   height: calc(100vh - 50px - 80px);
 `;
 
-const BtnArea = styled.div`
+const MarkerFilteringBtnArea = styled.div`
   display: flex;
   column-gap: 8px;
   position: absolute;
@@ -191,14 +193,12 @@ const BtnArea = styled.div`
   z-index: 999;
 `;
 
-const MarkerFilterBtn = styled.button<{ active: boolean }>`
-  font-size: 14px;
-  font-weight: 500;
+const MarkerFilteringBtn = styled.button<{ active: boolean }>`
   width: 85px;
   height: 32px;
   border-radius: 70px;
-  color: ${({ active }) => (active ? '#FFFFFF' : '#333333')};
-  border: 1px solid ${({ active }) => (active ? '#AD3E00' : '#DFDFDF')};
-  background-color: ${({ active }) => (active ? '#FF5C00' : '#FFFFFF')};
+  color: ${({ active }) => (active ? color.white : color.gray[9])};
+  border: 1px solid ${({ active }) => (active ? color.main[5] : color.gray[3])};
+  background-color: ${({ active }) => (active ? color.main[1] : color.white)};
   box-shadow: 0px 0px 4px 0px #00000026;
 `;

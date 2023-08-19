@@ -48,7 +48,6 @@ export default function GatheringPage() {
 const MapHeader = styled.div`
   display: flex;
   align-items: center;
-  height: 50px;
   margin-bottom: 20px;
   padding: 10px 20px;
 

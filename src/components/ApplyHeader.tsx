@@ -21,7 +21,6 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  height: 44px;
   border-bottom: 1px solid #dfdfdf;
 
   > .back_button {
