@@ -166,7 +166,7 @@ const ApplyItem = styled.div`
   flex-direction: column;
   width: 100%;
   row-gap: 16px;
-  padding: 10px 19.5px;
+  padding: 0 20px;
 `;
 
 const ApplyMenuItemContent = styled.div`
@@ -213,7 +213,7 @@ const HostInfo = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 24px;
-  padding: 10px 19.5px;
+  padding: 0 20px;
 `;
 
 const ApplyHostItemContent = styled.div`

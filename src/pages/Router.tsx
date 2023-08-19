@@ -5,7 +5,7 @@ import MemberCountPage from './OnboardingPage/MemberCountPage';
 import CookPage from './OnboardingPage/CookPage';
 import RecheckPage from './OnboardingPage/RecheckPage';
 import MainPage from './MainPage/MainPage';
-import MapPage from './MapPage/MapPage';
+import Map from './MapPage/MapPage';
 import GatheringApplyPage from './GatheringApplyPage/GatheringApplyPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
@@ -34,7 +34,7 @@ export const Router = (): React.ReactElement => {
       </Route>
       <Route path={'/'} element={<Layout />}>
         <Route path='main' element={<MainPage />} />
-        <Route path='map' element={<MapPage />} />
+        <Route path='map' element={<Map />} />
         <Route path='gathering' element={<GatheringPage />} />
         <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
       </Route>
