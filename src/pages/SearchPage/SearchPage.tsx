@@ -139,11 +139,11 @@ export default function SearchPage() {
 
   return (
     <>
-      <SearchPageHeader>
+      <Header>
         <Typography variant='title' size={2} color={color.gray[9]}>
           내 주변 탐색
         </Typography>
-      </SearchPageHeader>
+      </Header>
       {locationLoading ? (
         <Spinner mt={200} />
       ) : (
@@ -172,14 +172,14 @@ export default function SearchPage() {
   );
 }
 
-const SearchPageHeader = styled.header`
+const Header = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 20px;
   border-bottom: 1px solid #c1c1c1;
 `;
 
-const MapContainer = styled.main`
+const MapContainer = styled.div`
   width: 100%;
   height: calc(100vh - 50px - 80px);
 `;

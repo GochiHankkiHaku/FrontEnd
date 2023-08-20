@@ -164,7 +164,11 @@ export default function SearchDetailPage() {
         </Section>
       </Main>
       <Footer>
-        <PayBtn onClick={movePaymentPage}>모임 신청하기</PayBtn>
+        <PayBtn onClick={movePaymentPage}>
+          <Typography variant='title' size={4} color={color.white}>
+            모임 신청하기
+          </Typography>
+        </PayBtn>
       </Footer>
     </>
   );
@@ -359,9 +363,4 @@ const PayBtn = styled.button`
   font-weight: 600;
   background-color: ${color.main[2]};
   border-radius: 8px;
-
-  font-family: ${typograpy.title[5].fontFamily};
-  font-weight: ${typograpy.title[5].fontWeight}px;
-  font-size: ${typograpy.title[5].fontSize}px;
-  color: ${color.white};
 `;

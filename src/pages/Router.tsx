@@ -9,7 +9,7 @@ import SearchPage from './SearchPage/SearchPage';
 import SearchDetailPage from './SearchPage/SearchDetailPage';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from 'components/Layout';
-import PaymentPage from './PayMentPage/PaymentPage';
+import PaymentPage from './SearchPage/PaymentPage';
 import ReviewPage from './ReviewPage/ReviewPage';
 import CostPage from './OnboardingPage/CostPage';
 import OnBoardingLayout from './OnboardingPage/OnBoardingLayout';
