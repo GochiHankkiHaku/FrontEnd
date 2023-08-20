@@ -17,7 +17,7 @@ import { PATH } from 'common/constants';
 import LocationPage from './OnboardingPage/LocationPage';
 import ContactPage from './OnboardingPage/ContactPage';
 import GatheringPage from './GatheringPage/GatheringPage';
-import GatheringDetailPage from './GatheringDetailPage/GatheringDetailPage';
+import GatheringDetailPage from './GatheringPage/GatheringDetailPage';
 
 export const Router = (): React.ReactElement => {
   return (
