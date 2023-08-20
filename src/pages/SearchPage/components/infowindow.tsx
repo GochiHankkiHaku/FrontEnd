@@ -19,8 +19,8 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
   };
 
   return (
-    <InfowindowContainer ref={infoRef} onClick={moveDetailPage}>
-      <InfowindowTitleArea>
+    <Container ref={infoRef} onClick={moveDetailPage}>
+      <TitleArea>
         <Typography variant='title' size={4} color={color.gray[9]}>
           {markerInfo.markerMenuname} 요리 모임 합니다.
         </Typography>
@@ -29,9 +29,9 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
             {markerInfo.markerDate} 모집
           </Typography>
         </GatheringDateTag>
-      </InfowindowTitleArea>
-      <InfowindowBodyArea>
-        <InfowindowContentArea>
+      </TitleArea>
+      <BodyArea>
+        <ContentArea>
           <Typography variant='caption' size={2} color={color.gray[6]}>
             {address}
           </Typography>
@@ -47,14 +47,14 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
             <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
             <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
           </GatheringPopularityTagArea>
-        </InfowindowContentArea>
+        </ContentArea>
         <ArrowChevron />
-      </InfowindowBodyArea>
-    </InfowindowContainer>
+      </BodyArea>
+    </Container>
   );
 }
 
-const InfowindowContainer = styled.div`
+const Container = styled.div`
   display: flex;
   width: 100%;
   padding: 16px 20px;
@@ -69,7 +69,7 @@ const InfowindowContainer = styled.div`
   cursor: pointer;
 `;
 
-const InfowindowTitleArea = styled.div`
+const TitleArea = styled.div`
   display: flex;
   align-items: center;
   column-gap: 8px;
@@ -81,7 +81,7 @@ const GatheringDateTag = styled.div`
   border: 1px solid ${color.main[6]};
 `;
 
-const InfowindowBodyArea = styled.div`
+const BodyArea = styled.div`
   display: flex;
   padding-top: 12px;
   justify-content: space-between;
@@ -89,7 +89,7 @@ const InfowindowBodyArea = styled.div`
   border-top: 1px solid ${color.gray[3]};
 `;
 
-const InfowindowContentArea = styled.div`
+const ContentArea = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
