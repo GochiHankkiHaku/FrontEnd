@@ -4,6 +4,7 @@ import { InfowindowProps } from '../utils/interface';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { typograpy } from 'styles/constants';
 
 export default function Infowindow({ infoRef, markerInfo, address }: InfowindowProps) {
   const navigate = useNavigate();
@@ -43,16 +44,8 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
             </Typography>
           </GatheringDistanceArea>
           <GatheringPopularityTagArea>
-            <GatheringPopularityTag>
-              <Typography variant='caption' size={4} color={color.main[1]}>
-                최고에요 37
-              </Typography>
-            </GatheringPopularityTag>
-            <GatheringPopularityTag>
-              <Typography variant='caption' size={4} color={color.main[2]}>
-                좋아요 15
-              </Typography>
-            </GatheringPopularityTag>
+            <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
+            <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
           </GatheringPopularityTagArea>
         </InfowindowContentArea>
         <ArrowChevron />
@@ -113,8 +106,13 @@ const GatheringPopularityTagArea = styled.div`
   column-gap: 4px;
 `;
 
-const GatheringPopularityTag = styled.div`
+const GatheringPopularityTag = styled.div<{ color: string }>`
   padding: 4.5px 12px;
   border-radius: 70px;
   border: 1px solid ${color.gray[4]};
+
+  font-family: ${typograpy.caption[4].fontFamily};
+  font-weight: ${typograpy.caption[4].fontWeight}px;
+  font-size: ${typograpy.caption[4].fontSize}px;
+  color: ${({ color }) => (color === '#FF5C00' ? color : color)};
 `;

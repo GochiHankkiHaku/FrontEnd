@@ -6,9 +6,10 @@ import fish from 'assets/images/어류.png';
 import vege from 'assets/images/채소.png';
 import grain from 'assets/images/곡류.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import ApplyHeader from 'components/ApplyHeader';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
+import { typograpy } from 'styles/constants';
 
 export default function SearchDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -22,7 +23,7 @@ export default function SearchDetailPage() {
     setIsOpen(!isOpen);
   };
 
-  const moveMapPage = () => {
+  const movePrevPage = () => {
     navigate(-1);
   };
 
@@ -36,42 +37,57 @@ export default function SearchDetailPage() {
 
   return (
     <>
-      <ApplyHeader title={'참가비 결제'} movePageHandler={moveMapPage} />
-      <Typography variant='title' size={3} color={color.gray[9]} pt={10} pr={20} pb={10} pl={20}>
-        어떤 모임인지 확인하세요.
-      </Typography>
-      <ApplyInfoContainer>
-        <ApplyItem>
+      <Header>
+        <ArrowChevron className='back_button' onClick={movePrevPage} />
+        <Typography variant='paragraph' size={1} color={color.gray[9]}>
+          모임 신청하기
+        </Typography>
+        <div className='none' />
+      </Header>
+      <Main>
+        <Typography
+          variant='title'
+          size={3}
+          color={color.gray[9]}
+          pt={10}
+          pr={20}
+          pb={10}
+          pl={20}
+          mb={-36}
+        >
+          어떤 모임인지 확인하세요.
+        </Typography>
+        <Section gap={'16'}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             요리 정보
           </Typography>
-          <ApplyMenuItemContent>
-            <img className='menu_image' />
-            <MenuItemTextArea>
+          <MenuInfoArea>
+            <MenuImg />
+            <MenuDescription>
               <Typography variant='paragraph' size={1} color={color.gray[9]}>
                 {markerInfo.markerMenuname}
               </Typography>
               <Typography variant='paragraph' size={6} color={color.gray[7]}>
                 제주 연안에 서식하는 자리돔을 간장으로 조린 음식
               </Typography>
-            </MenuItemTextArea>
-          </ApplyMenuItemContent>
-        </ApplyItem>
+            </MenuDescription>
+          </MenuInfoArea>
+        </Section>
         <Divider />
-        <ApplyItem>
+        <Section gap={'16'}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             모임 시간대
           </Typography>
-          <ReservationTime>{markerInfo.markerTime} (12:00 ~ 14:00)</ReservationTime>
-        </ApplyItem>
+          <GatheringTime>{markerInfo.markerTime} (12:00 ~ 14:00)</GatheringTime>
+        </Section>
         <Divider />
-        <HostInfo>
+        <Section gap={'24'}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             개설자 정보
           </Typography>
-          <ApplyHostItemContent>
+          <HostInfoArea>
             <User1 />
-            <ApplyHostItemDetailContent>
+            <HostDescription>
               <Typography variant='paragraph' size={3} color={color.gray[9]}>
                 개설자 이름
               </Typography>
@@ -81,23 +97,23 @@ export default function SearchDetailPage() {
               <Typography variant='caption' size={2} color={color.gray[6]}>
                 {address}
               </Typography>
-              <TagArea>
-                <div className='ex'>최고에요 37</div>
-                <div className='good'>좋아요 15</div>
-              </TagArea>
-            </ApplyHostItemDetailContent>
-          </ApplyHostItemContent>
-        </HostInfo>
+              <GatheringPopularityTagArea>
+                <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
+                <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
+              </GatheringPopularityTagArea>
+            </HostDescription>
+          </HostInfoArea>
+        </Section>
         <Divider />
-        <ApplyItem>
-          <ApplyIngredientTitle>
+        <Section gap={'16'}>
+          <IngredientInfoTitleArea>
             <Typography variant='title' size={5} color={color.gray[9]}>
               재료 시세 정보
             </Typography>
-            <PriceAlert>
+            <PriceInfoIcon>
               <Info className='info_icon' onClick={openHandler} />
               {isOpen && (
-                <div className='price_alert-text'>
+                <PriceInfoDescription>
                   가격 측정 기준 해양 수산부의&nbsp;
                   <Link
                     to='https://www.fishtrace.go.kr/home/mpInfo/actionFishPrice.do'
@@ -106,82 +122,98 @@ export default function SearchDetailPage() {
                     수산물이력제
                   </Link>
                   를 기반으로 작성되었습니다.
-                </div>
+                </PriceInfoDescription>
               )}
-            </PriceAlert>
-          </ApplyIngredientTitle>
-          <ApplyIngredientItemContent>
-            <IngredientItem>
-              <img className='profile' src={fish} />
-              <PriceInfo>
+            </PriceInfoIcon>
+          </IngredientInfoTitleArea>
+          <IngredientInfoList>
+            <IngredientInfoItem>
+              <IngredientImg src={fish} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   갈치
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 9,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-            <IngredientItem>
-              <img className='profile' src={vege} />
-              <PriceInfo>
+              </IngredientDescription>
+            </IngredientInfoItem>
+            <IngredientInfoItem>
+              <IngredientImg src={vege} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   무
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 3,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-            <IngredientItem>
-              <img className='profile' src={grain} />
-              <PriceInfo>
+              </IngredientDescription>
+            </IngredientInfoItem>
+            <IngredientInfoItem>
+              <IngredientImg src={grain} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   흰쌀밥 (200g)
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 2,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-          </ApplyIngredientItemContent>
-        </ApplyItem>
-      </ApplyInfoContainer>
-      <PaymentBtnArea>
-        <PayBtn onClick={movePaymentPage}>참가비 결제</PayBtn>
-      </PaymentBtnArea>
+              </IngredientDescription>
+            </IngredientInfoItem>
+          </IngredientInfoList>
+        </Section>
+      </Main>
+      <Footer>
+        <PayBtn onClick={movePaymentPage}>모임 신청하기</PayBtn>
+      </Footer>
     </>
   );
 }
 
-const ApplyInfoContainer = styled.div`
+const Header = styled.header`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  row-gap: 36px;
-`;
+  padding: 10px 20px;
+  border-bottom: 1px solid ${color.gray[4]};
 
-const ApplyItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  row-gap: 16px;
-  padding: 0 20px;
-`;
+  > .back_button {
+    cursor: pointer;
+  }
 
-const ApplyMenuItemContent = styled.div`
-  display: flex;
-  gap: 12px;
-
-  > .menu_image {
-    width: 144px;
-    height: 144px;
-    border-radius: 4px;
-    background-color: peachpuff;
+  > .none {
+    width: 24px;
+    height: 24px;
   }
 `;
 
-const MenuItemTextArea = styled.div`
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  row-gap: 36px;
+`;
+
+const Section = styled.section<{ gap: string }>`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  row-gap: ${({ gap }) => (gap === '16' ? `${gap}px` : `${gap}px`)};
+  padding: 0 20px;
+`;
+
+const MenuInfoArea = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const MenuImg = styled.img`
+  width: 144px;
+  height: 144px;
+  border-radius: 4px;
+  background-color: peachpuff;
+`;
+
+const MenuDescription = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -191,153 +223,145 @@ const MenuItemTextArea = styled.div`
 const Divider = styled.div`
   width: 100%;
   height: 14px;
-  background-color: #f5f4f3;
+  background-color: ${color.gray[2]};
 `;
 
-const ReservationTime = styled.div`
+const GatheringTime = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 12px 20px;
-  color: #333333;
+  padding: 11.5px 20px;
   border-radius: 8px;
-  border: 1px solid #c1c1c1;
-  background-color: #f5f4f3;
+  border: 1px solid ${color.gray[4]};
+  background-color: ${color.gray[2]};
+
+  font-family: ${typograpy.title[6].fontFamily};
+  font-weight: ${typograpy.title[6].fontWeight}px;
+  font-size: ${typograpy.title[6].fontSize}px;
 `;
 
-const HostInfo = styled.div`
+const HostInfoArea = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 24px;
-  padding: 0 20px;
-`;
-
-const ApplyHostItemContent = styled.div`
-  display: flex;
-  gap: 12px;
-  border-radius: 8px;
   padding: 12px;
-  border: 1px solid #c1c1c1;
+  align-items: center;
+  column-gap: 12px;
+  border-radius: 8px;
+  border: 1px solid ${color.gray[4]};
 `;
 
-const ApplyHostItemDetailContent = styled.div`
+const HostDescription = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 24px - 81px);
-  gap: 4px;
+  row-gap: 4px;
 `;
 
-const TagArea = styled.div`
+const GatheringPopularityTagArea = styled.div`
   display: flex;
-  gap: 5px;
-
-  > .ex {
-    font-size: 10px;
-    font-weight: 600;
-    color: #ff5c00;
-    padding: 4.5px 12px;
-    border-radius: 70px;
-    border: 1px solid #c1c1c1;
-  }
-
-  > .good {
-    font-size: 10px;
-    font-weight: 600;
-    color: #ffa51f;
-    padding: 4.5px 12px;
-    border-radius: 70px;
-    border: 1px solid #c1c1c1;
-  }
+  column-gap: 4px;
 `;
 
-const ApplyIngredientTitle = styled.div`
+const GatheringPopularityTag = styled.div<{ color: string }>`
+  padding: 4.5px 12px;
+  border-radius: 70px;
+  border: 1px solid ${color.gray[4]};
+
+  font-family: ${typograpy.caption[4].fontFamily};
+  font-weight: ${typograpy.caption[4].fontWeight}px;
+  font-size: ${typograpy.caption[4].fontSize}px;
+  color: ${({ color }) => (color === '#FF5C00' ? color : color)};
+`;
+
+const IngredientInfoTitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const PriceAlert = styled.div`
+const PriceInfoIcon = styled.div`
   position: relative;
 
   > .info_icon {
     cursor: pointer;
   }
+`;
 
-  > .price_alert-text {
+const PriceInfoDescription = styled.div`
+  position: absolute;
+  width: 273px;
+  top: 43px;
+  right: -1px;
+  padding: 12px;
+  border-radius: 4px;
+  background: ${color.gray[2]};
+  box-shadow: 0px 0px 8px 0px #00000066;
+
+  font-family: ${typograpy.paragraph[7].fontFamily};
+  font-weight: ${typograpy.paragraph[7].fontWeight}px;
+  font-size: ${typograpy.paragraph[7].fontSize}px;
+
+  > a {
+    text-decoration: underline;
+  }
+
+  &::before {
     position: absolute;
-    width: 273px;
-    font-size: 14px;
-    font-weight: 400;
-    top: 43px;
-    right: -1px;
-    padding: 12px;
-    border-radius: 4px;
-    background: #f5f4f3;
-    box-shadow: 0px 0px 8px 0px #00000066;
-
-    > a {
-      text-decoration: underline;
-    }
-
-    &::before {
-      position: absolute;
-      content: '';
-      border-top: 0px solid transparent;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 10px solid #f5f4f3;
-      top: -10px;
-      right: 5px;
-    }
+    content: '';
+    border-top: 0px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid ${color.gray[2]};
+    top: -10px;
+    right: 5px;
   }
 `;
 
-const ApplyIngredientItemContent = styled.ul`
+const IngredientInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-bottom: 85px;
 `;
 
-const IngredientItem = styled.li`
+const IngredientInfoItem = styled.li`
   display: flex;
   gap: 8px;
-
-  > .profile {
-    width: 80px;
-    height: 80px;
-    background-color: #aed8ff;
-    border-radius: 4px;
-  }
 `;
 
-const PriceInfo = styled.div`
+const IngredientImg = styled.img`
+  width: 80px;
+  height: 80px;
+  background-color: #aed8ff;
+  border-radius: 4px;
+`;
+
+const IngredientDescription = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 80px - 8px);
-  gap: 4px;
+  row-gap: 4px;
 `;
 
-const PaymentBtnArea = styled.div`
+const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   width: 100%;
   max-width: 400px;
   padding: 12px 20px 8px 20px;
-  border-top: 1px solid #c1c1c1;
-  background-color: white;
+  border-top: 1px solid ${color.gray[4]};
+  background-color: ${color.white};
 `;
 
 const PayBtn = styled.button`
   width: 100%;
-  padding: 12px 20px;
+  padding: 11.5px 20px;
   font-size: 18px;
   font-weight: 600;
-  color: white;
-  background-color: #ff5c00;
+  background-color: ${color.main[2]};
   border-radius: 8px;
+
+  font-family: ${typograpy.title[5].fontFamily};
+  font-weight: ${typograpy.title[5].fontWeight}px;
+  font-size: ${typograpy.title[5].fontSize}px;
+  color: ${color.white};
 `;
