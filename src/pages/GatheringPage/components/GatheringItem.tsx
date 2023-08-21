@@ -15,7 +15,7 @@ export default function GatheringItem({ list }: any) {
   };
 
   return (
-    <ItemWrap onClick={moveDetailPage}>
+    <ItemWrap>
       <Typography
         variant='paragraph'
         size={1}
@@ -35,7 +35,7 @@ export default function GatheringItem({ list }: any) {
           <Typography variant='title' size={5} color={color.main[1]}>
             {list.money}원
           </Typography>
-          <MoveDetailBtn>자세히 보기</MoveDetailBtn>
+          <MoveDetailBtn onClick={moveDetailPage}>자세히 보기</MoveDetailBtn>
         </MenuInfo>
       </MenuInfoArea>
     </ItemWrap>
