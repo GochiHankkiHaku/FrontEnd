@@ -3,7 +3,7 @@ import GatheringItem from './GatheringItem';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
-export default function GroupedGatheringItem({ list }: any) {
+export default function GatheringGroup({ list }: any) {
   return (
     <>
       <GroupedItemWrap>

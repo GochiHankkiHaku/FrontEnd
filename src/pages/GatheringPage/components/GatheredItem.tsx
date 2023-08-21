@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
-export default function GatheringItem({ list }: any) {
+export default function GatheredItem({ list }: any) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {

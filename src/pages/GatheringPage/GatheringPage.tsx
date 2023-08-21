@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import GroupedGatheringItem from './components/gathering/GroupedGatheringItem';
-import GatheringItem from './components/gathering_complete/GatheringItem';
+import GatheringGroup from './components/GatheringGroup';
+import GatheredItem from './components/GatheredItem';
 import { useFetch } from 'common/hooks/useFetch';
 import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
@@ -18,10 +18,10 @@ export default function GatheringPage() {
 
   return (
     <>
-      <MapHeader>
+      <Header>
         <div className='header_title'>모임 정보</div>
-      </MapHeader>
-      <ListArea>
+      </Header>
+      <Main>
         {notDoneData.length !== 0 && (
           <GatheringLabel>
             <Typography variant='title' size={5} color={color.white}>
@@ -29,29 +29,27 @@ export default function GatheringPage() {
             </Typography>
           </GatheringLabel>
         )}
-        <GatheringCompleteListArea>
+        <GatheredListArea>
           {notDoneData.map((value: any, index: number) => {
-            return <GatheringItem list={value} key={index} />;
+            return <GatheredItem list={value} key={index} />;
           })}
-        </GatheringCompleteListArea>
+        </GatheredListArea>
         {notDoneData.length !== 0 && <Divider />}
         <GatheringListArea>
           {groupedDoneData.map((value: any, index: number) => {
-            return <GroupedGatheringItem list={value} key={index} />;
+            return <GatheringGroup list={value} key={index} />;
           })}
         </GatheringListArea>
-      </ListArea>
+      </Main>
     </>
   );
 }
 
-const MapHeader = styled.div`
+const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   padding: 10px 20px;
-
-  /* border: 1px solid red; */
 
   > .header_title {
     font-weight: 600;
@@ -61,7 +59,7 @@ const MapHeader = styled.div`
   }
 `;
 
-const ListArea = styled.div`
+const Main = styled.div`
   padding: 0 20px;
 `;
 
@@ -74,12 +72,10 @@ const GatheringLabel = styled.div`
   background-color: ${color.main[2]};
 `;
 
-const GatheringCompleteListArea = styled.ul`
+const GatheredListArea = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 36px;
-
-  /* border: 1px solid red; */
 `;
 
 const Divider = styled.div`
@@ -98,6 +94,4 @@ const GatheringListArea = styled.ul`
   flex-direction: column;
   row-gap: 36px;
   padding-bottom: 56px;
-
-  /* border: 1px solid red; */
 `;
