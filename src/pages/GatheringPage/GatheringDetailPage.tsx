@@ -8,6 +8,7 @@ import grain from 'assets/images/곡류.png';
 import { Link, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { typograpy } from 'styles/constants';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -21,41 +22,41 @@ export default function GatheringDetailPage() {
 
   return (
     <>
-      <DetailHeader>
+      <Header>
         <Typography variant='title' size={2} color={color.gray[9]}>
           모임 정보
         </Typography>
-      </DetailHeader>
-      <DetailInfoContainer>
-        <DetailItem>
-          <MenuInfoHeader>
+      </Header>
+      <Main>
+        <Section gap={'24'}>
+          <MenuInfoTitle>
             <Typography variant='paragraph' size={2} color={color.gray[9]}>
               {detailInfo.gathering_date}
             </Typography>
             <Typography variant='title' size={1} color={color.gray[9]}>
               {detailInfo.menuname} 요리 모집
             </Typography>
-          </MenuInfoHeader>
-          <DetailMenuItemContent>
+          </MenuInfoTitle>
+          <MenuInfoArea>
             <DetailMenuItemImg src={fish} />
-            <MenuItemTextArea>
+            <MenuInfoDescription>
               <Typography variant='paragraph' size={1} color={color.gray[9]}>
                 {detailInfo.menuname}
               </Typography>
               <Typography variant='paragraph' size={6} color={color.gray[7]}>
                 제주 연안에 서식하는 자리돔을 간장으로 졸인 음식
               </Typography>
-            </MenuItemTextArea>
-          </DetailMenuItemContent>
-        </DetailItem>
+            </MenuInfoDescription>
+          </MenuInfoArea>
+        </Section>
         <Divider />
-        <DetailItem>
+        <Section gap={'24'}>
           <Typography variant='title' size={4} color={color.gray[9]}>
             개최자 정보
           </Typography>
-          <ApplyHostItemContent>
+          <HostInfoArea>
             <User1 />
-            <ApplyHostItemDetailContent>
+            <HostDescription>
               <Typography variant='paragraph' size={3} color={color.gray[9]}>
                 개설자 이름
               </Typography>
@@ -65,37 +66,37 @@ export default function GatheringDetailPage() {
               <Typography variant='caption' size={2} color={color.gray[6]}>
                 주소
               </Typography>
-              <TagArea>
-                <div className='ex'>최고에요 37</div>
-                <div className='good'>좋아요 15</div>
-              </TagArea>
-            </ApplyHostItemDetailContent>
-          </ApplyHostItemContent>
-        </DetailItem>
+              <GatheringPopularityTagArea>
+                <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
+                <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
+              </GatheringPopularityTagArea>
+            </HostDescription>
+          </HostInfoArea>
+        </Section>
         <Divider />
-        <DetailItem>
+        <Section gap={'24'}>
           <Typography variant='title' size={4} color={color.gray[9]}>
             참여자 정보
           </Typography>
-          <ParticipantsImages>
+          <ParticipantInfoArea>
             <UserInfo>
               <User1 />
               <Typography variant='paragraph' size={6} color={color.gray[9]}>
                 유저 네임외 3명
               </Typography>
             </UserInfo>
-          </ParticipantsImages>
-        </DetailItem>
+          </ParticipantInfoArea>
+        </Section>
         <Divider />
-        <ApplyItem>
-          <ApplyIngredientTitle>
+        <Section gap={'16'}>
+          <IngredientInfoTitleArea>
             <Typography variant='title' size={4} color={color.gray[9]}>
               가격 측정 정보
             </Typography>
-            <PriceAlert>
+            <PriceInfoIcon>
               <Info className='info_icon' onClick={openHandler} />
               {isOpen && (
-                <div className='price_alert-text'>
+                <PriceInfoDescription>
                   가격 측정 기준 해양 수산부의&nbsp;
                   <Link
                     to='https://www.fishtrace.go.kr/home/mpInfo/actionFishPrice.do'
@@ -104,57 +105,59 @@ export default function GatheringDetailPage() {
                     수산물이력제
                   </Link>
                   를 기반으로 작성되었습니다.
-                </div>
+                </PriceInfoDescription>
               )}
-            </PriceAlert>
-          </ApplyIngredientTitle>
-          <ApplyIngredientItemContent>
-            <IngredientItem>
-              <MenuImg src={fish} />
-              <PriceInfo>
+            </PriceInfoIcon>
+          </IngredientInfoTitleArea>
+          <IngredientInfoList>
+            <IngredientInfoItem>
+              <IngredientImg src={fish} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   갈치
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 시세 9,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-            <IngredientItem>
-              <img className='profile' src={vege} />
-              <PriceInfo>
+              </IngredientDescription>
+            </IngredientInfoItem>
+            <IngredientInfoItem>
+              <IngredientImg src={vege} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   무
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 시세 3,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-            <IngredientItem>
-              <img className='profile' src={grain} />
-              <PriceInfo>
+              </IngredientDescription>
+            </IngredientInfoItem>
+            <IngredientInfoItem>
+              <IngredientImg src={grain} />
+              <IngredientDescription>
                 <Typography variant='title' size={5} color={color.gray[9]}>
                   흰쌀밥 (200g)
                 </Typography>
                 <Typography variant='paragraph' size={2} color={color.gray[9]}>
                   평균 시세 2,000원
                 </Typography>
-              </PriceInfo>
-            </IngredientItem>
-          </ApplyIngredientItemContent>
-        </ApplyItem>
-      </DetailInfoContainer>
-      <Center>
-        <PaymentBtnArea>
-          <PayBtn>모임 완료</PayBtn>
-        </PaymentBtnArea>
-      </Center>
+              </IngredientDescription>
+            </IngredientInfoItem>
+          </IngredientInfoList>
+        </Section>
+      </Main>
+      <GatheredBtnArea>
+        <GatheredBtn>
+          <Typography variant='paragraph' size={2} color={color.white}>
+            모임 완료
+          </Typography>
+        </GatheredBtn>
+      </GatheredBtnArea>
     </>
   );
 }
 
-const DetailHeader = styled.div`
+const Header = styled.header`
   display: flex;
   align-items: center;
   height: 50px;
@@ -162,7 +165,7 @@ const DetailHeader = styled.div`
   border-bottom: 1px solid #c1c1c1;
 `;
 
-const DetailInfoContainer = styled.div`
+const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,22 +173,22 @@ const DetailInfoContainer = styled.div`
   padding: 20px 0;
 `;
 
-const DetailItem = styled.div`
+const Section = styled.section<{ gap: string }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  row-gap: 24px;
+  row-gap: ${({ gap }) => (gap === '24' ? `${gap}px` : `${gap}px`)};
   padding: 0 20px;
 `;
 
-const MenuInfoHeader = styled.div`
+const MenuInfoTitle = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 4px;
   padding: 0 0 12px 0;
 `;
 
-const DetailMenuItemContent = styled.div`
+const MenuInfoArea = styled.div`
   display: flex;
   gap: 12px;
 `;
@@ -197,7 +200,7 @@ const DetailMenuItemImg = styled.img`
   background-color: peachpuff;
 `;
 
-const MenuItemTextArea = styled.div`
+const MenuInfoDescription = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -207,48 +210,41 @@ const MenuItemTextArea = styled.div`
 const Divider = styled.div`
   width: 100%;
   height: 14px;
-  background-color: #f5f4f3;
+  background-color: ${color.gray[2]};
 `;
 
-const ApplyHostItemContent = styled.div`
+const HostInfoArea = styled.div`
   display: flex;
   gap: 12px;
   border-radius: 8px;
   padding: 12px;
-  border: 1px solid #c1c1c1;
+  border: 1px solid ${color.gray[4]};
 `;
 
-const ApplyHostItemDetailContent = styled.div`
+const HostDescription = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 24px - 81px);
   gap: 4px;
 `;
 
-const TagArea = styled.div`
+const GatheringPopularityTagArea = styled.div`
   display: flex;
-  gap: 5px;
-
-  > .ex {
-    font-size: 10px;
-    font-weight: 600;
-    color: #ff5c00;
-    padding: 4.5px 12px;
-    border-radius: 70px;
-    border: 1px solid #c1c1c1;
-  }
-
-  > .good {
-    font-size: 10px;
-    font-weight: 600;
-    color: #ffa51f;
-    padding: 4.5px 12px;
-    border-radius: 70px;
-    border: 1px solid #c1c1c1;
-  }
+  column-gap: 4px;
 `;
 
-const ParticipantsImages = styled.div`
+const GatheringPopularityTag = styled.div<{ color: string }>`
+  padding: 4.5px 12px;
+  border-radius: 70px;
+  border: 1px solid ${color.gray[4]};
+
+  font-family: ${typograpy.caption[4].fontFamily};
+  font-weight: ${typograpy.caption[4].fontWeight};
+  font-size: ${typograpy.caption[4].fontSize}px;
+  color: ${({ color }) => (color === '#FF5C00' ? color : color)};
+`;
+
+const ParticipantInfoArea = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -260,106 +256,95 @@ const UserInfo = styled.div`
   row-gap: 8px;
 `;
 
-const ApplyItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  row-gap: 16px;
-  padding: 0 20px;
-`;
-
-const ApplyIngredientTitle = styled.div`
+const IngredientInfoTitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const PriceAlert = styled.div`
+const PriceInfoIcon = styled.div`
   position: relative;
 
   > .info_icon {
     cursor: pointer;
   }
+`;
 
-  > .price_alert-text {
+const PriceInfoDescription = styled.div`
+  position: absolute;
+  width: 273px;
+  top: 43px;
+  right: -1px;
+  padding: 12px;
+  border-radius: 4px;
+  background: ${color.gray[2]};
+  box-shadow: 0px 0px 8px 0px #00000066;
+
+  font-family: ${typograpy.paragraph[7].fontFamily};
+  font-weight: ${typograpy.paragraph[7].fontWeight}px;
+  font-size: ${typograpy.paragraph[7].fontSize}px;
+
+  > a {
+    text-decoration: underline;
+  }
+
+  &::before {
     position: absolute;
-    width: 273px;
-    font-size: 14px;
-    font-weight: 400;
-    top: 43px;
-    right: -1px;
-    padding: 12px;
-    border-radius: 4px;
-    background: #f5f4f3;
-    box-shadow: 0px 0px 8px 0px #00000066;
-
-    > a {
-      text-decoration: underline;
-    }
-
-    &::before {
-      position: absolute;
-      content: '';
-      border-top: 0px solid transparent;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 10px solid #f5f4f3;
-      top: -10px;
-      right: 5px;
-    }
+    content: '';
+    border-top: 0px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid ${color.gray[2]};
+    top: -10px;
+    right: 5px;
   }
 `;
 
-const ApplyIngredientItemContent = styled.ul`
+const IngredientInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-bottom: 85px;
 `;
 
-const IngredientItem = styled.li`
+const IngredientInfoItem = styled.li`
   display: flex;
   gap: 8px;
 `;
 
-const MenuImg = styled.img`
+const IngredientImg = styled.img`
   width: 80px;
   height: 80px;
   background-color: #aed8ff;
   border-radius: 4px;
 `;
 
-const PriceInfo = styled.div`
+const IngredientDescription = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 80px - 8px);
   gap: 4px;
 `;
 
-const Center = styled.div`
+const GatheredBtnArea = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const PaymentBtnArea = styled.div`
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  max-width: 400px;
   position: fixed;
   bottom: 0;
   padding: 16px 20px 24px 20px;
   margin-bottom: 70px;
 `;
 
-const PayBtn = styled.button`
+const GatheredBtn = styled.button`
   display: flex;
   justify-content: center;
-  width: 200px;
-  padding: 13px 10px;
   align-items: center;
-  font-size: 18px;
-  font-weight: 600;
+  width: 200px;
+  padding: 13px 16px;
   color: white;
-  background-color: #ff5c00;
+  background-color: ${color.main[1]};
   border-radius: 50px;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
 `;

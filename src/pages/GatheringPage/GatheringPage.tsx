@@ -45,7 +45,7 @@ export default function GatheringPage() {
   );
 }
 
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -59,7 +59,7 @@ const Header = styled.div`
   }
 `;
 
-const Main = styled.div`
+const Main = styled.main`
   padding: 0 20px;
 `;
 

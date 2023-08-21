@@ -271,7 +271,7 @@ const GatheringPopularityTag = styled.div<{ color: string }>`
   border: 1px solid ${color.gray[4]};
 
   font-family: ${typograpy.caption[4].fontFamily};
-  font-weight: ${typograpy.caption[4].fontWeight}px;
+  font-weight: ${typograpy.caption[4].fontWeight};
   font-size: ${typograpy.caption[4].fontSize}px;
   color: ${({ color }) => (color === '#FF5C00' ? color : color)};
 `;
