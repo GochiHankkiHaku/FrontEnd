@@ -16,7 +16,11 @@ export default function GatheringItem({ list }: any) {
 
   return (
     <ItemWrap onClick={moveDetailPage}>
-      <Typography variant='paragraph' size={1} color={color.active}>
+      <Typography
+        variant='paragraph'
+        size={1}
+        color={list.gathering_state === '모임 완료' ? color.complete : color.active}
+      >
         {list.gathering_state}
       </Typography>
       <MenuInfoArea>

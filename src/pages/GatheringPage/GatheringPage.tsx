@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import GatheringGroup from './components/GatheringGroup';
-import GatheredItem from './components/GatheredItem';
+import Test from './components/GatheringItem';
 import { useFetch } from 'common/hooks/useFetch';
 import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
@@ -31,7 +31,7 @@ export default function GatheringPage() {
         )}
         <GatheredListArea>
           {notDoneData.map((value: any, index: number) => {
-            return <GatheredItem list={value} key={index} />;
+            return <Test list={value} key={index} />;
           })}
         </GatheredListArea>
         {notDoneData.length !== 0 && <Divider />}
