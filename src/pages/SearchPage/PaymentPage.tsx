@@ -11,8 +11,8 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg
 export default function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const markerInfo = location.state.location.state.markerInfo;
-  const address = location.state.location.state.address;
+  const markerInfo = location.state.location.state.location.state.markerInfo;
+  const address = location.state.location.state.location.state.address;
 
   const movePrevPage = () => {
     navigate(-1);

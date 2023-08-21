@@ -19,7 +19,7 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
   };
 
   return (
-    <Container ref={infoRef} onClick={moveDetailPage}>
+    <Wrap ref={infoRef} onClick={moveDetailPage}>
       <TitleArea>
         <Typography variant='title' size={4} color={color.gray[9]}>
           {markerInfo.markerMenuname} 요리 모임 합니다.
@@ -50,11 +50,11 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
         </ContentArea>
         <ArrowChevron />
       </BodyArea>
-    </Container>
+    </Wrap>
   );
 }
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: flex;
   width: 100%;
   padding: 16px 20px;

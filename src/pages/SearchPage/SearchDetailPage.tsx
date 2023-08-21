@@ -27,8 +27,8 @@ export default function SearchDetailPage() {
     navigate(-1);
   };
 
-  const movePaymentPage = () => {
-    navigate('/payment', {
+  const moveSelectContactPage = () => {
+    navigate('/select', {
       state: {
         location,
       },
@@ -164,7 +164,7 @@ export default function SearchDetailPage() {
         </Section>
       </Main>
       <Footer>
-        <PayBtn onClick={movePaymentPage}>
+        <PayBtn onClick={moveSelectContactPage}>
           <Typography variant='title' size={4} color={color.white}>
             모임 신청하기
           </Typography>

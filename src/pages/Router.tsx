@@ -18,6 +18,7 @@ import LocationPage from './OnboardingPage/LocationPage';
 import ContactPage from './OnboardingPage/ContactPage';
 import GatheringPage from './GatheringPage/GatheringPage';
 import GatheringDetailPage from './GatheringPage/GatheringDetailPage';
+import SelectContactPage from './SearchPage/SelectContactPage';
 
 export const Router = (): React.ReactElement => {
   return (
@@ -39,6 +40,7 @@ export const Router = (): React.ReactElement => {
         <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
       </Route>
       <Route path={'/detail/:post_idx'} element={<SearchDetailPage />} />
+      <Route path={'/select'} element={<SelectContactPage />} />
       <Route path={'/payment'} element={<PaymentPage />} />
       <Route path={'/review'} element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
