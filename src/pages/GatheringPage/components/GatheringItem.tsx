@@ -15,7 +15,7 @@ export default function GatheringItem({ list }: any) {
   };
 
   return (
-    <ItemWrap>
+    <Wrap>
       <Typography
         variant='paragraph'
         size={1}
@@ -35,20 +35,21 @@ export default function GatheringItem({ list }: any) {
           <Typography variant='title' size={5} color={color.main[1]}>
             {list.money}원
           </Typography>
-          <MoveDetailBtn onClick={moveDetailPage}>자세히 보기</MoveDetailBtn>
+          <MoveDetailBtn onClick={moveDetailPage}>
+            <Typography variant='caption' size={2} color={color.gray[7]}>
+              자세히 보기
+            </Typography>
+          </MoveDetailBtn>
         </MenuInfo>
       </MenuInfoArea>
-    </ItemWrap>
+    </Wrap>
   );
 }
 
-const ItemWrap = styled.div`
+const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  font-size: 15px;
-
-  /* border: 1px solid green; */
 `;
 
 const MenuInfoArea = styled.div`
@@ -75,8 +76,4 @@ const MoveDetailBtn = styled.button`
   padding: 5px 0;
   border-radius: 4px;
   border: 1px solid #a5a5a5;
-
-  font-size: 12px;
-  font-weight: 500;
-  color: #6f6f6f;
 `;
