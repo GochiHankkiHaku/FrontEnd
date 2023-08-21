@@ -6,38 +6,35 @@ import { color } from 'styles/constants';
 export default function GatheringGroup({ list }: any) {
   return (
     <>
-      <GroupedItemWrap>
-        <DateArea>
+      <Wrap>
+        <GatheringDate>
           <Typography variant='title' size={5} color={color.gray[7]} pt={8} pb={8}>
             {list[0].gathering_date}
           </Typography>
-        </DateArea>
+        </GatheringDate>
         {list.map((value: any) => {
           return <GatheringItem list={value} key={value.post_idx} />;
         })}
-      </GroupedItemWrap>
+      </Wrap>
       <Divider />
     </>
   );
 }
 
-const GroupedItemWrap = styled.li`
+const Wrap = styled.li`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
-  font-size: 15px;
-
-  /* border: 1px solid blue; */
 `;
 
-const DateArea = styled.div`
-  border-bottom: 1px solid #dfdfdf;
+const GatheringDate = styled.div`
+  border-bottom: 1px solid ${color.gray[3]};
 `;
 
 const Divider = styled.div`
   width: 100%;
   height: 14px;
-  background-color: #f5f4f3;
+  background-color: ${color.gray[2]};
 
   &:last-child {
     display: none;
