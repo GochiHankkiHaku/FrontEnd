@@ -5,6 +5,7 @@ import { useFetch } from 'common/hooks/useFetch';
 import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
+import SearchHeader from 'components/SearchHeader';
 
 export default function GatheringPage() {
   const gatheringData = useFetch();
@@ -18,9 +19,7 @@ export default function GatheringPage() {
 
   return (
     <>
-      <Header>
-        <div className='header_title'>모임 정보</div>
-      </Header>
+      <SearchHeader title={'모임 정보'} underbarColor={color.white} />
       <Main>
         {notDoneData.length !== 0 && (
           <GatheringLabel>
@@ -45,27 +44,13 @@ export default function GatheringPage() {
   );
 }
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 10px 20px;
-
-  > .header_title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 30px;
-    color: #333333;
-  }
-`;
-
 const Main = styled.main`
   padding: 0 20px;
 `;
 
 const GatheringLabel = styled.div`
   height: 43px;
-  margin-bottom: 16px;
+  margin: 20px 0 16px 0;
   padding: 8px 12px;
   border-bottom: 1px solid ${color.gray[3]};
   border-radius: 12px 12px 0px 0px;

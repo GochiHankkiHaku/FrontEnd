@@ -8,6 +8,7 @@ import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import SearchHeader from 'components/SearchHeader';
 
 const { kakao }: any = window;
 
@@ -139,15 +140,11 @@ export default function SearchPage() {
 
   return (
     <>
-      <Header>
-        <Typography variant='title' size={2} color={color.gray[9]}>
-          내 주변 탐색
-        </Typography>
-      </Header>
+      <SearchHeader title={'내 주변 탐색'} underbarColor={color.gray[4]} />
       {locationLoading ? (
         <Spinner mt={200} />
       ) : (
-        <MapContainer ref={mapRef}>
+        <Wrap ref={mapRef}>
           <MarkerFilteringBtnArea>
             <MarkerFilteringBtn onClick={filterAll} active={selectDate === 0}>
               <Typography variant='paragraph' size={4}>
@@ -166,20 +163,13 @@ export default function SearchPage() {
             </MarkerFilteringBtn>
           </MarkerFilteringBtnArea>
           {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} address={address} />}
-        </MapContainer>
+        </Wrap>
       )}
     </>
   );
 }
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid #c1c1c1;
-`;
-
-const MapContainer = styled.div`
+const Wrap = styled.div`
   width: 100%;
   height: calc(100vh - 50px - 80px);
 `;

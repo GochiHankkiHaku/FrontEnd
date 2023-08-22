@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { typograpy } from 'styles/constants';
+import SearchHeader from 'components/SearchHeader';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -22,11 +23,7 @@ export default function GatheringDetailPage() {
 
   return (
     <>
-      <Header>
-        <Typography variant='title' size={2} color={color.gray[9]}>
-          모임 정보
-        </Typography>
-      </Header>
+      <SearchHeader title={'모임 정보'} underbarColor={color.gray[4]} />
       <Main>
         <Section gap={'24'}>
           <MenuInfoTitle>
@@ -156,14 +153,6 @@ export default function GatheringDetailPage() {
     </>
   );
 }
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  height: 50px;
-  padding: 10px 20px;
-  border-bottom: 1px solid #c1c1c1;
-`;
 
 const Main = styled.main`
   display: flex;
