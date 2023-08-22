@@ -10,6 +10,7 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { typograpy } from 'styles/constants';
+import { Divider } from 'components/Divider';
 
 export default function SearchDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -57,7 +58,7 @@ export default function SearchDetailPage() {
         >
           어떤 모임인지 확인하세요.
         </Typography>
-        <Section gap={'16'}>
+        <Section gap={16}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             요리 정보
           </Typography>
@@ -73,15 +74,15 @@ export default function SearchDetailPage() {
             </MenuDescription>
           </MenuInfoArea>
         </Section>
-        <Divider />
-        <Section gap={'16'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={16}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             모임 시간대
           </Typography>
           <GatheringTime>{markerInfo.markerTime} (12:00 ~ 14:00)</GatheringTime>
         </Section>
-        <Divider />
-        <Section gap={'24'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={24}>
           <Typography variant='title' size={5} color={color.gray[9]}>
             개설자 정보
           </Typography>
@@ -104,8 +105,8 @@ export default function SearchDetailPage() {
             </HostDescription>
           </HostInfoArea>
         </Section>
-        <Divider />
-        <Section gap={'16'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={16}>
           <IngredientInfoTitleArea>
             <Typography variant='title' size={5} color={color.gray[9]}>
               재료 시세 정보
@@ -197,11 +198,11 @@ const Main = styled.main`
   row-gap: 36px;
 `;
 
-const Section = styled.section<{ gap: string }>`
+const Section = styled.section<{ gap: number }>`
   display: flex;
   width: 100%;
   flex-direction: column;
-  row-gap: ${({ gap }) => (gap === '16' ? `${gap}px` : `${gap}px`)};
+  row-gap: ${({ gap }) => (gap === 16 ? `${gap}px` : `${gap}px`)};
   padding: 0 20px;
 `;
 
@@ -224,12 +225,6 @@ const MenuDescription = styled.div`
   width: calc(100% - 12px - 144px);
 `;
 
-const Divider = styled.div`
-  width: 100%;
-  height: 14px;
-  background-color: ${color.gray[2]};
-`;
-
 const GatheringTime = styled.div`
   display: flex;
   justify-content: center;
@@ -240,7 +235,7 @@ const GatheringTime = styled.div`
   background-color: ${color.gray[2]};
 
   font-family: ${typograpy.title[6].fontFamily};
-  font-weight: ${typograpy.title[6].fontWeight}px;
+  font-weight: ${typograpy.title[6].fontWeight};
   font-size: ${typograpy.title[6].fontSize}px;
 `;
 
@@ -301,7 +296,7 @@ const PriceInfoDescription = styled.div`
   box-shadow: 0px 0px 8px 0px #00000066;
 
   font-family: ${typograpy.paragraph[7].fontFamily};
-  font-weight: ${typograpy.paragraph[7].fontWeight}px;
+  font-weight: ${typograpy.paragraph[7].fontWeight};
   font-size: ${typograpy.paragraph[7].fontSize}px;
 
   > a {

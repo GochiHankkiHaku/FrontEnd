@@ -10,6 +10,7 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { typograpy } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
+import { Divider } from 'components/Divider';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,7 +26,7 @@ export default function GatheringDetailPage() {
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.gray[4]} />
       <Main>
-        <Section gap={'24'}>
+        <Section gap={24}>
           <MenuInfoTitle>
             <Typography variant='paragraph' size={2} color={color.gray[9]}>
               {detailInfo.gathering_date}
@@ -46,8 +47,8 @@ export default function GatheringDetailPage() {
             </MenuInfoDescription>
           </MenuInfoArea>
         </Section>
-        <Divider />
-        <Section gap={'24'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={24}>
           <Typography variant='title' size={4} color={color.gray[9]}>
             개최자 정보
           </Typography>
@@ -70,8 +71,8 @@ export default function GatheringDetailPage() {
             </HostDescription>
           </HostInfoArea>
         </Section>
-        <Divider />
-        <Section gap={'24'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={24}>
           <Typography variant='title' size={4} color={color.gray[9]}>
             참여자 정보
           </Typography>
@@ -84,8 +85,8 @@ export default function GatheringDetailPage() {
             </UserInfo>
           </ParticipantInfoArea>
         </Section>
-        <Divider />
-        <Section gap={'16'}>
+        <Divider height={14} backgroundColor={color.gray[2]} />
+        <Section gap={16}>
           <IngredientInfoTitleArea>
             <Typography variant='title' size={4} color={color.gray[9]}>
               가격 측정 정보
@@ -162,11 +163,11 @@ const Main = styled.main`
   padding: 20px 0;
 `;
 
-const Section = styled.section<{ gap: string }>`
+const Section = styled.section<{ gap: number }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  row-gap: ${({ gap }) => (gap === '24' ? `${gap}px` : `${gap}px`)};
+  row-gap: ${({ gap }) => (gap === 24 ? `${gap}px` : `${gap}px`)};
   padding: 0 20px;
 `;
 
@@ -194,12 +195,6 @@ const MenuInfoDescription = styled.div`
   flex-direction: column;
   row-gap: 10px;
   width: calc(100% - 12px - 144px);
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 14px;
-  background-color: ${color.gray[2]};
 `;
 
 const HostInfoArea = styled.div`

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import GatheringItem from './GatheringItem';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { Divider } from 'components/Divider';
 
 export default function GatheringGroup({ list }: any) {
   return (
@@ -16,7 +17,7 @@ export default function GatheringGroup({ list }: any) {
           return <GatheringItem list={value} key={value.post_idx} />;
         })}
       </Wrap>
-      <Divider />
+      <Divider height={14} backgroundColor={color.gray[2]} />
     </>
   );
 }
@@ -29,14 +30,4 @@ const Wrap = styled.li`
 
 const GatheringDate = styled.div`
   border-bottom: 1px solid ${color.gray[3]};
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 14px;
-  background-color: ${color.gray[2]};
-
-  &:last-child {
-    display: none;
-  }
 `;

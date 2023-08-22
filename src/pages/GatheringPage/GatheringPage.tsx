@@ -6,6 +6,7 @@ import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import SearchHeader from 'components/SearchHeader';
+import { Divider } from 'components/Divider';
 
 export default function GatheringPage() {
   const gatheringData = useFetch();
@@ -33,7 +34,9 @@ export default function GatheringPage() {
             return <Test list={value} key={index} />;
           })}
         </GatheredListArea>
-        {notDoneData.length !== 0 && <Divider />}
+        {notDoneData.length !== 0 && (
+          <Divider height={14} backgroundColor={color.gray[2]} margin={36} />
+        )}
         <GatheringListArea>
           {groupedDoneData.map((value: any, index: number) => {
             return <GatheringGroup list={value} key={index} />;
@@ -61,17 +64,6 @@ const GatheredListArea = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 36px;
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 14px;
-  margin: 36px 0;
-  background-color: #f5f4f3;
-
-  &:last-child {
-    display: none;
-  }
 `;
 
 const GatheringListArea = styled.ul`
