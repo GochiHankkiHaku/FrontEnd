@@ -5,7 +5,7 @@ import { useInput } from 'common/hooks/useInput';
 import { useAddress } from '../hooks/useAddress';
 import { Address } from 'react-daum-postcode';
 import { ReactComponent as GeolocationIcon } from 'assets/icons/geolocation.svg';
-import Input from './Input';
+import Input from '../../../components/Input';
 import { GrayBorderBtnStyle } from '../utils/mixins';
 import { useFormStore } from '../store/formStore';
 

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { GrayBorderBtnStyle } from '../utils/mixins';
+import { GrayBorderBtnStyle } from '../pages/OnboardingPage/utils/mixins';
 import { typoStyles } from 'styles/minxin';
 import { color, radius, typograpy } from 'styles/constants';
 import { ReactComponent as ChevronRightIcon } from 'assets/icons/chevron-backward.svg';
@@ -8,10 +8,16 @@ import { ReactComponent as ChevronRightIcon } from 'assets/icons/chevron-backwar
 interface SelectBoxProps {
   options: string[];
   placeholder?: string;
+  selectedOption: string | null;
+  setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export const SelectBox: FC<SelectBoxProps> = ({ options, placeholder = '선택해주세요.' }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+export const SelectBox: FC<SelectBoxProps> = ({
+  options,
+  placeholder = '선택해주세요.',
+  selectedOption,
+  setSelectedOption,
+}) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 

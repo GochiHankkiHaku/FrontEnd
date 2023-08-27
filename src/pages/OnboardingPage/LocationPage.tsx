@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import Input from './components/Input';
+import Input from '../../components/Input';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
 import Location from './components/Location';

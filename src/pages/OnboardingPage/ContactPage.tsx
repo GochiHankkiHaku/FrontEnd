@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from 'common/constants';
 import Footer from './components/Footer';
 import { useInput } from 'common/hooks/useInput';
-import Input from './components/Input';
-import HelperText from './components/HelperText';
-import { SelectBox } from './components/SelectBox';
+import Input from '../../components/Input';
+import HelperText from '../../components/HelperText';
+import { SelectBox } from '../../components/SelectBox';
+import { useState } from 'react';
+
+const options = ['카카오톡 ID', '오픈 채팅방 링크', '전화번호'];
 
 export default function ContactPage() {
   const navigate = useNavigate();
 
   const { input, handleChangeInput } = useInput();
-  const options = ['카카오톡 ID', '오픈 채팅방 링크', '전화번호'];
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   return (
     <>
@@ -25,7 +28,11 @@ export default function ContactPage() {
           참가자들에게 연락을 받을 수 있는
           <br /> 카카오톡 ID / 오픈 채팅방/ 전화번호 중 하나를 작성해주세요.
         </Typography>
-        <SelectBox options={options} />
+        <SelectBox
+          options={options}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
         <InputWrap>
           <Input value={input} onChange={handleChangeInput} placeholder={`연락처 입력`} />
         </InputWrap>

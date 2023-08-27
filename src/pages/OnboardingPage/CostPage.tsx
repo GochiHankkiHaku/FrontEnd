@@ -4,7 +4,7 @@ import { color } from 'styles/constants';
 import { ChangeEvent, useState } from 'react';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
-import HelperText from './components/HelperText';
+import HelperText from '../../components/HelperText';
 
 const prices = {
   '구살국(성게국)': 13000,

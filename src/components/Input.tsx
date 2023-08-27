@@ -9,6 +9,7 @@ interface InputProps {
   children?: React.ReactNode;
   isError?: boolean;
 }
+
 export default function Input({
   value,
   onChange,
