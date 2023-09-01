@@ -6,16 +6,16 @@ import { flexSet } from 'styles/minxin';
 
 const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];
 interface MenuItemProps {
-  idx: number;
+  id: number;
   img: string;
   name: string;
   content: string;
-  onSelectMenu: () => void;
-  isSelected: boolean;
-  isAnySelected: boolean;
+  onSelectMenu?: () => void;
+  isSelected?: boolean;
+  isAnySelected?: boolean;
 }
 export default function MenuItem({
-  idx,
+  id,
   img,
   name,
   content,
@@ -26,7 +26,7 @@ export default function MenuItem({
   return (
     <>
       <Wrap onClick={onSelectMenu} $isSelected={isSelected} $isAnySelected={isAnySelected}>
-        <ImgWrap idx={idx}>
+        <ImgWrap $id={id}>
           <Img src={img} alt='음식 썸네일' />
           {isSelected && (
             <div className='mid'>
@@ -45,24 +45,31 @@ export default function MenuItem({
   );
 }
 
-const Wrap = styled.div<{ $isSelected: boolean; $isAnySelected: boolean }>`
+const Wrap = styled.div<{ $isSelected?: boolean; $isAnySelected?: boolean }>`
   display: flex;
   position: relative;
   background-color: #fff;
 
   width: 100%;
-  height: 168px;
-  box-shadow: 0 0 0 1px ${color.gray[4]} inset;
-
-  border-radius: 8px;
-
-  padding: 12px;
 
   & + & {
     margin-top: 16px;
   }
-
   cursor: pointer;
+
+  ${({ $isSelected }) => {
+    if ($isSelected !== undefined) {
+      return css`
+        height: 168px;
+
+        box-shadow: 0 0 0 1px ${color.gray[4]} inset;
+
+        border-radius: 8px;
+
+        padding: 12px;
+      `;
+    }
+  }}
 
   ${({ $isAnySelected, $isSelected }) => {
     if ($isSelected) {
@@ -87,12 +94,12 @@ const Wrap = styled.div<{ $isSelected: boolean; $isAnySelected: boolean }>`
   }}
 `;
 
-const ImgWrap = styled.div<{ idx: number }>`
+const ImgWrap = styled.div<{ $id: number }>`
   width: 144px;
   height: 144px;
   border-radius: ${radius[4]}px;
 
-  background-color: ${({ idx }) => bgCols[idx % 3]};
+  background-color: ${({ $id }) => bgCols[$id % 3]};
 
   position: relative;
   ${flexSet()}
@@ -120,4 +127,6 @@ const Caption = styled.div`
   line-height: 150%;
 
   margin-top: 7px;
+
+  color: ${color.gray[7]};
 `;

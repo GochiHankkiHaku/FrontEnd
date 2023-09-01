@@ -5,28 +5,13 @@ import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
-
-type COMMAND = 'max' | 'min';
+import { useFormActions, useApplyForm } from './store/formStore';
 
 export default function MemberCountPage() {
   const { goNextPage } = usePage();
 
-  const [count, setCount] = useState({
-    max: 4,
-    min: 1,
-  });
-
-  const handleIncrement = (command: COMMAND) => {
-    if (count[command] < 4) {
-      setCount({ ...count, [command]: count[command] + 1 });
-    }
-  };
-
-  const handleDecrement = (command: COMMAND) => {
-    if (count[command] > 1) {
-      setCount({ ...count, [command]: count[command] - 1 });
-    }
-  };
+  const { memberCount } = useApplyForm();
+  const { increaseMember, decreaseMember } = useFormActions();
 
   return (
     <>
@@ -43,24 +28,23 @@ export default function MemberCountPage() {
           <span className='color'>최대</span> 인원 선택
         </StyledTypography>
         <CounterContainer>
-          <CountBtn onClick={() => handleDecrement('max')}>-</CountBtn>
-          <CounterText $color={color.active}>{count.max} 명</CounterText>
-          <CountBtn onClick={() => handleIncrement('max')}>+</CountBtn>
+          <CountBtn onClick={() => decreaseMember('max')}>-</CountBtn>
+          <CounterText $color={color.active}>{memberCount.max} 명</CounterText>
+          <CountBtn onClick={() => increaseMember('max')}>+</CountBtn>
         </CounterContainer>
         <StyledTypography variant='paragraph' size={2} $color={color.alert}>
           <span className='color'>최소</span> 인원 선택
         </StyledTypography>
         <CounterContainer>
-          <CountBtn onClick={() => handleDecrement('min')}>-</CountBtn>
-          <CounterText $color={color.alert}>{count.min} 명</CounterText>
-          <CountBtn onClick={() => handleIncrement('min')}>+</CountBtn>
+          <CountBtn onClick={() => decreaseMember('min')}>-</CountBtn>
+          <CounterText $color={color.alert}>{memberCount.min} 명</CounterText>
+          <CountBtn onClick={() => increaseMember('min')}>+</CountBtn>
         </CounterContainer>
       </Wrap>
       <Footer
         saveLater
         onClick={() => {
           goNextPage();
-          localStorage.setItem('number', String(count));
         }}
       />
     </>

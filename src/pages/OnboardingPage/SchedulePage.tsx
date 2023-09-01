@@ -4,34 +4,27 @@ import { color, radius } from 'styles/constants';
 import { useState } from 'react';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
+import { useFormActions, useApplyForm } from './store/formStore';
 
-const day = {
+const DAY = {
   today: '오늘',
   tomorrow: '내일',
-};
+} as const;
 
-const time = {
+const TIME = {
   breakfast: '아침 (8:00 ~ 10:00)',
   lunchEarly: '점심 (10:00 ~ 12:00)',
   lunchLate: '점심 (12:00 ~ 14:00)',
   dinner: '저녁 (16:00 ~ 18:00)',
-};
+} as const;
 
 const getTextColor = (isSelected: boolean) => (isSelected ? color.white : color.gray[9]);
 
 export default function SchedulePage() {
   const { goNextPage } = usePage();
 
-  const [selectedDay, setSelectedDay] = useState('');
-  const [selectedMealTime, setSelectedMealTime] = useState('');
-
-  const handleDaySelect = (day: string) => {
-    setSelectedDay(day);
-  };
-
-  const handleMealTimeSelect = (mealTime: string) => {
-    setSelectedMealTime(mealTime);
-  };
+  const { day, time } = useApplyForm();
+  const { setDay, setTime } = useFormActions();
 
   return (
     <>
@@ -40,20 +33,14 @@ export default function SchedulePage() {
           언제 먹을까요?
         </Typography>
         <DayBtnsWrap>
-          <DayBtnLeft
-            onClick={() => handleDaySelect(day.today)}
-            selected={selectedDay === day.today}
-          >
-            <Typography variant='title' size={6} color={getTextColor(selectedDay === day.today)}>
-              오늘
+          <DayBtnLeft onClick={() => setDay(DAY.today)} selected={day === DAY.today}>
+            <Typography variant='title' size={6} color={getTextColor(day === DAY.today)}>
+              {DAY.today}
             </Typography>
           </DayBtnLeft>
-          <DayBtnRight
-            onClick={() => handleDaySelect(day.tomorrow)}
-            selected={selectedDay === day.tomorrow}
-          >
-            <Typography variant='title' size={6} color={getTextColor(selectedDay === day.tomorrow)}>
-              내일
+          <DayBtnRight onClick={() => setDay(DAY.tomorrow)} selected={day === DAY.tomorrow}>
+            <Typography variant='title' size={6} color={getTextColor(day === DAY.tomorrow)}>
+              {DAY.tomorrow}
             </Typography>
           </DayBtnRight>
         </DayBtnsWrap>
@@ -61,48 +48,24 @@ export default function SchedulePage() {
           몇 시에 먹을까요?
         </Typography>
         <TimeBtnsWrap>
-          <TimeBtn
-            onClick={() => handleMealTimeSelect(time.breakfast)}
-            selected={selectedMealTime === time.breakfast}
-          >
+          <TimeBtn onClick={() => setTime(TIME.breakfast)} selected={time === TIME.breakfast}>
             <Typography variant='title' size={6} color={color.gray[9]}>
-              {time.breakfast}
+              {TIME.breakfast}
             </Typography>
           </TimeBtn>
-          <TimeBtn
-            onClick={() => handleMealTimeSelect(time.lunchEarly)}
-            selected={selectedMealTime === time.lunchEarly}
-          >
-            <Typography
-              variant='title'
-              size={6}
-              color={getTextColor(selectedMealTime === time.lunchEarly)}
-            >
-              {time.lunchEarly}
+          <TimeBtn onClick={() => setTime(TIME.lunchEarly)} selected={time === TIME.lunchEarly}>
+            <Typography variant='title' size={6} color={getTextColor(time === TIME.lunchEarly)}>
+              {TIME.lunchEarly}
             </Typography>
           </TimeBtn>
-          <TimeBtn
-            onClick={() => handleMealTimeSelect(time.lunchLate)}
-            selected={selectedMealTime === time.lunchLate}
-          >
-            <Typography
-              variant='title'
-              size={6}
-              color={getTextColor(selectedMealTime === time.lunchLate)}
-            >
-              {time.lunchLate}
+          <TimeBtn onClick={() => setTime(TIME.lunchLate)} selected={time === TIME.lunchLate}>
+            <Typography variant='title' size={6} color={getTextColor(time === TIME.lunchLate)}>
+              {TIME.lunchLate}
             </Typography>
           </TimeBtn>
-          <TimeBtn
-            onClick={() => handleMealTimeSelect(time.dinner)}
-            selected={selectedMealTime === time.dinner}
-          >
-            <Typography
-              variant='title'
-              size={6}
-              color={getTextColor(selectedMealTime === time.dinner)}
-            >
-              {time.dinner}
+          <TimeBtn onClick={() => setTime(TIME.dinner)} selected={time === TIME.dinner}>
+            <Typography variant='title' size={6} color={getTextColor(time === TIME.dinner)}>
+              {TIME.dinner}
             </Typography>
           </TimeBtn>
         </TimeBtnsWrap>
@@ -111,8 +74,6 @@ export default function SchedulePage() {
         saveLater
         onClick={() => {
           goNextPage();
-          localStorage.setItem('date', selectedDay);
-          localStorage.setItem('time', selectedMealTime);
         }}
       />
     </>

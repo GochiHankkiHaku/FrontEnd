@@ -17,6 +17,10 @@ export default function SelectContactPage() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [contact, setContact] = useState('');
 
+  const handleSelectOption = (option: string) => {
+    setSelectedOption(option);
+  };
+
   const handleChangeContact = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContact(event.currentTarget.value);
   };
@@ -52,7 +56,7 @@ export default function SelectContactPage() {
         <SelectBox
           options={options}
           selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
+          onSelectOption={handleSelectOption}
         />
         <InputWrap>
           <Input value={contact} onChange={handleChangeContact} placeholder={`연락처 입력`} />

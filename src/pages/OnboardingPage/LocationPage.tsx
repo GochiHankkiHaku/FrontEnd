@@ -7,15 +7,13 @@ import Footer from './components/Footer';
 import Location from './components/Location';
 import { toast } from 'react-toastify';
 import CustomToast from 'components/CustomToast';
-import { DEFAULT_ADDRESS, useFormStore } from './store/formStore';
+import { DEFAULT_ADDRESS, useApplyForm, useFormActions } from './store/formStore';
 
 export default function LocationPage() {
   const { goNextPage } = usePage();
 
-  const businessNumber = useFormStore((state) => state.businessNumber);
-  const setBusinessNumber = useFormStore((state) => state.setBusinessNumber);
-  const address = useFormStore((state) => state.address);
-  const detailAddress = useFormStore((state) => state.detailAddress);
+  const { businessNumber, address, detailAddress } = useApplyForm();
+  const { setBusinessNumber } = useFormActions();
 
   const handleChangeBusinessNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusinessNumber(e.currentTarget.value);

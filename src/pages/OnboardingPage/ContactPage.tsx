@@ -4,19 +4,27 @@ import { color } from 'styles/constants';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from 'common/constants';
 import Footer from './components/Footer';
-import { useInput } from 'common/hooks/useInput';
 import Input from '../../components/Input';
 import HelperText from '../../components/HelperText';
 import { SelectBox } from '../../components/SelectBox';
-import { useState } from 'react';
+import React from 'react';
+import { ContactType, useFormActions, useApplyForm } from './store/formStore';
 
 const options = ['카카오톡 ID', '오픈 채팅방 링크', '전화번호'];
 
 export default function ContactPage() {
   const navigate = useNavigate();
 
-  const { input, handleChangeInput } = useInput();
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const { contactOption, contact } = useApplyForm();
+  const { setContactOption, setContact } = useFormActions();
+
+  const handleSelectOption = (option: string) => {
+    setContactOption(option as ContactType);
+  };
+
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContact(event.currentTarget.value);
+  };
 
   return (
     <>
@@ -30,11 +38,11 @@ export default function ContactPage() {
         </Typography>
         <SelectBox
           options={options}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
+          selectedOption={contactOption}
+          onSelectOption={handleSelectOption}
         />
         <InputWrap>
-          <Input value={input} onChange={handleChangeInput} placeholder={`연락처 입력`} />
+          <Input value={contact} onChange={handleChangeInput} placeholder={`연락처 입력`} />
         </InputWrap>
         <HelperText>연락처 오류 시, 모임 참여에 불이익이 발생할 수 있습니다.</HelperText>
       </Wrap>

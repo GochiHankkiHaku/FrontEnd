@@ -4,7 +4,7 @@ import { typoStyles } from 'styles/minxin';
 
 interface InputProps {
   value: string;
-  onChange: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler;
   placeholder?: string;
   children?: React.ReactNode;
   isError?: boolean;

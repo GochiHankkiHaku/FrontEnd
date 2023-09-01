@@ -1,20 +1,18 @@
-import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { Typography } from 'components/Typography';
-import { useInput } from 'common/hooks/useInput';
 import { useAddress } from '../hooks/useAddress';
 import { Address } from 'react-daum-postcode';
-import { ReactComponent as GeolocationIcon } from 'assets/icons/geolocation.svg';
+import geolocationIcon from 'assets/icons/geolocation.svg';
 import Input from '../../../components/Input';
 import { GrayBorderBtnStyle } from '../utils/mixins';
-import { useFormStore } from '../store/formStore';
+import { useFormActions, useApplyFormStore } from '../store/formStore';
 
 export default function Location() {
   const { open, handleComplete } = useAddress();
-  const address = useFormStore((state) => state.address);
-  const setAddress = useFormStore((state) => state.setAddress);
-  const detailAddress = useFormStore((state) => state.detailAddress);
-  const setDetailAddress = useFormStore((state) => state.setDetailAddress);
+  const address = useApplyFormStore((state) => state.address);
+  const detailAddress = useApplyFormStore((state) => state.detailAddress);
+
+  const { setAddress, setDetailAddress } = useFormActions();
 
   const handleChangeDetailAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDetailAddress(e.currentTarget.value);
@@ -31,7 +29,6 @@ export default function Location() {
   return (
     <>
       <LocationBtn onClick={handleFindLocation}>
-        <GeolocationIcon />
         <Typography
           variant='paragraph'
           size={3}
@@ -68,4 +65,13 @@ const LocationBtn = styled.button`
     display: none;
   }
   scrollbar-width: none; /* 파이어폭스 */
+
+  ::before {
+    content: '';
+    display: block;
+    background-image: url(${geolocationIcon});
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+  }
 `;
