@@ -7,22 +7,22 @@ import { ReactComponent as ChevronRightIcon } from 'assets/icons/chevron-backwar
 
 interface SelectBoxProps {
   options: string[];
-  placeholder?: string;
   selectedOption: string | null;
-  setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
+  onSelectOption: (option: string) => void;
+  placeholder?: string;
 }
 
 export const SelectBox: FC<SelectBoxProps> = ({
   options,
   placeholder = '선택해주세요.',
   selectedOption,
-  setSelectedOption,
+  onSelectOption,
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleSelect = (option: string) => {
-    setSelectedOption(option);
+    onSelectOption(option);
     setOpen(false);
   };
 
