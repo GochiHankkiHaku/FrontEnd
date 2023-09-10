@@ -1,8 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-export const Spinner = ({ mt }: { mt?: number }) => {
+export const Spinner = () => {
   return (
-    <SpinnerContainer mt={mt}>
+    <SpinnerContainer>
       <LoadingSpinner />
     </SpinnerContainer>
   );
@@ -14,9 +14,12 @@ const spinAnimation = keyframes`
 `;
 
 export const SpinnerContainer = styled.div<{ mt?: number }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-top: ${({ mt }) => mt && mt + 'px'};
-  /* margin-top: 20rem; */
+  height: calc(100vh - 80px);
+  background-color: white;
 `;
 
 // 스피닝 컴포넌트 스타일 정의
@@ -26,6 +29,6 @@ export const LoadingSpinner = styled.div`
   border-radius: 50%;
   width: 4rem;
   height: 4rem;
+  margin-bottom: 80px;
   animation: ${spinAnimation} 1s linear infinite;
-  margin: 0 auto;
 `;

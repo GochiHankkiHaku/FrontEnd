@@ -1,21 +1,22 @@
 import styled from 'styled-components';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { Typography } from 'components/Typography';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { color } from 'styles/constants';
 import { SelectBox } from 'components/SelectBox';
 import HelperText from 'components/HelperText';
 import Input from 'components/Input';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const options = ['카카오톡 ID', '전화번호'];
 
 export default function SelectContactPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [contact, setContact] = useState('');
+
+  const { post_idx } = useParams();
+  const navigate = useNavigate();
 
   const handleSelectOption = (option: string) => {
     setSelectedOption(option);
@@ -30,11 +31,7 @@ export default function SelectContactPage() {
   };
 
   const movePaymentPage = () => {
-    navigate('/payment', {
-      state: {
-        location,
-      },
-    });
+    navigate(`/payment/${post_idx}`);
   };
 
   return (

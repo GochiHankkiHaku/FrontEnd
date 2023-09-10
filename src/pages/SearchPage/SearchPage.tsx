@@ -3,9 +3,8 @@ import Infowindow from './components/Infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
-import { useFetch } from '../../common/hooks/useFetch';
+import { useGetPosts } from './hooks/useGetPosts';
 import { useGeolocation } from './hooks/useGeolacation';
-import { useChangeAddr } from './hooks/useChangeAddr';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
@@ -17,12 +16,12 @@ export default function SearchPage() {
   const [markerInfo, setMarkerInfo] = useState<any>({
     markerId: 0,
     markerMenuname: '',
+    markerAddress: '',
     markerDate: '',
-    markerTime: '',
-    markerApplication: 0,
-    markerNumber: 0,
-    markerMoney: 0,
+    markerStatus: '',
     markerDistance: 0,
+    markerGreate: 0,
+    markerGood: 0,
   });
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
   const [selectDate, setSelectDate] = useState<number>(0);
@@ -31,8 +30,8 @@ export default function SearchPage() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const { currentMyLocation, locationLoading } = useGeolocation();
-  const gatheringData = useFetch();
-  const { address, changeAddr } = useChangeAddr();
+  const gatheringData = useGetPosts();
+  // console.log(gatheringData);
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
@@ -106,14 +105,13 @@ export default function SearchPage() {
           setMarkerInfo({
             markerId: gatheringData.post_idx,
             markerMenuname: gatheringData.menuname,
+            markerAddress: gatheringData.address,
             markerDate: gatheringData.date,
-            markerTime: gatheringData.time,
-            markerApplication: gatheringData.application,
-            markerNumber: gatheringData.number,
-            markerMoney: gatheringData.money,
+            markerStatus: gatheringData.status,
             markerDistance: Math.floor(gatheringData.DISTANCE * 1000),
+            markerGreate: gatheringData.greate,
+            markerGood: gatheringData.good,
           });
-          changeAddr(gatheringData.lat, gatheringData.lng);
           setIsInfoOpen(true);
         };
         kakao.maps.event.addListener(marker, 'click', markerClickEvent);
@@ -141,8 +139,8 @@ export default function SearchPage() {
   return (
     <>
       <SearchHeader title={'내 주변 탐색'} underbarColor={color.gray[4]} />
-      {locationLoading ? (
-        <Spinner mt={200} />
+      {locationLoading && markers.length === 0 ? (
+        <Spinner />
       ) : (
         <Wrap ref={mapRef}>
           <MarkerFilteringBtnArea>
@@ -162,7 +160,7 @@ export default function SearchPage() {
               </Typography>
             </MarkerFilteringBtn>
           </MarkerFilteringBtnArea>
-          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} address={address} />}
+          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} />}
         </Wrap>
       )}
     </>

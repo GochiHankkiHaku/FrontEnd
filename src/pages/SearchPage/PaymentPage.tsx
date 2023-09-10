@@ -1,18 +1,20 @@
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ReactComponent as PayUser } from 'assets/icons/payUser.svg';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
-import fish from 'assets/images/어류.png';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
+import { useParams } from 'react-router-dom';
+import { useGetPost } from './hooks/useGetPost';
+import MenuInfo from './components/MenuInfo';
+import FounderInfo from './components/FounderInfo';
+import { Spinner } from 'components/Spinner';
 
 export default function PaymentPage() {
+  const { post_idx } = useParams();
+  const gatheringDetailData = useGetPost(post_idx as string);
   const navigate = useNavigate();
-  const location = useLocation();
-  const markerInfo = location.state.location.state.location.state.markerInfo;
-  const address = location.state.location.state.location.state.address;
 
   const movePrevPage = () => {
     navigate(-1);
@@ -31,53 +33,44 @@ export default function PaymentPage() {
         </Typography>
         <div className='none' />
       </Header>
-      <Main>
-        <Typography variant='title' size={3} color={color.gray[9]} mb={1} pt={10} pb={10}>
-          결제 정보
-        </Typography>
-        <Section>
-          <Typography variant='paragraph' size={2} color={color.gray[9]}>
-            2023. 07. 07
+      {gatheringDetailData === undefined ? (
+        <Spinner />
+      ) : (
+        <Main>
+          <Typography variant='title' size={3} color={color.gray[9]} mb={1} pt={10} pb={10}>
+            결제 정보
           </Typography>
-          <Line />
-          <MenuInfoArea>
-            <MenuImg src={fish} />
-            <MenuDescription>
-              <Typography variant='paragraph' size={1} color={color.gray[9]}>
-                {markerInfo.markerMenuname}
-              </Typography>
-              <Typography variant='paragraph' size={7} color={color.gray[7]}>
-                제주 연안에 서식하는 자리돔을 간장으로 조린 음식
-              </Typography>
-            </MenuDescription>
-          </MenuInfoArea>
-        </Section>
-        <Section>
-          <HostInfoArea>
-            <PayUser />
-            <HostDescription>
-              <Typography variant='paragraph' size={3} color={color.gray[9]}>
-                개설자 이름
-              </Typography>
-              <Typography variant='paragraph' size={4} color={color.gray[9]}>
-                장소 이름
-              </Typography>
-              <Typography variant='caption' size={2} color={color.gray[6]}>
-                {address}
-              </Typography>
-            </HostDescription>
-          </HostInfoArea>
-          <Line />
-          <GatheringPayArea>
-            <Typography variant='paragraph' size={2} color={color.gray[11]}>
-              모임 비용
+          <Section>
+            <Typography variant='paragraph' size={2} color={color.gray[9]}>
+              {gatheringDetailData.realdate}
             </Typography>
-            <Typography variant='title' size={1} color={color.main[1]}>
-              {markerInfo.markerMoney}원
-            </Typography>
-          </GatheringPayArea>
-        </Section>
-      </Main>
+            <Line />
+            <MenuInfo
+              img={gatheringDetailData.menuimg}
+              menuname={gatheringDetailData.menuname}
+              menuContent={gatheringDetailData.menucontent}
+            />
+            <Line />
+          </Section>
+          <Section>
+            <FounderInfo
+              founder={gatheringDetailData.writer}
+              address={gatheringDetailData.address}
+              great={gatheringDetailData.great}
+              good={gatheringDetailData.good}
+              founderInfoBorder={'payment'}
+            />
+            <GatheringPayArea>
+              <Typography variant='paragraph' size={2} color={color.gray[11]}>
+                모임 비용
+              </Typography>
+              <Typography variant='title' size={1} color={color.main[1]}>
+                {gatheringDetailData.money}원
+              </Typography>
+            </GatheringPayArea>
+          </Section>
+        </Main>
+      )}
       <Footer>
         <PayBtn onClick={moveMainPage} background={'#FFED00'}>
           <Kakaopay />
@@ -131,38 +124,6 @@ const Section = styled.section`
   flex-direction: column;
   width: 100%;
   row-gap: 19px;
-`;
-
-const MenuInfoArea = styled.div`
-  display: flex;
-  gap: 12px;
-`;
-
-const MenuImg = styled.img`
-  width: 144px;
-  height: 144px;
-  border-radius: 4px;
-  background-color: peachpuff;
-`;
-
-const MenuDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: calc(100% - 12px - 144px);
-`;
-
-const HostInfoArea = styled.div`
-  display: flex;
-  gap: 16px;
-  padding: 14px 0;
-`;
-
-const HostDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 60px - 16px);
-  gap: 4px;
 `;
 
 const GatheringPayArea = styled.div`

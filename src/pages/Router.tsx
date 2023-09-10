@@ -40,8 +40,8 @@ export const Router = (): React.ReactElement => {
         <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
       </Route>
       <Route path={'/detail/:post_idx'} element={<SearchDetailPage />} />
-      <Route path={'/select'} element={<SelectContactPage />} />
-      <Route path={'/payment'} element={<PaymentPage />} />
+      <Route path={'/select/:post_idx'} element={<SelectContactPage />} />
+      <Route path={'/payment/:post_idx'} element={<PaymentPage />} />
       <Route path={'/review'} element={<ReviewPage />} />
       {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
       <Route path='*' element={<NotFoundPage />} />

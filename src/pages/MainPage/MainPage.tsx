@@ -51,7 +51,7 @@ export default function MainPage() {
           내 주변 요리 모임
         </Typography>
         {posts.length === 0 ? (
-          <Spinner mt={30} />
+          <Spinner />
         ) : (
           posts.map((post: any, idx: number) => (
             <>

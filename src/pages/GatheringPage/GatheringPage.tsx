@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import GatheringGroup from './components/GatheringGroup';
 import Test from './components/GatheringItem';
-import { useFetch } from 'common/hooks/useFetch';
+import { useGetPosts } from 'pages/SearchPage/hooks/useGetPosts';
 import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
@@ -9,7 +9,7 @@ import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
 
 export default function GatheringPage() {
-  const gatheringData = useFetch();
+  const gatheringData = useGetPosts();
   const notDoneData = gatheringData.filter((value: any) => {
     return value.gathering_state === '모임 중';
   });
