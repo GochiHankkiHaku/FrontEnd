@@ -1,5 +1,5 @@
+import { Menu } from 'apis/lib/menu/type';
 import { create } from 'zustand';
-import { Menu } from '../utils/types';
 
 export const DEFAULT_ADDRESS = '장소 정보 내용';
 

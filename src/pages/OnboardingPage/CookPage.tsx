@@ -8,8 +8,7 @@ import Search from './components/Search';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 import { useFormActions, useApplyForm } from './store/formStore';
-import { menus } from './mock';
-import { Menu } from './utils/types';
+import { Menu } from 'apis/lib/menu/type';
 
 const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
 
@@ -18,6 +17,7 @@ export default function CookPage() {
 
   const { menu: selectedMenu } = useApplyForm();
   const { setMenu } = useFormActions();
+  const [menus, setMenus] = useState<Menu[] | null>(null);
 
   const handleSelectMenu = (name: Menu) => {
     setMenu(name);
@@ -26,7 +26,9 @@ export default function CookPage() {
   useEffect(() => {
     const getPost = async () => {
       try {
-        // const res = await MenuApi.getMenu();
+        const res = await MenuApi.getMenu();
+        setMenus(res);
+        console.log(res);
       } catch (error) {
         console.log('error :>> ', error);
       }
@@ -43,10 +45,10 @@ export default function CookPage() {
           어떤 요리를 할까요?
         </Typography>
         <Container>
-          {menus.map((menu) => (
+          {menus?.map((menu) => (
             <MenuItem
-              key={menu.id}
-              id={menu.id}
+              key={menu.menu_idx}
+              id={menu.menu_idx}
               name={menu.name}
               content={menu.content}
               img={menu.img}

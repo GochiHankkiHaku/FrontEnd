@@ -1,5 +1,5 @@
 import { axiosClient } from 'apis/apiClient';
-import { AxiosResponse } from 'axios';
+import { Menu } from './type';
 
 export interface PostResponse {
   address: string;
@@ -11,9 +11,8 @@ export interface PostResponse {
 }
 
 export class MenuApi {
-  static async getMenu() {
-    const res = await axiosClient.post('/menu/listall', {});
-    // console.log('res :>> ', res);
-    return res;
-  }
+  static getMenu = async (): Promise<Menu[]> => {
+    const res = await axiosClient.get('/menu/listall', {});
+    return res.data;
+  };
 }

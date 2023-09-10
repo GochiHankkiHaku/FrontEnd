@@ -1,9 +1,8 @@
-import React from 'react';
-import { Ingredient } from '../utils/types';
 import styled from 'styled-components';
 import { radius } from 'styles/constants';
 import { flexSet } from 'styles/minxin';
 import { Typography } from 'components/Typography';
+import { Ingredient } from 'apis/lib/menu/type';
 
 const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];
 
@@ -16,18 +15,23 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     <>
       {ingredients.map((ingredient) => (
         <IngredientItem
-          key={ingredient.ingredient}
+          key={ingredient.idx}
           ingredient={ingredient.ingredient}
           price={ingredient.price}
-          img={ingredient.img}
+          url={ingredient.url}
         />
       ))}
     </>
   );
 }
 
-type IngredientProps = Ingredient;
-function IngredientItem({ img, ingredient, price }: IngredientProps) {
+interface IngredientItemProps {
+  ingredient: string;
+  price: number;
+  url: string;
+}
+
+function IngredientItem({ url: img, ingredient, price }: IngredientItemProps) {
   return (
     <IngredientWrap>
       <ImgWrap $id={0}>

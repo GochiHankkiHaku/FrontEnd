@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 import HelperText from '../../components/HelperText';
@@ -59,16 +59,16 @@ export default function CostPage() {
         <Typography variant='title' size={5} mt={30} mb={30}>
           필수 재료 (1인분 기준)
         </Typography>
-        <Ingredients ingredients={menu?.items ?? []} />
+        <Ingredients ingredients={menu?.item ?? []} />
       </Wrap>
-      <Footer onClick={handleNext} />
+      <Footer onClick={handleNext} isDisabled={cost === ''} />
     </>
   );
 }
 
 const Wrap = styled.div`
   flex: 1;
-  padding: 30px 20px 20px 20px;
+  padding: 30px 20px 90px 20px;
   display: flex;
   flex-direction: column;
 `;

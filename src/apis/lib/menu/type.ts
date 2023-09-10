@@ -1,14 +1,15 @@
 export interface Ingredient {
-  img: string;
+  idx: number;
   ingredient: string;
   price: number;
+  url: string;
 }
 
 export interface Menu {
-  id: number;
+  menu_idx: number;
   name: string;
   content: string;
-  items: Ingredient[];
+  item: Ingredient[];
   img: string;
   total: number;
 }
