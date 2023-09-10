@@ -8,11 +8,6 @@ import HelperText from '../../components/HelperText';
 import { useFormActions, useApplyForm } from './store/formStore';
 import Ingredients from './components/Ingredients';
 
-const prices = {
-  '구살국(성게국)': 13000,
-  자리돔조림: 14000,
-  '한치 물회 덮밥': 11000,
-};
 const formatPrice = (value: string) => {
   const numericValue = value.replace(/\D/g, '');
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');

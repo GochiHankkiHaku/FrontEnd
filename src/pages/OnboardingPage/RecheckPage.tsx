@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as XIcon } from 'assets/icons/xmark.svg';
+import { ReactComponent as BackIcon } from 'assets/icons/back.svg';
 import { Typography } from 'components/Typography';
 import { color, radius, typograpy } from 'styles/constants';
 import Footer from './components/Footer';
@@ -30,7 +30,7 @@ export default function RecheckPage() {
       <Wrap>
         <Header>
           <CancelRow>
-            <XIcon />
+            <BackIcon onClick={() => navigate(`/${PATH.onBoarding}/${PATH.contact}`)} />
           </CancelRow>
           <Typography variant='title' size={2} mt={20} mb={20}>
             지금까지 작성한 내용이에요.
@@ -117,7 +117,7 @@ export default function RecheckPage() {
           <Typography variant='title' size={5} mb={24}>
             필수 재료 (1인분 기준)
           </Typography>
-          <Ingredients ingredients={applyForm.menu?.items ?? []} />
+          <Ingredients ingredients={applyForm.menu?.item ?? []} />
           <MemberCountWrap>
             <CountBtn>-</CountBtn>
             <Typography
