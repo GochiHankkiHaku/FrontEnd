@@ -1,11 +1,13 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Back from './components/Back';
 import ProgressBar from './components/ProgressBar';
 import styled from 'styled-components';
 import { getCurrentPageStep, getPreviousPage } from './utils/pagesInformation';
 import { MAXWIDTH } from 'common/constants';
+import { useRefresh } from './hooks/useRefresh';
 
 export default function OnBoardingLayout() {
+  useRefresh();
   const location = useLocation().pathname;
 
   const currentStep = getCurrentPageStep(location);

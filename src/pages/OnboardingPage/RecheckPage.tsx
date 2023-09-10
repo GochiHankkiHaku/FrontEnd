@@ -12,8 +12,11 @@ import { GrayBorderBtnStyle } from './utils/mixins';
 import geolocationIcon from 'assets/icons/geolocation.svg';
 import MenuItem from './components/MenuItem';
 import Ingredients from './components/Ingredients';
+import { useRefresh } from './hooks/useRefresh';
 
 export default function RecheckPage() {
+  useRefresh();
+
   const navigate = useNavigate();
   const notify = () => {
     const toastId = toast.success('모임이 개설 되었어요!', {
