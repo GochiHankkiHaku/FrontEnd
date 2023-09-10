@@ -1,11 +1,12 @@
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { flexSet } from 'styles/minxin';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 import { useFormActions, useApplyForm } from './store/formStore';
+import CustomToast from 'components/CustomToast';
+import { toast } from 'react-toastify';
 
 export default function MemberCountPage() {
   const { goNextPage } = usePage();
@@ -42,11 +43,15 @@ export default function MemberCountPage() {
         </CounterContainer>
       </Wrap>
       <Footer
-        saveLater
         onClick={() => {
+          if (memberCount.max < memberCount.min) {
+            toast.error('최대 인원은 최소 인원보다 적어야 합니다.');
+            return;
+          }
           goNextPage();
         }}
       />
+      <CustomToast hideProggressBar={false} />
     </>
   );
 }
