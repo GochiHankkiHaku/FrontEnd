@@ -112,7 +112,7 @@ const ContentArea = styled.div`
   flex: 1 0 0;
 `;
 
-const GatheringTagArea = styled.div<{ gap: number }>`
+export const GatheringTagArea = styled.div<{ gap: number }>`
   display: flex;
   align-items: center;
   column-gap: ${({ gap }) => (gap === 8 ? `${gap}px` : `${gap}px`)};
@@ -131,7 +131,7 @@ const GatheringStatusTag = styled.div<{ background: string }>`
     background === color.complete ? background : background};
 `;
 
-const GatheringPopularityTag = styled.div`
+export const GatheringPopularityTag = styled.div`
   padding: 5px 12px;
   border-radius: 70px;
   border: 1px solid ${color.gray[4]};

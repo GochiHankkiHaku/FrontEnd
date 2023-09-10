@@ -3,7 +3,7 @@ import Infowindow from './components/Infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
-import { useGetPostListAll } from 'pages/SearchPage/hooks/useGetPostListAll';
+import { useGetPosts } from './hooks/useGetPosts';
 import { useGeolocation } from './hooks/useGeolacation';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
@@ -30,7 +30,7 @@ export default function SearchPage() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const { currentMyLocation, locationLoading } = useGeolocation();
-  const gatheringData = useGetPostListAll();
+  const gatheringData = useGetPosts();
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
@@ -139,7 +139,7 @@ export default function SearchPage() {
     <>
       <SearchHeader title={'내 주변 탐색'} underbarColor={color.gray[4]} />
       {locationLoading ? (
-        <Spinner mt={200} />
+        <Spinner />
       ) : (
         <Wrap ref={mapRef}>
           <MarkerFilteringBtnArea>

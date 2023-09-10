@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { PostApi } from 'apis/lib/post';
 
-export const useGetPostListAll = () => {
+export const useGetPosts = () => {
   const [gatheringData, setGatheringData] = useState<any>([]);
 
   useEffect(() => {
