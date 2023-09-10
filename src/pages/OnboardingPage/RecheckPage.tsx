@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from 'common/constants';
 import { useApplyForm } from './store/formStore';
 import { flexSet, typoStyles } from 'styles/minxin';
-import Input from 'components/Input';
 import { GrayBorderBtnStyle } from './utils/mixins';
 import geolocationIcon from 'assets/icons/geolocation.svg';
 import MenuItem from './components/MenuItem';
@@ -30,7 +29,10 @@ export default function RecheckPage() {
       <Wrap>
         <Header>
           <CancelRow>
-            <BackIcon onClick={() => navigate(`/${PATH.onBoarding}/${PATH.contact}`)} />
+            <BackIcon
+              onClick={() => navigate(`/${PATH.onBoarding}/${PATH.contact}`)}
+              style={{ cursor: 'pointer' }}
+            />
           </CancelRow>
           <Typography variant='title' size={2} mt={20} mb={20}>
             지금까지 작성한 내용이에요.
@@ -53,7 +55,7 @@ export default function RecheckPage() {
               {applyForm.address}
             </Typography>
           </LocationBox>
-          <Input value={applyForm.detailAddress} />
+          <DetailAddressBox>{applyForm.detailAddress}</DetailAddressBox>
         </Header>
         <ContentWrap>
           <Typography variant='title' size={5} mb={16}>
@@ -88,19 +90,23 @@ export default function RecheckPage() {
             <br />
             그룹 단위로 방문
           </Typography>
-          <MemberCountWrap>
+
+          <StyledTypography variant='paragraph' size={2} $color={color.active}>
+            <span className='color'>최대</span> 인원 선택
+          </StyledTypography>
+          <CounterContainer>
             <CountBtn>-</CountBtn>
-            <Typography
-              variant='title'
-              size={1}
-              style={{
-                fontSize: '32px',
-              }}
-            >
-              3명
-            </Typography>
+            <CounterText $color={color.active}>{applyForm.memberCount.max} 명</CounterText>
             <CountBtn>+</CountBtn>
-          </MemberCountWrap>
+          </CounterContainer>
+          <StyledTypography variant='paragraph' size={2} $color={color.alert} mt={16}>
+            <span className='color'>최소</span> 인원 선택
+          </StyledTypography>
+          <CounterContainer>
+            <CountBtn>-</CountBtn>
+            <CounterText $color={color.alert}>{applyForm.memberCount.min} 명</CounterText>
+            <CountBtn>+</CountBtn>
+          </CounterContainer>
         </ContentWrap>
         <ContentWrap>
           <Typography variant='title' size={5} mb={3}>
@@ -111,26 +117,13 @@ export default function RecheckPage() {
             원이에요.
           </Typography>
           <InputContainer>
-            <StyledInput value={applyForm.cost.toLocaleString()} />
+            <CostText>{applyForm.cost.toLocaleString()}</CostText>
             <Text>원</Text>
           </InputContainer>
           <Typography variant='title' size={5} mb={24}>
             필수 재료 (1인분 기준)
           </Typography>
           <Ingredients ingredients={applyForm.menu?.item ?? []} />
-          <MemberCountWrap>
-            <CountBtn>-</CountBtn>
-            <Typography
-              variant='title'
-              size={1}
-              style={{
-                fontSize: '32px',
-              }}
-            >
-              3명
-            </Typography>
-            <CountBtn>+</CountBtn>
-          </MemberCountWrap>
         </ContentWrap>
       </Wrap>
       <Footer
@@ -160,7 +153,6 @@ const Header = styled.div`
 `;
 
 const CancelRow = styled.div`
-  background-color: yellow;
   margin: 12px 0;
 `;
 
@@ -181,28 +173,6 @@ const OrangeBorderBox = styled.div`
   color: ${color.main[1]};
 `;
 
-const MemberCountWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 0 20px;
-`;
-
-const CountBtn = styled.div`
-  ${flexSet()};
-  width: 42px;
-  height: 42px;
-
-  font-size: 30px;
-  color: ${color.gray[7]};
-
-  background-color: white;
-  border: 1px solid ${color.gray[4]};
-  border-radius: 50%;
-  opacity: 0.2;
-`;
-
 const LocationBox = styled.div`
   margin: 12px 0;
 
@@ -210,10 +180,6 @@ const LocationBox = styled.div`
   gap: 10px;
 
   ${GrayBorderBtnStyle()}
-
-  &:hover {
-    filter: brightness(95%);
-  }
 
   // 스크롤바 숨기기
   & ::-webkit-scrollbar {
@@ -231,6 +197,14 @@ const LocationBox = styled.div`
   }
 `;
 
+const DetailAddressBox = styled.div`
+  padding: 11.5px 20px;
+
+  border: 1px solid ${color.gray[5]};
+  border-radius: 8px;
+
+  ${typoStyles(typograpy.paragraph[3])}
+`;
 const InputContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 40px;
@@ -247,7 +221,7 @@ const InputContainer = styled.div`
   background-color: white;
 `;
 
-const StyledInput = styled.input`
+const CostText = styled.div`
   font-size: 16px;
   margin-right: 5px;
 `;
@@ -261,4 +235,43 @@ const Text = styled.span`
 
   position: absolute;
   right: 20px;
+`;
+
+const CounterContainer = styled.div`
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+`;
+
+const CountBtn = styled.div`
+  ${flexSet()};
+  width: 42px;
+  height: 42px;
+
+  font-size: 30px;
+  color: ${color.gray[7]};
+
+  background-color: white;
+  border: 1px solid ${color.gray[4]};
+  border-radius: 50%;
+`;
+
+const CounterText = styled.span<{ $color: string }>`
+  min-width: 100px;
+  text-align: center;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  color: ${({ $color }) => $color};
+`;
+
+const StyledTypography = styled(Typography)<{ $color: string }>`
+  .color {
+    color: ${({ $color }) => $color};
+  }
 `;
