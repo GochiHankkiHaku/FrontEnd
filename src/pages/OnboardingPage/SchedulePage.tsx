@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color, radius } from 'styles/constants';
-import { useState } from 'react';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
 import { useFormActions, useApplyForm } from './store/formStore';
@@ -26,6 +25,8 @@ export default function SchedulePage() {
   const { day, time } = useApplyForm();
   const { setDay, setTime } = useFormActions();
 
+  const isBtnDisabled = day == null || time == null;
+
   return (
     <>
       <Wrap>
@@ -49,7 +50,7 @@ export default function SchedulePage() {
         </Typography>
         <TimeBtnsWrap>
           <TimeBtn onClick={() => setTime(TIME.breakfast)} selected={time === TIME.breakfast}>
-            <Typography variant='title' size={6} color={color.gray[9]}>
+            <Typography variant='title' size={6} color={getTextColor(time === TIME.breakfast)}>
               {TIME.breakfast}
             </Typography>
           </TimeBtn>
@@ -71,7 +72,7 @@ export default function SchedulePage() {
         </TimeBtnsWrap>
       </Wrap>
       <Footer
-        saveLater
+        isDisabled={isBtnDisabled}
         onClick={() => {
           goNextPage();
         }}
