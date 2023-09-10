@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, PropsWithChildren, ReactElement, ReactNode } from 'react';
+import { ComponentPropsWithRef, ReactNode } from 'react';
 import styled from 'styled-components/macro';
 import { typograpy } from 'styles/constants';
 
@@ -54,8 +54,7 @@ export const Typography: React.FC<TypographyProps & { children: ReactNode }> = (
       pl={pl}
       pr={pr}
       style={style}
-
-      // {...rest}
+      {...rest}
     >
       {children}
     </Text>

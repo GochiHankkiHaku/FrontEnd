@@ -4,9 +4,9 @@ import { color } from 'styles/constants';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from 'common/constants';
 import Footer from './components/Footer';
-import Input from '../../components/Input';
-import HelperText from '../../components/HelperText';
-import { SelectBox } from '../../components/SelectBox';
+import Input from 'components/Input';
+import HelperText from 'components/HelperText';
+import { SelectBox } from 'components/SelectBox';
 import React from 'react';
 import { ContactType, useFormActions, useApplyForm } from './store/formStore';
 
@@ -17,6 +17,8 @@ export default function ContactPage() {
 
   const { contactOption, contact } = useApplyForm();
   const { setContactOption, setContact } = useFormActions();
+
+  const isBtnDisabled = contactOption == null || contact === '';
 
   const handleSelectOption = (option: string) => {
     setContactOption(option as ContactType);
@@ -48,6 +50,7 @@ export default function ContactPage() {
       </Wrap>
       <Footer
         btnText='완료하기'
+        isDisabled={isBtnDisabled}
         onClick={() => {
           navigate(`/${PATH.recheck}`);
         }}
