@@ -4,18 +4,12 @@ import { InfowindowProps } from '../utils/interface';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { typograpy } from 'styles/constants';
 
-export default function Infowindow({ infoRef, markerInfo, address }: InfowindowProps) {
+export default function Infowindow({ infoRef, markerInfo }: InfowindowProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/detail/${markerInfo.markerId}`, {
-      state: {
-        markerInfo,
-        address,
-      },
-    });
+    navigate(`/detail/${markerInfo.markerId}`);
   };
 
   return (
@@ -24,29 +18,57 @@ export default function Infowindow({ infoRef, markerInfo, address }: InfowindowP
         <Typography variant='title' size={4} color={color.gray[9]}>
           {markerInfo.markerMenuname} 요리 모임 합니다.
         </Typography>
-        <GatheringDateTag>
-          <Typography variant='caption' size={4} color={color.main[6]}>
-            {markerInfo.markerDate} 모집
-          </Typography>
-        </GatheringDateTag>
       </TitleArea>
       <BodyArea>
         <ContentArea>
           <Typography variant='caption' size={2} color={color.gray[6]}>
-            {address}
+            {markerInfo.markerAddress}
           </Typography>
-          <GatheringDistanceArea>
-            <Typography variant='paragraph' size={4} color={color.gray[9]}>
-              {markerInfo.markerApplication}/{markerInfo.markerNumber} 모집 완료
-            </Typography>
-            <Typography variant='paragraph' size={7} color={color.active}>
-              {markerInfo.markerDistance}m
-            </Typography>
-          </GatheringDistanceArea>
-          <GatheringPopularityTagArea>
-            <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
-            <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
-          </GatheringPopularityTagArea>
+          <GatheringTagArea gap={8}>
+            <GatheringTagArea gap={8}>
+              {markerInfo.markerDate === '오늘' ? (
+                <GatheringDateTag border={color.main[1]}>
+                  <Typography variant='caption' size={4} color={color.main[1]}>
+                    {markerInfo.markerDate} 모집
+                  </Typography>
+                </GatheringDateTag>
+              ) : (
+                <GatheringDateTag border={color.main[2]}>
+                  <Typography variant='caption' size={4} color={color.main[2]}>
+                    {markerInfo.markerDate} 모집
+                  </Typography>
+                </GatheringDateTag>
+              )}
+              {markerInfo.markerStatus === 'N' ? (
+                <GatheringStatusTag background={color.active}>
+                  <Typography variant='caption' size={4} color={color.white}>
+                    모집중
+                  </Typography>
+                </GatheringStatusTag>
+              ) : (
+                <GatheringStatusTag background={color.complete}>
+                  <Typography variant='caption' size={4} color={color.white}>
+                    모집 완료
+                  </Typography>
+                </GatheringStatusTag>
+              )}
+              <Typography variant='paragraph' size={7} color={color.active}>
+                {markerInfo.markerDistance}m
+              </Typography>
+            </GatheringTagArea>
+          </GatheringTagArea>
+          <GatheringTagArea gap={4}>
+            <GatheringPopularityTag>
+              <Typography variant='caption' size={4} color={color.main[1]}>
+                최고에요 {markerInfo.markerGreate}
+              </Typography>
+            </GatheringPopularityTag>
+            <GatheringPopularityTag>
+              <Typography variant='caption' size={4} color={color.main[2]}>
+                좋아요 {markerInfo.markerGood}
+              </Typography>
+            </GatheringPopularityTag>
+          </GatheringTagArea>
         </ContentArea>
         <ArrowChevron />
       </BodyArea>
@@ -75,12 +97,6 @@ const TitleArea = styled.div`
   column-gap: 8px;
 `;
 
-const GatheringDateTag = styled.div`
-  padding: 4.5px 12px;
-  border-radius: 70px;
-  border: 1px solid ${color.main[6]};
-`;
-
 const BodyArea = styled.div`
   display: flex;
   padding-top: 12px;
@@ -96,23 +112,27 @@ const ContentArea = styled.div`
   flex: 1 0 0;
 `;
 
-const GatheringDistanceArea = styled.div`
+const GatheringTagArea = styled.div<{ gap: number }>`
   display: flex;
-  column-gap: 8px;
+  align-items: center;
+  column-gap: ${({ gap }) => (gap === 8 ? `${gap}px` : `${gap}px`)};
 `;
 
-const GatheringPopularityTagArea = styled.div`
-  display: flex;
-  column-gap: 4px;
+const GatheringDateTag = styled.div<{ border: string }>`
+  padding: 5px 12px;
+  border-radius: 70px;
+  border: 1px solid ${({ border }) => (border === color.main[1] ? border : border)};
 `;
 
-const GatheringPopularityTag = styled.div<{ color: string }>`
-  padding: 4.5px 12px;
+const GatheringStatusTag = styled.div<{ background: string }>`
+  padding: 5px 12px;
+  border-radius: 70px;
+  background-color: ${({ background }) =>
+    background === color.complete ? background : background};
+`;
+
+const GatheringPopularityTag = styled.div`
+  padding: 5px 12px;
   border-radius: 70px;
   border: 1px solid ${color.gray[4]};
-
-  font-family: ${typograpy.caption[4].fontFamily};
-  font-weight: ${typograpy.caption[4].fontWeight}px;
-  font-size: ${typograpy.caption[4].fontSize}px;
-  color: ${({ color }) => (color === '#FF5C00' ? color : color)};
 `;

@@ -5,7 +5,6 @@ import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
 import { useGetPostListAll } from 'pages/SearchPage/hooks/useGetPostListAll';
 import { useGeolocation } from './hooks/useGeolacation';
-import { useChangeAddr } from './hooks/useChangeAddr';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
@@ -17,12 +16,12 @@ export default function SearchPage() {
   const [markerInfo, setMarkerInfo] = useState<any>({
     markerId: 0,
     markerMenuname: '',
+    markerAddress: '',
     markerDate: '',
-    markerTime: '',
-    markerApplication: 0,
-    markerNumber: 0,
-    markerMoney: 0,
+    markerStatus: '',
     markerDistance: 0,
+    markerGreate: 0,
+    markerGood: 0,
   });
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
   const [selectDate, setSelectDate] = useState<number>(0);
@@ -32,8 +31,6 @@ export default function SearchPage() {
 
   const { currentMyLocation, locationLoading } = useGeolocation();
   const gatheringData = useGetPostListAll();
-  console.log(gatheringData);
-  const { address, changeAddr } = useChangeAddr();
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
@@ -107,14 +104,13 @@ export default function SearchPage() {
           setMarkerInfo({
             markerId: gatheringData.post_idx,
             markerMenuname: gatheringData.menuname,
+            markerAddress: gatheringData.address,
             markerDate: gatheringData.date,
-            markerTime: gatheringData.time,
-            markerApplication: gatheringData.application,
-            markerNumber: gatheringData.number,
-            markerMoney: gatheringData.money,
+            markerStatus: gatheringData.status,
             markerDistance: Math.floor(gatheringData.DISTANCE * 1000),
+            markerGreate: gatheringData.greate,
+            markerGood: gatheringData.good,
           });
-          changeAddr(gatheringData.lat, gatheringData.lng);
           setIsInfoOpen(true);
         };
         kakao.maps.event.addListener(marker, 'click', markerClickEvent);
@@ -163,7 +159,7 @@ export default function SearchPage() {
               </Typography>
             </MarkerFilteringBtn>
           </MarkerFilteringBtnArea>
-          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} address={address} />}
+          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} />}
         </Wrap>
       )}
     </>
