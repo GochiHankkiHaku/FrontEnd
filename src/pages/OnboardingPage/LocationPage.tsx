@@ -5,7 +5,6 @@ import Input from '../../components/Input';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
 import Location from './components/Location';
-import { toast } from 'react-toastify';
 import CustomToast from 'components/CustomToast';
 import { DEFAULT_ADDRESS, useApplyForm, useFormActions } from './store/formStore';
 
@@ -19,17 +18,8 @@ export default function LocationPage() {
     setBusinessNumber(e.currentTarget.value);
   };
 
-  const error = {
-    businessNumber: businessNumber.length === 0 && '사업자 등록 번호를 입력해주세요',
-    address: address === DEFAULT_ADDRESS && '주소를 선택해주세요',
-    detailAddress: detailAddress.length === 0 && '상세주소를 입력해주세요',
-  };
-
-  const notify = () => {
-    toast.error(error.businessNumber || error.address || error.detailAddress, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
+  const isBtnDisabled =
+    businessNumber.length === 0 || address === DEFAULT_ADDRESS || detailAddress.length === 0;
 
   return (
     <>
@@ -44,17 +34,7 @@ export default function LocationPage() {
         />
         <Location />
       </Wrap>
-      <Footer
-        saveLater
-        onClick={() => {
-          console.log('error :>> ', error);
-          if (Object.values(error).every((value) => !value)) {
-            goNextPage();
-            return;
-          }
-          notify();
-        }}
-      />
+      <Footer isDisabled={isBtnDisabled} onClick={goNextPage} />
       <CustomToast hideProggressBar={false} />
     </>
   );
