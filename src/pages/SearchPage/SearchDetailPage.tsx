@@ -21,6 +21,7 @@ export default function SearchDetailPage() {
   const navigate = useNavigate();
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
+  console.log(gatheringDetailData);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -64,7 +65,7 @@ export default function SearchDetailPage() {
               요리 정보
             </Typography>
             <MenuInfo
-              img={gatheringDetailData.img}
+              img={gatheringDetailData.menuimg}
               menuname={gatheringDetailData.menuname}
               menuContent={gatheringDetailData.menucontent}
             />

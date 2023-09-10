@@ -46,7 +46,7 @@ export default function PaymentPage() {
             </Typography>
             <Line />
             <MenuInfo
-              img={gatheringDetailData.img}
+              img={gatheringDetailData.menuimg}
               menuname={gatheringDetailData.menuname}
               menuContent={gatheringDetailData.menucontent}
             />

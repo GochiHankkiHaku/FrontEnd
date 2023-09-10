@@ -31,6 +31,7 @@ export default function SearchPage() {
 
   const { currentMyLocation, locationLoading } = useGeolocation();
   const gatheringData = useGetPosts();
+  // console.log(gatheringData);
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(
@@ -138,7 +139,7 @@ export default function SearchPage() {
   return (
     <>
       <SearchHeader title={'내 주변 탐색'} underbarColor={color.gray[4]} />
-      {locationLoading ? (
+      {locationLoading && markers.length === 0 ? (
         <Spinner />
       ) : (
         <Wrap ref={mapRef}>
