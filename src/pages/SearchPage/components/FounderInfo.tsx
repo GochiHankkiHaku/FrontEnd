@@ -5,9 +5,17 @@ import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { GatheringTagArea, GatheringPopularityTag } from './Infowindow';
 import { FounderInfoProps } from '../utils/interface';
 
-export default function FounderInfo({ founder, address, great, good }: FounderInfoProps) {
+export default function FounderInfo({
+  founder,
+  address,
+  great,
+  good,
+  founderInfoBorder,
+}: FounderInfoProps) {
+  const borderColor = founderInfoBorder === 'detail' ? color.gray[4] : color.white;
+
   return (
-    <HostInfoArea>
+    <HostInfoArea borderColor={borderColor}>
       <User1 />
       <HostDescription>
         <Typography variant='paragraph' size={3} color={color.gray[9]}>
@@ -36,13 +44,13 @@ export default function FounderInfo({ founder, address, great, good }: FounderIn
   );
 }
 
-const HostInfoArea = styled.div`
+const HostInfoArea = styled.div<{ borderColor: string }>`
   display: flex;
   padding: 12px;
   align-items: center;
   column-gap: 12px;
   border-radius: 8px;
-  border: 1px solid ${color.gray[4]};
+  border: 1px solid ${({ borderColor }) => borderColor};
 `;
 
 const HostDescription = styled.div`
@@ -51,19 +59,3 @@ const HostDescription = styled.div`
   width: calc(100% - 24px - 81px);
   row-gap: 4px;
 `;
-
-// const GatheringPopularityTagArea = styled.div`
-//   display: flex;
-//   column-gap: 4px;
-// `;
-
-// const GatheringPopularityTag = styled.div<{ color: string }>`
-//   padding: 4.5px 12px;
-//   border-radius: 70px;
-//   border: 1px solid ${color.gray[4]};
-
-//   font-family: ${typograpy.caption[4].fontFamily};
-//   font-weight: ${typograpy.caption[4].fontWeight};
-//   font-size: ${typograpy.caption[4].fontSize}px;
-//   color: ${({ color }) => (color === '#FF5C00' ? color : color)};
-// `;

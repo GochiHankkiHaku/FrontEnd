@@ -31,7 +31,7 @@ export default function SearchDetailPage() {
   };
 
   const moveSelectContactPage = () => {
-    navigate('/select');
+    navigate(`/select/${post_idx}`);
   };
 
   return (
@@ -86,6 +86,7 @@ export default function SearchDetailPage() {
               address={gatheringDetailData.address}
               great={gatheringDetailData.great}
               good={gatheringDetailData.good}
+              founderInfoBorder={'detail'}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />

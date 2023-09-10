@@ -18,6 +18,7 @@ export interface FounderInfoProps {
   address: string;
   great: number;
   good: number;
+  founderInfoBorder: string;
 }
 
 export interface IngredientInfoProps {
