@@ -3,7 +3,7 @@ import Infowindow from './components/Infowindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
-import { useFetch } from '../../common/hooks/useFetch';
+import { useGetPostListAll } from 'pages/SearchPage/hooks/useGetPostListAll';
 import { useGeolocation } from './hooks/useGeolacation';
 import { useChangeAddr } from './hooks/useChangeAddr';
 import { Typography } from 'components/Typography';
@@ -31,7 +31,8 @@ export default function SearchPage() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const { currentMyLocation, locationLoading } = useGeolocation();
-  const gatheringData = useFetch();
+  const gatheringData = useGetPostListAll();
+  console.log(gatheringData);
   const { address, changeAddr } = useChangeAddr();
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { PostApi } from 'apis/lib/post';
 
-export const useFetch = () => {
+export const useGetPostListAll = () => {
   const [gatheringData, setGatheringData] = useState<any>([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/info');
-        setGatheringData(res.data);
+        const res = await PostApi.getPosts();
+        setGatheringData(res);
       } catch (err) {
         console.error(err);
       }
