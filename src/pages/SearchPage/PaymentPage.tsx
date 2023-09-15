@@ -8,7 +8,7 @@ import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg
 import { useParams } from 'react-router-dom';
 import { useGetPost } from './hooks/useGetPost';
 import MenuInfo from '../../components/MenuInfo';
-import FounderInfo from '../../components/FounderInfo';
+import FounderInfo from './components/FounderInfo';
 import { Spinner } from 'components/Spinner';
 import { axiosClient } from 'apis/apiClient';
 

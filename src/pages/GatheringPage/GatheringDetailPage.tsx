@@ -8,7 +8,7 @@ import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
 import { useGetMatching } from './hooks/useGetMatching';
 import MenuInfo from 'components/MenuInfo';
-import FounderInfo from 'components/FounderInfo';
+import ContactFounderInfo from './components/ContactFounderInfo';
 import IngredientInfo from 'components/IngredientInfo';
 import PriceInfoDesc from 'components/PriceInfoDesc';
 import {
@@ -70,12 +70,13 @@ export default function GatheringDetailPage() {
                 개최자 정보
               </Typography>
             )}
-            <FounderInfo
+            <ContactFounderInfo
               founder={matchingDetailData.writer}
               address={matchingDetailData.address}
               great={matchingDetailData.great}
               good={matchingDetailData.good}
-              founderInfoBorder={'detail'}
+              contact={matchingDetailData?.matchingUsers[0].contactMethod}
+              contactNum={matchingDetailData?.matchingUsers.length}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />

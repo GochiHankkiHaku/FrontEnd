@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
-import {
-  GatheringTagArea,
-  GatheringPopularityTag,
-} from '../pages/SearchPage/components/Infowindow';
-import { FounderInfoProps } from '../pages/SearchPage/utils/interface';
+import { GatheringTagArea, GatheringPopularityTag } from './Infowindow';
+import { FounderInfoProps } from '../utils/interface';
 
 export default function FounderInfo({
   founder,
@@ -44,7 +41,7 @@ export default function FounderInfo({
   );
 }
 
-const HostInfoArea = styled.div<{ borderColor: string }>`
+export const HostInfoArea = styled.div<{ borderColor: string }>`
   display: flex;
   padding: 12px;
   align-items: center;
@@ -53,9 +50,10 @@ const HostInfoArea = styled.div<{ borderColor: string }>`
   border: 1px solid ${({ borderColor }) => borderColor};
 `;
 
-const HostDescription = styled.div`
+export const HostDescription = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: calc(100% - 24px - 81px);
   row-gap: 4px;
 `;

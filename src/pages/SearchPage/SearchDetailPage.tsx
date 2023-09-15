@@ -11,7 +11,7 @@ import { useGetPost } from './hooks/useGetPost';
 import { Spinner } from 'components/Spinner';
 import MenuInfo from '../../components/MenuInfo';
 import GatheringTime from './components/GatheringTime';
-import FounderInfo from '../../components/FounderInfo';
+import FounderInfo from './components/FounderInfo';
 import IngredientInfo from '../../components/IngredientInfo';
 import PriceInfoDesc from '../../components/PriceInfoDesc';
 
