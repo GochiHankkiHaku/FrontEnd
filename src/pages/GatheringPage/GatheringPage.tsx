@@ -6,7 +6,7 @@ import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
-import { useGetMatchings } from './hooks/useGetMatchins';
+import { useGetMatchings } from './hooks/useGetMatchings';
 
 export default function GatheringPage() {
   const matchingData = useGetMatchings();
@@ -17,8 +17,6 @@ export default function GatheringPage() {
     return value.postStatus === 'C';
   });
   const groupedData = groupedDate(recruitmentCompletedData);
-
-  console.log(recruitingData);
 
   return (
     <>

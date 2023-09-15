@@ -7,7 +7,9 @@ export default function GatheringItem({ data }: any) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/gathering/${data.post_idx}`);
+    navigate(`/gathering/${data.postIdx}`, {
+      state: data.postDate,
+    });
   };
 
   return (

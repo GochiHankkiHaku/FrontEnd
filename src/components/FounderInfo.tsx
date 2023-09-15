@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
-import { GatheringTagArea, GatheringPopularityTag } from './Infowindow';
-import { FounderInfoProps } from '../utils/interface';
+import {
+  GatheringTagArea,
+  GatheringPopularityTag,
+} from '../pages/SearchPage/components/Infowindow';
+import { FounderInfoProps } from '../pages/SearchPage/utils/interface';
 
 export default function FounderInfo({
   founder,

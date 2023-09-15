@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { IngredientInfoProps } from '../utils/interface';
+import { IngredientInfoProps } from '../pages/SearchPage/utils/interface';
 
 export default function IngredientInfo({ img, ingredient, price }: IngredientInfoProps) {
   return (

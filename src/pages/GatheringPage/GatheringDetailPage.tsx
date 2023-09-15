@@ -1,22 +1,30 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
-import { ReactComponent as User1 } from 'assets/icons/user1.svg';
-import fish from 'assets/images/어류.png';
-import vege from 'assets/images/채소.png';
-import grain from 'assets/images/곡류.png';
-import { Link, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { typograpy } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
+import { useGetMatching } from './hooks/useGetMatching';
+import MenuInfo from 'components/MenuInfo';
+import FounderInfo from 'components/FounderInfo';
+import IngredientInfo from 'components/IngredientInfo';
+import PriceInfoDesc from 'components/PriceInfoDesc';
+import {
+  IngredientInfoTitleArea,
+  PriceInfoIcon,
+  IngredientInfoList,
+} from 'pages/SearchPage/SearchDetailPage';
+import { Spinner } from 'components/Spinner';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const location = useLocation();
-  const detailInfo = location.state.list;
+  const { post_idx } = useParams();
+  const matchingDetailData = useGetMatching(post_idx as string);
+  const user_idx = localStorage.getItem('user_idx');
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -24,126 +32,78 @@ export default function GatheringDetailPage() {
 
   return (
     <>
-      <SearchHeader title={'모임 정보'} underbarColor={color.gray[4]} />
-      <Main>
-        <Section gap={24}>
-          <MenuInfoTitle>
-            <Typography variant='paragraph' size={2} color={color.gray[9]}>
-              {detailInfo.gathering_date}
-            </Typography>
-            <Typography variant='title' size={1} color={color.gray[9]}>
-              {detailInfo.menuname} 요리 모집
-            </Typography>
-          </MenuInfoTitle>
-          <MenuInfoArea>
-            <DetailMenuItemImg src={fish} />
-            <MenuInfoDescription>
-              <Typography variant='paragraph' size={1} color={color.gray[9]}>
-                {detailInfo.menuname}
-              </Typography>
-              <Typography variant='paragraph' size={6} color={color.gray[7]}>
-                제주 연안에 서식하는 자리돔을 간장으로 졸인 음식
-              </Typography>
-            </MenuInfoDescription>
-          </MenuInfoArea>
-        </Section>
-        <Divider height={14} backgroundColor={color.gray[2]} />
-        <Section gap={24}>
-          <Typography variant='title' size={4} color={color.gray[9]}>
-            개최자 정보
-          </Typography>
-          <HostInfoArea>
-            <User1 />
-            <HostDescription>
-              <Typography variant='paragraph' size={3} color={color.gray[9]}>
-                개설자 이름
-              </Typography>
+      <SearchHeader title={'모임 정보'} underbarColor={color.white} />
+      {matchingDetailData === undefined ? (
+        <Spinner />
+      ) : (
+        <Main>
+          <Section gap={24}>
+            <MenuInfoTitle>
               <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                장소 이름
+                {location.state}
               </Typography>
-              <Typography variant='caption' size={2} color={color.gray[6]}>
-                주소
+              <Typography variant='title' size={1} color={color.gray[9]}>
+                {matchingDetailData.menuname} 요리 모집
               </Typography>
-              <GatheringPopularityTagArea>
-                <GatheringPopularityTag color={color.main[1]}>최고에요 37</GatheringPopularityTag>
-                <GatheringPopularityTag color={color.main[2]}>좋아요 15</GatheringPopularityTag>
-              </GatheringPopularityTagArea>
-            </HostDescription>
-          </HostInfoArea>
-        </Section>
-        <Divider height={14} backgroundColor={color.gray[2]} />
-        <Section gap={24}>
-          <Typography variant='title' size={4} color={color.gray[9]}>
-            참여자 정보
-          </Typography>
-          <ParticipantInfoArea>
-            <UserInfo>
-              <User1 />
-              <Typography variant='paragraph' size={6} color={color.gray[9]}>
-                유저 네임외 3명
+            </MenuInfoTitle>
+            <MenuInfo
+              img={matchingDetailData.menuimg}
+              menuname={matchingDetailData.menuname}
+              menuContent={matchingDetailData.menucontent}
+            />
+          </Section>
+          <Divider height={14} backgroundColor={color.gray[2]} />
+          <Section gap={24}>
+            {user_idx === '1' ? (
+              <FounderTitleArea>
+                <Typography variant='title' size={4} color={color.gray[9]}>
+                  신청자 정보
+                </Typography>
+                <button>
+                  <Typography variant='paragraph' size={4} color={color.alert}>
+                    거절하기
+                  </Typography>
+                </button>
+              </FounderTitleArea>
+            ) : (
+              <Typography variant='title' size={4} color={color.gray[9]}>
+                개최자 정보
               </Typography>
-            </UserInfo>
-          </ParticipantInfoArea>
-        </Section>
-        <Divider height={14} backgroundColor={color.gray[2]} />
-        <Section gap={16}>
-          <IngredientInfoTitleArea>
-            <Typography variant='title' size={4} color={color.gray[9]}>
-              가격 측정 정보
-            </Typography>
-            <PriceInfoIcon>
-              <Info className='info_icon' onClick={openHandler} />
-              {isOpen && (
-                <PriceInfoDescription>
-                  가격 측정 기준 해양 수산부의&nbsp;
-                  <Link
-                    to='https://www.fishtrace.go.kr/home/mpInfo/actionFishPrice.do'
-                    target='_blank'
-                  >
-                    수산물이력제
-                  </Link>
-                  를 기반으로 작성되었습니다.
-                </PriceInfoDescription>
-              )}
-            </PriceInfoIcon>
-          </IngredientInfoTitleArea>
-          <IngredientInfoList>
-            <IngredientInfoItem>
-              <IngredientImg src={fish} />
-              <IngredientDescription>
-                <Typography variant='title' size={5} color={color.gray[9]}>
-                  갈치
-                </Typography>
-                <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                  평균 시세 9,000원
-                </Typography>
-              </IngredientDescription>
-            </IngredientInfoItem>
-            <IngredientInfoItem>
-              <IngredientImg src={vege} />
-              <IngredientDescription>
-                <Typography variant='title' size={5} color={color.gray[9]}>
-                  무
-                </Typography>
-                <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                  평균 시세 3,000원
-                </Typography>
-              </IngredientDescription>
-            </IngredientInfoItem>
-            <IngredientInfoItem>
-              <IngredientImg src={grain} />
-              <IngredientDescription>
-                <Typography variant='title' size={5} color={color.gray[9]}>
-                  흰쌀밥 (200g)
-                </Typography>
-                <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                  평균 시세 2,000원
-                </Typography>
-              </IngredientDescription>
-            </IngredientInfoItem>
-          </IngredientInfoList>
-        </Section>
-      </Main>
+            )}
+            <FounderInfo
+              founder={matchingDetailData.writer}
+              address={matchingDetailData.address}
+              great={matchingDetailData.great}
+              good={matchingDetailData.good}
+              founderInfoBorder={'detail'}
+            />
+          </Section>
+          <Divider height={14} backgroundColor={color.gray[2]} />
+          <Section gap={16}>
+            <IngredientInfoTitleArea>
+              <Typography variant='title' size={5} color={color.gray[9]}>
+                가격 측정 정보
+              </Typography>
+              <PriceInfoIcon>
+                <Info className='info_icon' onClick={openHandler} />
+                {isOpen && <PriceInfoDesc />}
+              </PriceInfoIcon>
+            </IngredientInfoTitleArea>
+            <IngredientInfoList>
+              {matchingDetailData.item.map((ingredient: any) => {
+                return (
+                  <IngredientInfo
+                    key={ingredient.idx}
+                    img={ingredient.url}
+                    ingredient={ingredient.ingredient}
+                    price={ingredient.price}
+                  />
+                );
+              })}
+            </IngredientInfoList>
+          </Section>
+        </Main>
+      )}
       <GatheredBtnArea>
         <GatheredBtn>
           <Typography variant='paragraph' size={2} color={color.white}>
@@ -158,8 +118,7 @@ export default function GatheringDetailPage() {
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 36px;
+  row-gap: 36px;
   padding: 20px 0;
 `;
 
@@ -176,138 +135,12 @@ const MenuInfoTitle = styled.div`
   flex-direction: column;
   row-gap: 4px;
   padding: 0 0 12px 0;
+  border-bottom: 1px solid ${color.gray[4]};
 `;
 
-const MenuInfoArea = styled.div`
-  display: flex;
-  gap: 12px;
-`;
-
-const DetailMenuItemImg = styled.img`
-  width: 144px;
-  height: 144px;
-  border-radius: 4px;
-  background-color: peachpuff;
-`;
-
-const MenuInfoDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  width: calc(100% - 12px - 144px);
-`;
-
-const HostInfoArea = styled.div`
-  display: flex;
-  gap: 12px;
-  border-radius: 8px;
-  padding: 12px;
-  border: 1px solid ${color.gray[4]};
-`;
-
-const HostDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 24px - 81px);
-  gap: 4px;
-`;
-
-const GatheringPopularityTagArea = styled.div`
-  display: flex;
-  column-gap: 4px;
-`;
-
-const GatheringPopularityTag = styled.div<{ color: string }>`
-  padding: 4.5px 12px;
-  border-radius: 70px;
-  border: 1px solid ${color.gray[4]};
-
-  font-family: ${typograpy.caption[4].fontFamily};
-  font-weight: ${typograpy.caption[4].fontWeight};
-  font-size: ${typograpy.caption[4].fontSize}px;
-  color: ${({ color }) => (color === '#FF5C00' ? color : color)};
-`;
-
-const ParticipantInfoArea = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 8px;
-`;
-
-const IngredientInfoTitleArea = styled.div`
+const FounderTitleArea = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-`;
-
-const PriceInfoIcon = styled.div`
-  position: relative;
-
-  > .info_icon {
-    cursor: pointer;
-  }
-`;
-
-const PriceInfoDescription = styled.div`
-  position: absolute;
-  width: 273px;
-  top: 43px;
-  right: -1px;
-  padding: 12px;
-  border-radius: 4px;
-  background: ${color.gray[2]};
-  box-shadow: 0px 0px 8px 0px #00000066;
-
-  font-family: ${typograpy.paragraph[7].fontFamily};
-  font-weight: ${typograpy.paragraph[7].fontWeight}px;
-  font-size: ${typograpy.paragraph[7].fontSize}px;
-
-  > a {
-    text-decoration: underline;
-  }
-
-  &::before {
-    position: absolute;
-    content: '';
-    border-top: 0px solid transparent;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 10px solid ${color.gray[2]};
-    top: -10px;
-    right: 5px;
-  }
-`;
-
-const IngredientInfoList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-bottom: 85px;
-`;
-
-const IngredientInfoItem = styled.li`
-  display: flex;
-  gap: 8px;
-`;
-
-const IngredientImg = styled.img`
-  width: 80px;
-  height: 80px;
-  background-color: #aed8ff;
-  border-radius: 4px;
-`;
-
-const IngredientDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 80px - 8px);
-  gap: 4px;
 `;
 
 const GatheredBtnArea = styled.div`
