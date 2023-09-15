@@ -21,9 +21,6 @@ export default function FounderInfo({
         <Typography variant='paragraph' size={3} color={color.gray[9]}>
           {founder}
         </Typography>
-        <Typography variant='paragraph' size={2} color={color.gray[9]}>
-          장소 이름
-        </Typography>
         <Typography variant='caption' size={2} color={color.gray[6]}>
           {address}
         </Typography>

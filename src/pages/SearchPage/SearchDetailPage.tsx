@@ -21,7 +21,6 @@ export default function SearchDetailPage() {
   const navigate = useNavigate();
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
-  console.log(gatheringDetailData);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
