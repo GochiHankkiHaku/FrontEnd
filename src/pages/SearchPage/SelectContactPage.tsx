@@ -13,7 +13,7 @@ const options = ['카카오톡 ID', '전화번호'];
 
 export default function SelectContactPage() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [contact, setContact] = useState('');
+  const [contact, setContact] = useState<string>('');
 
   const { post_idx } = useParams();
   const navigate = useNavigate();
@@ -31,7 +31,9 @@ export default function SelectContactPage() {
   };
 
   const movePaymentPage = () => {
-    navigate(`/payment/${post_idx}`);
+    navigate(`/payment/${post_idx}`, {
+      state: contact,
+    });
   };
 
   return (
