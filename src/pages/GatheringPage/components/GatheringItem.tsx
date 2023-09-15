@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
-export default function GatheringItem({ list }: any) {
+export default function GatheringItem({ data }: any) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/gathering/${list.post_idx}`, {
-      state: {
-        list,
-      },
-    });
+    navigate(`/gathering/${data.post_idx}`);
   };
 
   return (
@@ -19,21 +15,21 @@ export default function GatheringItem({ list }: any) {
       <Typography
         variant='paragraph'
         size={1}
-        color={list.gathering_state === '모임 완료' ? color.complete : color.active}
+        color={data.postStatus === 'N' ? color.complete : color.active}
       >
-        {list.gathering_state}
+        {data.postStatus === 'N' ? '모임 중' : '모임 완료'}
       </Typography>
       <MenuInfoArea>
         <MenuImg />
         <MenuInfo>
           <Typography variant='paragraph' size={1} color={color.gray[9]}>
-            {list.menuname}
+            {data.menuName}
           </Typography>
           <Typography variant='caption' size={2} color={color.gray[6]}>
-            제주 서귀포시 성산읍 고성리 296-8
+            {data.address}
           </Typography>
           <Typography variant='title' size={5} color={color.main[1]}>
-            {list.money}원
+            {data.menuPrice}원
           </Typography>
           <MoveDetailBtn onClick={moveDetailPage}>
             <Typography variant='caption' size={2} color={color.gray[7]}>
