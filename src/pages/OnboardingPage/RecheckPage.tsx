@@ -13,6 +13,7 @@ import geolocationIcon from 'assets/icons/geolocation.svg';
 import MenuItem from './components/MenuItem';
 import Ingredients from './components/Ingredients';
 import { useRefresh } from './hooks/useRefresh';
+import chevronDownIcon from 'assets/icons/chevron-down.svg';
 
 export default function RecheckPage() {
   useRefresh();
@@ -58,7 +59,7 @@ export default function RecheckPage() {
               {applyForm.address}
             </Typography>
           </LocationBox>
-          <DetailAddressBox>{applyForm.detailAddress}</DetailAddressBox>
+          <GrayBorderBox>{applyForm.detailAddress}</GrayBorderBox>
         </Header>
         <ContentWrap>
           <Typography variant='title' size={5} mb={16}>
@@ -127,6 +128,25 @@ export default function RecheckPage() {
             필수 재료 (1인분 기준)
           </Typography>
           <Ingredients ingredients={applyForm.menu?.item ?? []} />
+        </ContentWrap>
+        <ContentWrap>
+          <Typography variant='title' size={5} mb={3}>
+            연락처를 작성해주세요.
+          </Typography>
+          <Typography variant='paragraph' size={6} color={color.gray[6]} mb={16}>
+            참가자들에게 연락을 받을 수 있는
+            <br /> 카카오톡 ID / 오픈 채팅방/ 전화번호 중 하나를 작성해주세요.
+          </Typography>
+          <ContactBox>
+            <Typography variant='title' size={6}>
+              {applyForm.contactOption}
+            </Typography>
+          </ContactBox>
+          <GrayBorderBox>
+            <Typography variant='title' size={6}>
+              {applyForm.contact}
+            </Typography>
+          </GrayBorderBox>
         </ContentWrap>
       </Wrap>
       <Footer
@@ -200,7 +220,7 @@ const LocationBox = styled.div`
   }
 `;
 
-const DetailAddressBox = styled.div`
+const GrayBorderBox = styled.div`
   padding: 11.5px 20px;
 
   border: 1px solid ${color.gray[5]};
@@ -208,6 +228,33 @@ const DetailAddressBox = styled.div`
 
   ${typoStyles(typograpy.paragraph[3])}
 `;
+
+const ContactBox = styled(GrayBorderBox)`
+  margin-bottom: 16px;
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #fff3c9;
+
+  &::before {
+    content: '✓';
+    ${flexSet()}
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    background-image: url(${chevronDownIcon});
+  }
+`;
+
 const InputContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 40px;
