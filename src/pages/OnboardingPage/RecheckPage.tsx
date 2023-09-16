@@ -14,20 +14,66 @@ import MenuItem from './components/MenuItem';
 import Ingredients from './components/Ingredients';
 import { useRefresh } from './hooks/useRefresh';
 import chevronDownIcon from 'assets/icons/chevron-down.svg';
+import { useEffect, useRef } from 'react';
+import { PostApi } from 'apis/lib/post';
+const { kakao }: any = window;
 
 export default function RecheckPage() {
   useRefresh();
+  const geolocation = useRef({
+    lat: 0,
+    lng: 0,
+  });
 
   const navigate = useNavigate();
   const notify = () => {
-    const toastId = toast.success('모임이 개설 되었어요!', {
+    toast.success('모임이 개설 되었어요!', {
       position: toast.POSITION.BOTTOM_CENTER,
     });
-    console.log('toastId :>> ', toastId);
   };
 
   const applyForm = useApplyForm();
-  console.log('applyForm :>> ', applyForm);
+
+  const handleCreateGathering = async () => {
+    if (applyForm.menu?.name == null || applyForm.day == null || applyForm.time == null) {
+      return;
+    }
+
+    await PostApi.write({
+      user: 'a',
+      menuname: applyForm.menu?.name,
+      date: applyForm.day,
+      time: applyForm.time,
+      min: applyForm.memberCount.min,
+      max: applyForm.memberCount.max,
+      lat: geolocation.current.lat,
+      lng: geolocation.current.lng,
+      address: applyForm.address,
+      detailAdd: applyForm.detailAddress,
+      status: 'N',
+      money: Number(applyForm.cost),
+      img: applyForm.menu.img,
+      contact: applyForm.contact,
+    });
+
+    navigate(`/${PATH.main}`);
+    notify();
+  };
+
+  useEffect(() => {
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    const callback = function (result: any, status: any) {
+      if (status === kakao.maps.services.Status.OK) {
+        const lat = result[0].y;
+        const lng = result[0].x;
+        geolocation.current = { lat, lng };
+      }
+    };
+
+    geocoder.addressSearch(applyForm.address, callback);
+  }, []);
+
   return (
     <>
       <Wrap>
@@ -149,14 +195,7 @@ export default function RecheckPage() {
           </GrayBorderBox>
         </ContentWrap>
       </Wrap>
-      <Footer
-        btnText='모임 개설'
-        btnColor={color.main[1]}
-        onClick={() => {
-          navigate(`/${PATH.main}`);
-          notify();
-        }}
-      />
+      <Footer btnText='모임 개설' btnColor={color.main[1]} onClick={handleCreateGathering} />
     </>
   );
 }
