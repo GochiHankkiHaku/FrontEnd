@@ -21,9 +21,6 @@ export default function FounderInfo({
         <Typography variant='paragraph' size={3} color={color.gray[9]}>
           {founder}
         </Typography>
-        <Typography variant='paragraph' size={2} color={color.gray[9]}>
-          장소 이름
-        </Typography>
         <Typography variant='caption' size={2} color={color.gray[6]}>
           {address}
         </Typography>
@@ -44,7 +41,7 @@ export default function FounderInfo({
   );
 }
 
-const HostInfoArea = styled.div<{ borderColor: string }>`
+export const HostInfoArea = styled.div<{ borderColor: string }>`
   display: flex;
   padding: 12px;
   align-items: center;
@@ -53,9 +50,10 @@ const HostInfoArea = styled.div<{ borderColor: string }>`
   border: 1px solid ${({ borderColor }) => borderColor};
 `;
 
-const HostDescription = styled.div`
+export const HostDescription = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: calc(100% - 24px - 81px);
   row-gap: 4px;
 `;

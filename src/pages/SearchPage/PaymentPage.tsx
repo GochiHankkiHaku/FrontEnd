@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
 import { ReactComponent as Copy } from 'assets/icons/copy.svg';
 import { Typography } from 'components/Typography';
@@ -7,21 +7,31 @@ import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { useParams } from 'react-router-dom';
 import { useGetPost } from './hooks/useGetPost';
-import MenuInfo from './components/MenuInfo';
+import MenuInfo from '../../components/MenuInfo';
 import FounderInfo from './components/FounderInfo';
 import { Spinner } from 'components/Spinner';
+import { axiosClient } from 'apis/apiClient';
 
 export default function PaymentPage() {
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const contact = location.state;
+  const user_idx = localStorage.getItem('user_idx');
 
   const movePrevPage = () => {
     navigate(-1);
   };
 
-  const moveMainPage = () => {
-    navigate('/main');
+  const reqGathering = async () => {
+    try {
+      await axiosClient.post(`matching/save/${post_idx}/${user_idx}?contact=${contact}`);
+      navigate('/main');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -72,7 +82,7 @@ export default function PaymentPage() {
         </Main>
       )}
       <Footer>
-        <PayBtn onClick={moveMainPage} background={'#FFED00'}>
+        <PayBtn onClick={reqGathering} background={'#FFED00'}>
           <Kakaopay />
           <Typography variant='title' size={4} color={color.gray[9]}>
             pay 결제

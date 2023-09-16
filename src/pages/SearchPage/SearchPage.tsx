@@ -31,7 +31,6 @@ export default function SearchPage() {
 
   const { currentMyLocation, locationLoading } = useGeolocation();
   const gatheringData = useGetPosts();
-  // console.log(gatheringData);
 
   const distanceAddData = gatheringData.map((gatheringData: any) => {
     const distance = getDistance(

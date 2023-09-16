@@ -4,17 +4,17 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { Divider } from 'components/Divider';
 
-export default function GatheringGroup({ list }: any) {
+export default function GatheringGroup({ data }: any) {
   return (
     <>
       <Wrap>
         <GatheringDate>
           <Typography variant='title' size={5} color={color.gray[7]} pt={8} pb={8}>
-            {list[0].gathering_date}
+            {data[0].postDate}
           </Typography>
         </GatheringDate>
-        {list.map((value: any) => {
-          return <GatheringItem list={value} key={value.post_idx} />;
+        {data.map((value: any) => {
+          return <GatheringItem data={value} key={value.postIdx} />;
         })}
       </Wrap>
       <Divider height={14} backgroundColor={color.gray[2]} />

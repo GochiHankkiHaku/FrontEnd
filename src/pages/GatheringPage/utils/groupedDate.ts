@@ -3,7 +3,7 @@ export const groupedDate = (data: any) => {
   let currentGroup: any = [];
 
   data.forEach((item: any) => {
-    if (currentGroup.length === 0 || currentGroup[0].gathering_date === item.gathering_date) {
+    if (currentGroup.length === 0 || currentGroup[0].postDate === item.postDate) {
       currentGroup.push(item);
     } else {
       groupedData.push(currentGroup);

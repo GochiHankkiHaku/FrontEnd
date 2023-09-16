@@ -1,45 +1,48 @@
 import styled from 'styled-components';
 import GatheringGroup from './components/GatheringGroup';
-import Test from './components/GatheringItem';
-import { useGetPosts } from 'pages/SearchPage/hooks/useGetPosts';
+import GatheringItem from './components/GatheringItem';
 import { groupedDate } from './utils/groupedDate';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
+import { useGetMatchings } from './hooks/useGetMatchings';
 
 export default function GatheringPage() {
-  const gatheringData = useGetPosts();
-  const notDoneData = gatheringData.filter((value: any) => {
-    return value.gathering_state === '모임 중';
+  const matchingData = useGetMatchings();
+  const recruitingData = matchingData.filter((value: any) => {
+    return value.postStatus === 'N';
   });
-  const doneData = gatheringData.filter((value: any) => {
-    return value.gathering_state === '모임 완료';
+  const recruitmentCompletedData = matchingData.filter((value: any) => {
+    return value.postStatus === 'C';
   });
-  const groupedDoneData = groupedDate(doneData);
+  const groupedData = groupedDate(recruitmentCompletedData);
 
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />
       <Main>
-        {notDoneData.length !== 0 && (
+        {recruitingData.length !== 0 && (
           <GatheringLabel>
             <Typography variant='title' size={5} color={color.white}>
               현재 모임
             </Typography>
           </GatheringLabel>
         )}
+
         <GatheredListArea>
-          {notDoneData.map((value: any, index: number) => {
-            return <Test list={value} key={index} />;
+          {recruitingData.map((data: any) => {
+            return <GatheringItem data={data} key={data.postIdx} />;
           })}
         </GatheredListArea>
-        {notDoneData.length !== 0 && (
+
+        {recruitingData.length !== 0 && groupedData.length !== 0 && (
           <Divider height={14} backgroundColor={color.gray[2]} margin={36} />
         )}
+
         <GatheringListArea>
-          {groupedDoneData.map((value: any, index: number) => {
-            return <GatheringGroup list={value} key={index} />;
+          {groupedData.map((data: any, index: number) => {
+            return <GatheringGroup key={`group: ${index}`} data={data} />;
           })}
         </GatheringListArea>
       </Main>

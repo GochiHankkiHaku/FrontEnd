@@ -55,7 +55,7 @@ export default function MainPage() {
           ))
         )}
       </ContentsWrap>
-      {localStorage.getItem(STORAGE.user) === 'a' && (
+      {localStorage.getItem(STORAGE.userIdx) === 'a' && (
         <CreateBtn onClick={() => navigate(`/${PATH.onBoarding}/${PATH.location}`)}>
           <PlusIcon /> <span>모임</span>
         </CreateBtn>

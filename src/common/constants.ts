@@ -1,6 +1,6 @@
 export const STORAGE = {
   jwt: 'jwt',
-  user: 'user',
+  userIdx: 'user_idx',
 } as const;
 
 export const PATH = {

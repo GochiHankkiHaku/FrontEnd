@@ -9,11 +9,11 @@ import { Divider } from 'components/Divider';
 import { useParams } from 'react-router-dom';
 import { useGetPost } from './hooks/useGetPost';
 import { Spinner } from 'components/Spinner';
-import MenuInfo from './components/MenuInfo';
+import MenuInfo from '../../components/MenuInfo';
 import GatheringTime from './components/GatheringTime';
 import FounderInfo from './components/FounderInfo';
-import IngredientInfo from './components/IngredientInfo';
-import PriceInfoDesc from './components/PriceInfoDesc';
+import IngredientInfo from '../../components/IngredientInfo';
+import PriceInfoDesc from '../../components/PriceInfoDesc';
 
 export default function SearchDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -21,7 +21,6 @@ export default function SearchDetailPage() {
   const navigate = useNavigate();
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
-  console.log(gatheringDetailData);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -158,13 +157,13 @@ const Section = styled.section<{ gap: number }>`
   padding: 0 20px;
 `;
 
-const IngredientInfoTitleArea = styled.div`
+export const IngredientInfoTitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const PriceInfoIcon = styled.div`
+export const PriceInfoIcon = styled.div`
   position: relative;
 
   > .info_icon {
@@ -172,7 +171,7 @@ const PriceInfoIcon = styled.div`
   }
 `;
 
-const IngredientInfoList = styled.ul`
+export const IngredientInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;

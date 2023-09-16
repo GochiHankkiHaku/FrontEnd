@@ -9,6 +9,17 @@ import { PATH, STORAGE } from 'common/constants';
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  const moveOnboardingPage = () => {
+    navigate(`/${PATH.onBoarding}/${PATH.location}`);
+    window.localStorage.setItem(STORAGE.userIdx, '1');
+  };
+
+  const moveMainPage = () => {
+    navigate(`/${PATH.main}`);
+    window.localStorage.setItem(STORAGE.userIdx, '2');
+  };
+
   return (
     <Wrap>
       <TextWrap>
@@ -30,10 +41,7 @@ export default function LandingPage() {
         style={{
           marginBottom: '8px',
         }}
-        onClick={() => {
-          navigate(`/${PATH.onBoarding}/${PATH.location}`);
-          localStorage.setItem(STORAGE.user, 'a');
-        }}
+        onClick={moveOnboardingPage}
       >
         모임을 주최하나요?
       </Button>
@@ -41,10 +49,7 @@ export default function LandingPage() {
         bgCol={color.gray[2]}
         col={color.black}
         borderCol={color.gray[4]}
-        onClick={() => {
-          navigate(`/${PATH.main}`);
-          localStorage.setItem(STORAGE.user, 'b');
-        }}
+        onClick={moveMainPage}
       >
         식사에 참여하나요?
       </Button>
