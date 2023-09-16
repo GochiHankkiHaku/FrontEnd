@@ -1,15 +1,18 @@
-import React from 'react';
 import { ReactComponent as BackIcon } from 'assets/icons/back.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-export default function Back({ page, text }: { page: string; text: string }) {
+interface BackProps {
+  previousPageName: string;
+}
+
+export default function Back({ previousPageName }: BackProps) {
   const navigate = useNavigate();
 
   return (
-    <Wrap onClick={() => navigate(page)}>
+    <Wrap onClick={() => navigate(-1)}>
       <BackIcon />
-      <Text>{text}</Text>
+      <Text>{previousPageName}</Text>
     </Wrap>
   );
 }

@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Back from './components/Back';
 import ProgressBar from './components/ProgressBar';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ export default function OnBoardingLayout() {
     <Wrap>
       <HeaderWrap>
         <ProgressBar currentStep={currentStep} />
-        <Back page={previousPage.url} text={previousPage.name} />
+        <Back previousPageName={previousPage.name} />
       </HeaderWrap>
       <HeaderBlank />
       <Outlet />
