@@ -24,7 +24,7 @@ export default function GatheringInfo({
       <ImgWrap idx={colorIdx}>
         <Img src={img} alt='음식 썸네일' />
       </ImgWrap>
-      <div>
+      <InfoWrap>
         <Typography variant='paragraph' size={2} color={color.gray[9]}>
           {`${menuname} 요리 모집`}
         </Typography>
@@ -39,12 +39,12 @@ export default function GatheringInfo({
           <Tag color={color.main[1]}>최고에요 {greate}</Tag>
           <Tag color={color.main[2]}>좋아요 {good}</Tag>
         </TagWrap>
-      </div>
+      </InfoWrap>
     </Wrap>
   );
 }
 const Wrap = styled.div`
-  padding: 18px 17px 18px 0;
+  padding: 18px 0px 18px 0;
   background-color: white;
   display: flex;
 
@@ -61,11 +61,8 @@ const ImgWrap = styled.div<{ idx: number }>`
 `;
 const Img = styled.img``;
 
-const IngredientsWrap = styled.div`
-  display: flex;
-  height: 30px;
-  align-items: center;
-  background-color: yellow;
+const InfoWrap = styled.div`
+  flex: 1;
 `;
 
 const PeopleWrap = styled.div`
