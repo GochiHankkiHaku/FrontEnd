@@ -1,4 +1,4 @@
-import { MAXWIDTH } from 'common/constants';
+import { BOTTOM_NAVIGATION_HEIGHT, MAXWIDTH } from 'common/constants';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -45,7 +45,7 @@ const Nav = styled.div`
   bottom: 0;
   width: 100%;
   max-width: ${MAXWIDTH}px;
-  height: 80px;
+  height: ${BOTTOM_NAVIGATION_HEIGHT}px;
   display: flex;
   justify-content: space-around;
   background-color: #ffffff;

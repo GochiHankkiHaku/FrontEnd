@@ -1,8 +1,13 @@
+import { BOTTOM_NAVIGATION_HEIGHT } from 'common/constants';
 import styled, { keyframes } from 'styled-components';
 
-export const Spinner = () => {
+interface SpinnerProps {
+  backgroundHeight?: string;
+}
+
+export const Spinner = ({ backgroundHeight }: SpinnerProps) => {
   return (
-    <SpinnerContainer>
+    <SpinnerContainer $backgroundHeight={backgroundHeight}>
       <LoadingSpinner />
     </SpinnerContainer>
   );
@@ -13,12 +18,13 @@ const spinAnimation = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-export const SpinnerContainer = styled.div<{ mt?: number }>`
+export const SpinnerContainer = styled.div<{ $backgroundHeight?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: ${({ $backgroundHeight }) =>
+    $backgroundHeight ? $backgroundHeight : `calc(100vh - ${BOTTOM_NAVIGATION_HEIGHT}px)`};
   background-color: white;
 `;
 

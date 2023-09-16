@@ -1,5 +1,6 @@
 export const STORAGE = {
   jwt: 'jwt',
+  user: 'user',
 } as const;
 
 export const PATH = {
@@ -15,3 +16,5 @@ export const PATH = {
 } as const;
 
 export const MAXWIDTH = 400;
+
+export const BOTTOM_NAVIGATION_HEIGHT = 80;

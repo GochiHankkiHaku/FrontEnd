@@ -10,12 +10,13 @@ import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { flexSet } from 'styles/minxin';
 import CustomToast from 'components/CustomToast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Spinner } from 'components/Spinner';
 import { PostResponse } from 'apis/lib/post/type';
-import { MAXWIDTH } from 'common/constants';
+import { BOTTOM_NAVIGATION_HEIGHT, MAXWIDTH, PATH, STORAGE } from 'common/constants';
 
 export default function MainPage() {
+  const navigate = useNavigate();
   const [posts, setPost] = useState<PostResponse[]>([]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function MainPage() {
           내 주변 요리 모임
         </Typography>
         {posts.length === 0 ? (
-          <Spinner />
+          <Spinner backgroundHeight='100%' />
         ) : (
           posts.map((post, idx: number) => (
             <Link key={post.post_idx} to={`/detail/${post.post_idx}`}>
@@ -54,9 +55,11 @@ export default function MainPage() {
           ))
         )}
       </ContentsWrap>
-      <CreateBtn>
-        <PlusIcon /> <span>모임</span>
-      </CreateBtn>
+      {localStorage.getItem(STORAGE.user) === 'a' && (
+        <CreateBtn onClick={() => navigate(`/${PATH.onBoarding}/${PATH.location}`)}>
+          <PlusIcon /> <span>모임</span>
+        </CreateBtn>
+      )}
       <CustomToast />
     </Wrap>
   );
@@ -76,9 +79,13 @@ const HeaderText = styled.p`
 `;
 
 const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100vh - ${BOTTOM_NAVIGATION_HEIGHT}px);
+
   position: relative;
   background-color: white;
-  height: 100%;
 `;
 
 const SliderWrap = styled.div`
@@ -86,8 +93,8 @@ const SliderWrap = styled.div`
 `;
 
 const ContentsWrap = styled.div`
-  /* background-color: pink; */
   padding: 24px 20px;
+  flex: 1;
 `;
 
 const CreateBtn = styled.button`
