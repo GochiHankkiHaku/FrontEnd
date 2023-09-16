@@ -3,10 +3,18 @@ import { DayType } from 'pages/OnboardingPage/store/formStore';
 
 export interface PostResponse {
   address: string;
-  date: string;
+  choose: number;
+  date: DayType;
+  time: TimeType;
+  good: number;
+  greate: number;
+  lat: number;
+  lng: number;
+  min: number;
+  max: number;
   menuname: string;
-  application: number;
-  number: number;
+  post_idx: number;
+  status: 'N';
   img: string;
 }
 

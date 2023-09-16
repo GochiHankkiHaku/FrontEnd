@@ -12,22 +12,15 @@ import { flexSet } from 'styles/minxin';
 import CustomToast from 'components/CustomToast';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'components/Spinner';
-
-// const menuImg = {
-//   '구살국(성게국)':
-//   '자리돔조림':
-//   '한치 물회 덮밥':
-//   '갈치 조림'
-// }
+import { PostResponse } from 'apis/lib/post/type';
 
 export default function MainPage() {
-  const [posts, setPost] = useState<any>([]);
+  const [posts, setPost] = useState<PostResponse[]>([]);
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await PostApi.getPosts();
-        // console.log('res :>> ', res);
         setPost(res);
       } catch (error) {
         console.log('error :>> ', error);
@@ -53,20 +46,10 @@ export default function MainPage() {
         {posts.length === 0 ? (
           <Spinner />
         ) : (
-          posts.map((post: any, idx: number) => (
-            <>
-              <Link to={`/detail/${post.post_idx}`}>
-                <GatheringInfo
-                  key={idx}
-                  idx={idx}
-                  thumbnail={post.img}
-                  title={`${post.menuname} 요리 모집`}
-                  address='제주 서귀포시 성산읍 고성리 296-8'
-                  recruitedCnt={post.application}
-                  totalCnt={post.number}
-                />
-              </Link>
-            </>
+          posts.map((post, idx: number) => (
+            <Link key={post.post_idx} to={`/detail/${post.post_idx}`}>
+              <GatheringInfo key={idx} colorIdx={idx} {...post} />
+            </Link>
           ))
         )}
       </ContentsWrap>

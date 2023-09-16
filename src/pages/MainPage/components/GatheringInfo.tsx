@@ -1,52 +1,44 @@
 import { Typography } from 'components/Typography';
-import React from 'react';
 import styled from 'styled-components';
 import { color, radius } from 'styles/constants';
 import { ReactComponent as PeopleIcon } from 'assets/icons/people.svg';
 import { flexSet } from 'styles/minxin';
+import { PostResponse } from 'apis/lib/post/type';
 
 const bgCols = ['#FFF2DE', '#DEFFF9', '#E8FFDD'];
-interface ContentsWrapProps {
-  thumbnail: string;
-  title: string;
-  address: string;
-  recruitedCnt: number;
-  totalCnt: number;
-  idx: number;
+interface ContentsWrapProps extends PostResponse {
+  colorIdx: number;
 }
+
 export default function GatheringInfo({
-  thumbnail,
-  title,
+  colorIdx,
   address,
-  recruitedCnt,
-  totalCnt,
-  idx,
+  img,
+  menuname,
+  status,
+  good,
+  greate,
 }: ContentsWrapProps) {
   return (
     <Wrap>
-      <ImgWrap idx={idx}>
-        <Img src={thumbnail} alt='음식 썸네일' />
+      <ImgWrap idx={colorIdx}>
+        <Img src={img} alt='음식 썸네일' />
       </ImgWrap>
       <div>
         <Typography variant='paragraph' size={2} color={color.gray[9]}>
-          {title}
+          {`${menuname} 요리 모집`}
         </Typography>
         <Typography variant='caption' size={2} color={color.gray[6]} mt={6} mb={8}>
           {address}
         </Typography>
         <PeopleWrap>
           <PeopleIcon />
-          <Text>{`${recruitedCnt}/${totalCnt} 모집 완료`}</Text>
+          <Text>{`${status} 모집 완료`}</Text>
         </PeopleWrap>
         <TagWrap>
-          <Tag color={color.main[1]}>최고에요 37</Tag>
-          <Tag color={color.main[2]}>좋아요 15</Tag>
+          <Tag color={color.main[1]}>최고에요 {greate}</Tag>
+          <Tag color={color.main[2]}>좋아요 {good}</Tag>
         </TagWrap>
-        {/* <IngredientsWrap>
-          <Typography variant='paragraph' size={6} color={color.gray[9]}>
-            필요 재료
-          </Typography>
-        </IngredientsWrap> */}
       </div>
     </Wrap>
   );
