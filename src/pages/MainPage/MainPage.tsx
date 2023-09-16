@@ -94,6 +94,7 @@ const SliderWrap = styled.div`
 
 const ContentsWrap = styled.div`
   padding: 24px 20px;
+  padding-bottom: ${BOTTOM_NAVIGATION_HEIGHT}px;
   flex: 1;
 `;
 

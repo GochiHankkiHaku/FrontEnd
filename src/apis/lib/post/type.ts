@@ -14,7 +14,7 @@ export interface PostResponse {
   max: number;
   menuname: string;
   post_idx: number;
-  status: 'N';
+  status: 'N' | 'C';
   img: string;
 }
 

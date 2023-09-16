@@ -33,7 +33,7 @@ export default function GatheringInfo({
         </Typography>
         <PeopleWrap>
           <PeopleIcon />
-          <Text>{`${status} 모집 완료`}</Text>
+          <Text>{status === 'N' ? '모집 중' : '모집 완료'}</Text>
         </PeopleWrap>
         <TagWrap>
           <Tag color={color.main[1]}>최고에요 {greate}</Tag>
