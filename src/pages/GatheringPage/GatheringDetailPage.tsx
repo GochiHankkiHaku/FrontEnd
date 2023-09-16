@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
@@ -23,6 +23,7 @@ export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
   const { post_idx } = useParams();
   const matchingDetailData = useGetMatching(post_idx as string);
@@ -40,6 +41,10 @@ export default function GatheringDetailPage() {
       setIsRejectModalOpen(!isRejectModalOpen);
       document.body.style.overflow = 'hidden';
     }
+  };
+
+  const moveReviewPage = () => {
+    navigate(`/review`);
   };
 
   return (
@@ -126,11 +131,19 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        <GatheredBtn>
-          <Typography variant='paragraph' size={2} color={color.white}>
-            모임 완료
-          </Typography>
-        </GatheredBtn>
+        {user_idx === '1' ? (
+          <GatheredBtn>
+            <Typography variant='paragraph' size={2} color={color.white}>
+              모임 완료
+            </Typography>
+          </GatheredBtn>
+        ) : (
+          <GatheredBtn onClick={moveReviewPage}>
+            <Typography variant='paragraph' size={2} color={color.white}>
+              후기 작성
+            </Typography>
+          </GatheredBtn>
+        )}
       </GatheredBtnArea>
     </>
   );
