@@ -5,7 +5,7 @@ import { Button } from 'components/Button';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from 'common/constants';
+import { PATH, STORAGE } from 'common/constants';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ export default function LandingPage() {
         }}
         onClick={() => {
           navigate(`/${PATH.onBoarding}/${PATH.location}`);
+          localStorage.setItem(STORAGE.user, 'a');
         }}
       >
         모임을 주최하나요?
@@ -40,18 +41,9 @@ export default function LandingPage() {
         bgCol={color.gray[2]}
         col={color.black}
         borderCol={color.gray[4]}
-        // css 커스텀 가능
-        style={
-          {
-            // width: '80%',
-            // margin: '0 20px',
-            // position: 'absolute',
-            // bottom: 0,
-            // left: 0,
-          }
-        }
         onClick={() => {
-          navigate('/main');
+          navigate(`/${PATH.main}`);
+          localStorage.setItem(STORAGE.user, 'b');
         }}
       >
         식사에 참여하나요?
