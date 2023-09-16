@@ -36,7 +36,7 @@ export default function GatheringPage() {
           })}
         </GatheredListArea>
 
-        {recruitingData.length !== 0 && (
+        {recruitingData.length !== 0 && groupedData.length !== 0 && (
           <Divider height={14} backgroundColor={color.gray[2]} margin={36} />
         )}
 
