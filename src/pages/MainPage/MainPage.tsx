@@ -1,5 +1,5 @@
 import { Typography } from 'components/Typography';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { color, fontFamily } from 'styles/constants';
 import GatheringInfo from './components/GatheringInfo';
 import Slider from './components/Slider';
@@ -13,6 +13,7 @@ import CustomToast from 'components/CustomToast';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'components/Spinner';
 import { PostResponse } from 'apis/lib/post/type';
+import { MAXWIDTH } from 'common/constants';
 
 export default function MainPage() {
   const [posts, setPost] = useState<PostResponse[]>([]);
@@ -81,7 +82,6 @@ const Wrap = styled.div`
 `;
 
 const SliderWrap = styled.div`
-  /* background-color: aqua; */
   position: relative;
 `;
 
@@ -89,28 +89,29 @@ const ContentsWrap = styled.div`
   /* background-color: pink; */
   padding: 24px 20px;
 `;
-const StyledTypography = styled(Typography)`
-  background-color: aqua;
-  width: auto;
-  position: fixed;
-  /* bottom: 0; */
-  /* right: 0; */
-  top: 0;
-  text-align: end;
-  text-align: right;
-  z-index: 100;
-`;
 
 const CreateBtn = styled.button`
   position: fixed;
+
+  z-index: 100;
   bottom: 90px;
-  right: 20px;
+  ${() => {
+    if (window.innerWidth > MAXWIDTH) {
+      return css`
+        right: calc((${window.innerWidth}px - ${MAXWIDTH}px) / 2 + 20px);
+      `;
+    }
+    return css`
+      right: 20px;
+    `;
+  }}
+
   ${flexSet()}
 
   width: 92px;
   height: 44px;
 
-  background-color: ${color.main[2]};
+  background-color: ${color.main[1]};
   border-radius: 50px;
   color: white;
 
