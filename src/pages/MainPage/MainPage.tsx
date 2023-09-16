@@ -4,7 +4,7 @@ import { color, fontFamily } from 'styles/constants';
 import GatheringInfo from './components/GatheringInfo';
 import Slider from './components/Slider';
 import { useEffect, useState } from 'react';
-import { PostApi, PostResponse } from 'apis/lib/post';
+import { PostApi } from 'apis/lib/post';
 import { Header } from 'components/Header';
 import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
