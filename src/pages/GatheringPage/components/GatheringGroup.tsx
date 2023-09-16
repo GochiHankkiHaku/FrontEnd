@@ -14,7 +14,7 @@ export default function GatheringGroup({ data, index, dataLength }: any) {
           </Typography>
         </GatheringDate>
         {data.map((value: any) => {
-          return <GatheringItem data={value} key={value.post_idx} />;
+          return <GatheringItem data={value} key={value.postIdx} />;
         })}
       </Wrap>
       {index !== dataLength - 1 && <Divider height={14} backgroundColor={color.gray[2]} />}

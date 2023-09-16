@@ -25,7 +25,7 @@ export default function GatheringItem({ data }: any) {
         {data.postStatus === 'N' ? '모임 중' : '모임 완료'}
       </Typography>
       <MenuInfoArea>
-        <MenuImg />
+        <MenuImg src={data.img} alt='메뉴 이미지' />
         <MenuInfo>
           <Typography variant='paragraph' size={1} color={color.gray[9]}>
             {data.menuName}

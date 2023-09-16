@@ -31,8 +31,8 @@ export default function GatheringPage() {
         )}
 
         <GatheredListArea>
-          {recruitingData.map((data: any, index: number) => {
-            return <GatheringItem data={data} key={index} />;
+          {recruitingData.map((data: any) => {
+            return <GatheringItem data={data} key={data.postIdx} />;
           })}
         </GatheredListArea>
 
@@ -44,7 +44,7 @@ export default function GatheringPage() {
           {groupedData.map((data: any, index: number) => {
             return (
               <GatheringGroup
-                key={index}
+                key={`group: ${index}`}
                 data={data}
                 index={index}
                 dataLength={groupedData.length}
