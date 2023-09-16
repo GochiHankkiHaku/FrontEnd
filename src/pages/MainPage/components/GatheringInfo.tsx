@@ -17,7 +17,7 @@ export default function GatheringInfo({
   menuname,
   status,
   good,
-  greate,
+  great,
 }: ContentsWrapProps) {
   return (
     <Wrap>
@@ -36,7 +36,7 @@ export default function GatheringInfo({
           <Text>{status === 'N' ? '모집 중' : '모집 완료'}</Text>
         </PeopleWrap>
         <TagWrap>
-          <Tag color={color.main[1]}>최고에요 {greate}</Tag>
+          <Tag color={color.main[1]}>최고에요 {great}</Tag>
           <Tag color={color.main[2]}>좋아요 {good}</Tag>
         </TagWrap>
       </InfoWrap>

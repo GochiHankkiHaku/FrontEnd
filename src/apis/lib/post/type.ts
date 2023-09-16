@@ -7,7 +7,7 @@ export interface PostResponse {
   date: DayType;
   time: TimeType;
   good: number;
-  greate: number;
+  great: number;
   lat: number;
   lng: number;
   min: number;
