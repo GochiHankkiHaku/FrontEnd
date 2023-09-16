@@ -8,7 +8,10 @@ export default function GatheringItem({ data }: any) {
 
   const moveDetailPage = () => {
     navigate(`/gathering/${data.postIdx}`, {
-      state: data.postDate,
+      state: {
+        postDate: data.postDate,
+        matchingIdx: data.matchingIdx,
+      },
     });
   };
 

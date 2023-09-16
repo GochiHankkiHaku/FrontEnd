@@ -17,9 +17,11 @@ import {
   IngredientInfoList,
 } from 'pages/SearchPage/SearchDetailPage';
 import { Spinner } from 'components/Spinner';
+import RejectModal from './components/RejectModal';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
   const location = useLocation();
   const { post_idx } = useParams();
@@ -28,6 +30,16 @@ export default function GatheringDetailPage() {
 
   const openHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const openRejectModal = () => {
+    if (isRejectModalOpen) {
+      setIsRejectModalOpen(!isRejectModalOpen);
+      document.body.style.removeProperty('overflow');
+    } else {
+      setIsRejectModalOpen(!isRejectModalOpen);
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   return (
@@ -40,7 +52,7 @@ export default function GatheringDetailPage() {
           <Section gap={24}>
             <MenuInfoTitle>
               <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                {location.state}
+                {location.state.postDate}
               </Typography>
               <Typography variant='title' size={1} color={color.gray[9]}>
                 {matchingDetailData.menuname} 요리 모집
@@ -59,11 +71,19 @@ export default function GatheringDetailPage() {
                 <Typography variant='title' size={4} color={color.gray[9]}>
                   신청자 정보
                 </Typography>
-                <button>
+                <button onClick={openRejectModal}>
                   <Typography variant='paragraph' size={4} color={color.alert}>
                     거절하기
                   </Typography>
                 </button>
+                {isRejectModalOpen && (
+                  <RejectModal
+                    contactName={matchingDetailData.matchingUsers[0]?.username}
+                    contactNum={matchingDetailData.matchingUsers?.length}
+                    openRejectModal={openRejectModal}
+                    matchingIdx={location.state.matchingIdx}
+                  />
+                )}
               </FounderTitleArea>
             ) : (
               <Typography variant='title' size={4} color={color.gray[9]}>
@@ -75,8 +95,8 @@ export default function GatheringDetailPage() {
               address={matchingDetailData.address}
               great={matchingDetailData.great}
               good={matchingDetailData.good}
-              contact={matchingDetailData?.matchingUsers[0].contactMethod}
-              contactNum={matchingDetailData?.matchingUsers.length}
+              contact={matchingDetailData.matchingUsers[0]?.contactMethod}
+              contactNum={matchingDetailData.matchingUsers?.length}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />

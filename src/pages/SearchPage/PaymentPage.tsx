@@ -25,9 +25,9 @@ export default function PaymentPage() {
     navigate(-1);
   };
 
-  const reqGathering = () => {
+  const reqGathering = async () => {
     try {
-      axiosClient.post(`matching/save/${post_idx}/${user_idx}?contact=${contact}`);
+      await axiosClient.post(`matching/save/${post_idx}/${user_idx}?contact=${contact}`);
       navigate('/main');
     } catch (err) {
       console.error(err);
