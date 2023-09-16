@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { axiosClient } from 'apis/apiClient';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
+import CustomToast from 'components/CustomToast';
+import { toast } from 'react-toastify';
 
 interface RejectModalProps {
   contactName: string;
@@ -20,6 +22,7 @@ export default function RejectModal({
     try {
       await axiosClient.put(`matching/no/${matchingIdx}`);
       openRejectModal;
+      toast.error('참가자 거절이 완료 되었어요.');
     } catch (err) {
       console.error(err);
     }
@@ -45,6 +48,7 @@ export default function RejectModal({
             <Typography variant='paragraph' size={1} color={color.white}>
               거절할게요
             </Typography>
+            <CustomToast hideProggressBar={false} />
           </RejectButton>
         </RejectButtonArea>
       </ModalView>

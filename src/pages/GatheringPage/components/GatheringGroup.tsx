@@ -4,7 +4,7 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { Divider } from 'components/Divider';
 
-export default function GatheringGroup({ data, index, dataLength }: any) {
+export default function GatheringGroup({ data }: any) {
   return (
     <>
       <Wrap>
@@ -17,7 +17,7 @@ export default function GatheringGroup({ data, index, dataLength }: any) {
           return <GatheringItem data={value} key={value.postIdx} />;
         })}
       </Wrap>
-      {index !== dataLength - 1 && <Divider height={14} backgroundColor={color.gray[2]} />}
+      <Divider height={14} backgroundColor={color.gray[2]} />
     </>
   );
 }

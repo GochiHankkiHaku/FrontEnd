@@ -36,20 +36,13 @@ export default function GatheringPage() {
           })}
         </GatheredListArea>
 
-        {recruitingData.length === 0 && (
+        {recruitingData.length !== 0 && (
           <Divider height={14} backgroundColor={color.gray[2]} margin={36} />
         )}
 
         <GatheringListArea>
           {groupedData.map((data: any, index: number) => {
-            return (
-              <GatheringGroup
-                key={`group: ${index}`}
-                data={data}
-                index={index}
-                dataLength={groupedData.length}
-              />
-            );
+            return <GatheringGroup key={`group: ${index}`} data={data} />;
           })}
         </GatheringListArea>
       </Main>
