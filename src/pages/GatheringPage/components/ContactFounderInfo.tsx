@@ -3,7 +3,6 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/Infowindow';
-import { FounderInfoProps } from 'pages/SearchPage/utils/interface';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
 
 export default function ContactFounderInfo({
@@ -13,7 +12,8 @@ export default function ContactFounderInfo({
   good,
   contact,
   contactNum,
-}: FounderInfoProps) {
+  postStatus,
+}: any) {
   const user_idx = localStorage.getItem('user_idx');
 
   return (
@@ -64,11 +64,19 @@ export default function ContactFounderInfo({
           )}
         </HostDescription>
       </HostInfoDescArea>
-      <ContactButton>
-        <Typography variant='paragraph' size={4} color={color.main[1]}>
-          {contact} 으로 연락 하기
-        </Typography>
-      </ContactButton>
+      {postStatus === 'N' ? (
+        <ContactButton>
+          <Typography variant='paragraph' size={4} color={color.main[1]}>
+            {contact} 으로 연락 하기
+          </Typography>
+        </ContactButton>
+      ) : (
+        <ReviewButton>
+          <Typography variant='paragraph' size={4} color={color.white}>
+            리뷰 작성하기
+          </Typography>
+        </ReviewButton>
+      )}
     </HostInfoArea>
   );
 }
@@ -107,4 +115,11 @@ const ContactButton = styled.button`
   padding: 10.5px 0;
   border-radius: 4px;
   border: 1px solid ${color.main[1]};
+`;
+
+const ReviewButton = styled.button`
+  width: 100%;
+  padding: 10.5px 0;
+  border-radius: 4px;
+  background-color: ${color.main[1]};
 `;

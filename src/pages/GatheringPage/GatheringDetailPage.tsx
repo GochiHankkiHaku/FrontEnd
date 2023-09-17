@@ -18,6 +18,7 @@ import {
 } from 'pages/SearchPage/SearchDetailPage';
 import { Spinner } from 'components/Spinner';
 import RejectModal from './components/RejectModal';
+import { axiosClient } from 'apis/apiClient';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -40,6 +41,15 @@ export default function GatheringDetailPage() {
     } else {
       setIsRejectModalOpen(!isRejectModalOpen);
       document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const gatheringComplete = async () => {
+    try {
+      await axiosClient.put(`post/complete/${post_idx}`);
+      navigate('/gathering');
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -76,11 +86,13 @@ export default function GatheringDetailPage() {
                 <Typography variant='title' size={4} color={color.gray[9]}>
                   신청자 정보
                 </Typography>
-                <button onClick={openRejectModal}>
-                  <Typography variant='paragraph' size={4} color={color.alert}>
-                    거절하기
-                  </Typography>
-                </button>
+                {location.state.postStatus === 'N' && (
+                  <button onClick={openRejectModal}>
+                    <Typography variant='paragraph' size={4} color={color.alert}>
+                      거절하기
+                    </Typography>
+                  </button>
+                )}
                 {isRejectModalOpen && (
                   <RejectModal
                     contactName={matchingDetailData.matchingUsers[0]?.username}
@@ -102,6 +114,7 @@ export default function GatheringDetailPage() {
               good={matchingDetailData.good}
               contact={matchingDetailData.matchingUsers[0]?.contactMethod}
               contactNum={matchingDetailData.matchingUsers?.length}
+              postStatus={location.state.postStatus}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -132,11 +145,15 @@ export default function GatheringDetailPage() {
       )}
       <GatheredBtnArea>
         {user_idx === '1' ? (
-          <GatheredBtn>
-            <Typography variant='paragraph' size={2} color={color.white}>
-              모임 완료
-            </Typography>
-          </GatheredBtn>
+          <>
+            {location.state.postStatus === 'N' && (
+              <GatheredBtn onClick={gatheringComplete}>
+                <Typography variant='paragraph' size={2} color={color.white}>
+                  모임 완료
+                </Typography>
+              </GatheredBtn>
+            )}
+          </>
         ) : (
           <GatheredBtn onClick={moveReviewPage}>
             <Typography variant='paragraph' size={2} color={color.white}>

@@ -11,6 +11,7 @@ export default function GatheringItem({ data }: any) {
       state: {
         postDate: data.postDate,
         matchingIdx: data.matchingIdx,
+        postStatus: data.postStatus,
       },
     });
   };
