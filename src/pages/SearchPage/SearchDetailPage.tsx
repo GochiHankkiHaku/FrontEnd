@@ -14,6 +14,9 @@ import GatheringTime from './components/GatheringTime';
 import FounderInfo from './components/FounderInfo';
 import IngredientInfo from '../../components/IngredientInfo';
 import PriceInfoDesc from '../../components/PriceInfoDesc';
+import { useGetMatchings } from 'pages/GatheringPage/hooks/useGetMatchings';
+import CustomToast from 'components/CustomToast';
+import { toast } from 'react-toastify';
 
 export default function SearchDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -21,6 +24,11 @@ export default function SearchDetailPage() {
   const navigate = useNavigate();
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
+
+  const matchingData = useGetMatchings();
+  const checkSameGathering = matchingData.filter((data: any) => {
+    return data.postIdx === Number(post_idx);
+  });
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -31,7 +39,11 @@ export default function SearchDetailPage() {
   };
 
   const moveSelectContactPage = () => {
-    navigate(`/select/${post_idx}`);
+    if (checkSameGathering.length === 0) {
+      navigate(`/select/${post_idx}`);
+    } else {
+      toast.error('이미 신청하신 모임입니다.');
+    }
   };
 
   return (
@@ -122,6 +134,7 @@ export default function SearchDetailPage() {
           </Typography>
         </PayBtn>
       </Footer>
+      <CustomToast />
     </>
   );
 }
