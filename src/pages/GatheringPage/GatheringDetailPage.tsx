@@ -19,6 +19,7 @@ import {
 import { Spinner } from 'components/Spinner';
 import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
+import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -67,7 +68,7 @@ export default function GatheringDetailPage() {
           <Section gap={24}>
             <MenuInfoTitle>
               <Typography variant='paragraph' size={2} color={color.gray[9]}>
-                {location.state.postDate}
+                {changeFormatDate(location.state.postDate)}
               </Typography>
               <Typography variant='title' size={1} color={color.gray[9]}>
                 {matchingDetailData.menuname} 요리 모집

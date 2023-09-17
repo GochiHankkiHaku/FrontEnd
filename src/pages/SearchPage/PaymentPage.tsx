@@ -11,6 +11,7 @@ import MenuInfo from '../../components/MenuInfo';
 import FounderInfo from './components/FounderInfo';
 import { Spinner } from 'components/Spinner';
 import { axiosClient } from 'apis/apiClient';
+import { changeFormatDate } from './utils/changeFormatDate';
 
 export default function PaymentPage() {
   const { post_idx } = useParams();
@@ -52,7 +53,7 @@ export default function PaymentPage() {
           </Typography>
           <Section>
             <Typography variant='paragraph' size={2} color={color.gray[9]}>
-              {gatheringDetailData.realdate}
+              {changeFormatDate(gatheringDetailData.realdate)}
             </Typography>
             <Line />
             <MenuInfo
