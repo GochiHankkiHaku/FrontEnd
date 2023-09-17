@@ -15,7 +15,6 @@ import FounderInfo from './components/FounderInfo';
 import IngredientInfo from '../../components/IngredientInfo';
 import PriceInfoDesc from '../../components/PriceInfoDesc';
 import { useGetMatchings } from 'pages/GatheringPage/hooks/useGetMatchings';
-import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
 
 export default function SearchDetailPage() {
@@ -134,7 +133,6 @@ export default function SearchDetailPage() {
           </Typography>
         </PayBtn>
       </Footer>
-      <CustomToast />
     </>
   );
 }

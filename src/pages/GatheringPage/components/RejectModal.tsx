@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { axiosClient } from 'apis/apiClient';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
-import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
 
 interface RejectModalProps {
@@ -48,7 +47,6 @@ export default function RejectModal({
             <Typography variant='paragraph' size={1} color={color.white}>
               거절할게요
             </Typography>
-            <CustomToast hideProggressBar={false} />
           </RejectButton>
         </RejectButtonArea>
       </ModalView>

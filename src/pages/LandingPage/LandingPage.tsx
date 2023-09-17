@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import landingImg from 'assets/images/landingImg.png';
-import CustomToast from 'components/CustomToast';
 import { Button } from 'components/Button';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
@@ -33,8 +32,6 @@ export default function LandingPage() {
           만들어 나가는 푸드 쉐어링 서비스
         </Typography>
       </TextWrap>
-
-      <CustomToast />
       <Button
         bgCol={color.main[1]}
         col={color.white}

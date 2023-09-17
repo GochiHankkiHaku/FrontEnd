@@ -18,8 +18,6 @@ export default function GatheringPage() {
   });
   const groupedData = groupedDate(recruitmentCompletedData);
 
-  console.log(matchingData);
-
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />

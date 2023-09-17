@@ -5,7 +5,6 @@ import { flexSet } from 'styles/minxin';
 import Footer from './components/Footer';
 import { usePage } from './hooks/usePage';
 import { useFormActions, useApplyForm } from './store/formStore';
-import CustomToast from 'components/CustomToast';
 import { toast } from 'react-toastify';
 
 export default function MemberCountPage() {
@@ -51,7 +50,6 @@ export default function MemberCountPage() {
           goNextPage();
         }}
       />
-      <CustomToast hideProggressBar={false} />
     </>
   );
 }

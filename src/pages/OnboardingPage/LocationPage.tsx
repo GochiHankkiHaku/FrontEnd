@@ -5,7 +5,6 @@ import Input from '../../components/Input';
 import { usePage } from './hooks/usePage';
 import Footer from './components/Footer';
 import Location from './components/Location';
-import CustomToast from 'components/CustomToast';
 import { DEFAULT_ADDRESS, useApplyForm, useFormActions } from './store/formStore';
 
 export default function LocationPage() {
@@ -35,7 +34,6 @@ export default function LocationPage() {
         <Location />
       </Wrap>
       <Footer isDisabled={isBtnDisabled} onClick={goNextPage} />
-      <CustomToast hideProggressBar={false} />
     </>
   );
 }

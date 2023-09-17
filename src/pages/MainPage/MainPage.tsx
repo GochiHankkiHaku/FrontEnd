@@ -9,7 +9,6 @@ import { Header } from 'components/Header';
 import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { flexSet } from 'styles/minxin';
-import CustomToast from 'components/CustomToast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Spinner } from 'components/Spinner';
 import { PostResponse } from 'apis/lib/post/type';
@@ -60,7 +59,6 @@ export default function MainPage() {
           <PlusIcon /> <span>모임</span>
         </CreateBtn>
       )}
-      <CustomToast />
     </Wrap>
   );
 }
