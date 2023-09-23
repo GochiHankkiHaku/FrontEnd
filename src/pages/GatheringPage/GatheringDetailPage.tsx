@@ -31,18 +31,15 @@ export default function GatheringDetailPage() {
   const matchingDetailData = useGetMatching(post_idx as string);
   const user_idx = localStorage.getItem('user_idx');
 
+  console.log(matchingDetailData);
+
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
 
   const openRejectModal = () => {
-    if (isRejectModalOpen) {
-      setIsRejectModalOpen(!isRejectModalOpen);
-      document.body.style.removeProperty('overflow');
-    } else {
-      setIsRejectModalOpen(!isRejectModalOpen);
-      document.body.style.overflow = 'hidden';
-    }
+    setIsRejectModalOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const gatheringComplete = async () => {
@@ -57,6 +54,8 @@ export default function GatheringDetailPage() {
   const moveReviewPage = () => {
     navigate(`/review`);
   };
+
+  console.log(isRejectModalOpen);
 
   return (
     <>
@@ -98,7 +97,7 @@ export default function GatheringDetailPage() {
                   <RejectModal
                     contactName={matchingDetailData.matchingUsers[0]?.username}
                     contactNum={matchingDetailData.matchingUsers?.length}
-                    openRejectModal={openRejectModal}
+                    setIsRejectModalOpen={setIsRejectModalOpen}
                     matchingIdx={location.state.matchingIdx}
                   />
                 )}

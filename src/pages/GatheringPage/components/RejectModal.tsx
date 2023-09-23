@@ -7,24 +7,30 @@ import { toast } from 'react-toastify';
 interface RejectModalProps {
   contactName: string;
   contactNum: number;
-  openRejectModal: () => void;
+  setIsRejectModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   matchingIdx: number;
 }
 
 export default function RejectModal({
   contactName,
   contactNum,
-  openRejectModal,
+  setIsRejectModalOpen,
   matchingIdx,
 }: RejectModalProps) {
   const rejectGathering = async () => {
     try {
       await axiosClient.put(`matching/no/${matchingIdx}`);
-      openRejectModal;
+      setIsRejectModalOpen(false);
+      document.body.style.removeProperty('overflow');
       toast.error('참가자 거절이 완료 되었어요.');
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const closeRejectModal = () => {
+    setIsRejectModalOpen(false);
+    document.body.style.removeProperty('overflow');
   };
 
   return (
@@ -38,7 +44,7 @@ export default function RejectModal({
           </Typography>
         </AlertText>
         <RejectButtonArea>
-          <CancelButton onClick={openRejectModal}>
+          <CancelButton onClick={closeRejectModal}>
             <Typography variant='paragraph' size={2} color={color.black}>
               아니요
             </Typography>
