@@ -40,6 +40,8 @@ const InputContainer = styled.div<{ $isError: boolean }>`
 `;
 
 const InputBox = styled.input`
+  width: 100%;
+
   ${typoStyles(typograpy.paragraph[3])}
   &::placeholder {
     color: ${color.gray[5]};
