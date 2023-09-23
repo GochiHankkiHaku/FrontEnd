@@ -22,9 +22,10 @@ export default function MainPage() {
     const getPost = async () => {
       try {
         const res = await PostApi.getPosts();
-        setPost(res);
+        const notRecruited = res.filter((post) => post.status === 'N');
+        setPost(notRecruited);
       } catch (error) {
-        console.log('error :>> ', error);
+        console.error('error :>> ', error);
       }
     };
 
@@ -54,7 +55,7 @@ export default function MainPage() {
           ))
         )}
       </ContentsWrap>
-      {localStorage.getItem(STORAGE.userIdx) === 'a' && (
+      {localStorage.getItem(STORAGE.userIdx) === '1' && (
         <CreateBtn onClick={() => navigate(`/${PATH.onBoarding}/${PATH.location}`)}>
           <PlusIcon /> <span>모임</span>
         </CreateBtn>
