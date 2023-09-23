@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from 'common/constants';
-import { useApplyForm } from './store/formStore';
+import { useApplyForm, useFormActions } from './store/formStore';
 import { flexSet, typoStyles } from 'styles/minxin';
 import { GrayBorderBtnStyle } from './utils/mixins';
 import geolocationIcon from 'assets/icons/geolocation.svg';
@@ -33,6 +33,7 @@ export default function RecheckPage() {
   };
 
   const applyForm = useApplyForm();
+  const { reset: resetForm } = useFormActions();
 
   const handleCreateGathering = async () => {
     if (applyForm.menu?.name == null || applyForm.day == null || applyForm.time == null) {
@@ -57,6 +58,7 @@ export default function RecheckPage() {
     });
 
     navigate(`/${PATH.main}`);
+    resetForm();
     notify();
   };
 
