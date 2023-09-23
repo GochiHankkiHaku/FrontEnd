@@ -61,9 +61,18 @@ export default function GatheringDetailPage() {
               <Typography variant='paragraph' size={2} color={color.gray[9]}>
                 {changeFormatDate(location.state.postDate)}
               </Typography>
-              <Typography variant='title' size={1} color={color.gray[9]}>
-                {matchingDetailData.menuname} 요리 모집
-              </Typography>
+              <MenuInfoTagTitleArea>
+                <Typography variant='title' size={1} color={color.gray[9]}>
+                  {matchingDetailData.menuname} 요리 모집
+                </Typography>
+                {location.state.postStatus === 'N' && (
+                  <StatusTag>
+                    <Typography variant='caption' size={4} color={color.white}>
+                      진행중
+                    </Typography>
+                  </StatusTag>
+                )}
+              </MenuInfoTagTitleArea>
             </MenuInfoTitle>
             <MenuInfo
               img={matchingDetailData.menuimg}
@@ -169,6 +178,18 @@ const MenuInfoTitle = styled.div`
   row-gap: 4px;
   padding: 0 0 12px 0;
   border-bottom: 1px solid ${color.gray[4]};
+`;
+
+const MenuInfoTagTitleArea = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 9px;
+`;
+
+const StatusTag = styled.div`
+  padding: 4.5px 12px;
+  border-radius: 70px;
+  background-color: ${color.alert};
 `;
 
 const FounderTitleArea = styled.div`
