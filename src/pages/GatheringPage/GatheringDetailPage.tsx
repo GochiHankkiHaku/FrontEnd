@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
@@ -56,7 +56,6 @@ export default function GatheringDetailPage() {
   };
 
   const moveReviewPage = useCallback(() => {
-    // navigate(`/review`);
     navigate(`/${PATH.review}`, {
       state: {
         postIdx: post_idx,
@@ -154,7 +153,7 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        {user_idx === '1' ? (
+        {user_idx === '1' && (
           <>
             {location.state.postStatus === 'N' && (
               <GatheredBtn onClick={gatheringComplete}>
@@ -164,12 +163,6 @@ export default function GatheringDetailPage() {
               </GatheredBtn>
             )}
           </>
-        ) : (
-          <GatheredBtn onClick={moveReviewPage}>
-            <Typography variant='paragraph' size={2} color={color.white}>
-              후기 작성
-            </Typography>
-          </GatheredBtn>
         )}
       </GatheredBtnArea>
     </>

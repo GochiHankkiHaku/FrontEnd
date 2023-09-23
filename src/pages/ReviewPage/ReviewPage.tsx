@@ -22,17 +22,11 @@ type ReviewType = 'good' | 'notgood' | 'great';
 export default function ReviewPage() {
   const [review, setReview] = useState<ReviewType>('good');
   const location = useLocation();
-  const { postIdx, postDate, matchingIdx, postStatus, gatheringInfo } = location.state;
+  const { postIdx, gatheringInfo } = location.state;
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
     navigate(-1);
-    // navigate(`/gathering/${menu.postIdx}`, {
-    //   state: {
-    //     postDate: menu.postDate,
-    //     matchingIdx: menu.matchingIdx,
-    //   },
-    // });
   };
 
   const handleChangeReview = (review: ReviewType) => {
@@ -42,14 +36,6 @@ export default function ReviewPage() {
   const handleCreateReview = async () => {
     await UserApi.createReview({ userIdx: 1, postIdx, reviewType: review });
     navigate(-1);
-    // navigate(`/gathering/${postIdx}`, {
-    //   replace: true,
-    //   state: {
-    //     postDate,
-    //     matchingIdx,
-    //     postStatus,
-    //   },
-    // });
   };
 
   return (
