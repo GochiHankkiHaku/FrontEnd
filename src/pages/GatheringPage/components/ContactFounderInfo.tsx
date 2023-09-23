@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
@@ -14,7 +15,12 @@ export default function ContactFounderInfo({
   contactNum,
   postStatus,
 }: any) {
+  const navigate = useNavigate();
   const user_idx = localStorage.getItem('user_idx');
+
+  const moveReviewPage = () => {
+    navigate(`/review`);
+  };
 
   return (
     <HostInfoArea>
@@ -71,7 +77,7 @@ export default function ContactFounderInfo({
           </Typography>
         </ContactButton>
       ) : (
-        <ReviewButton>
+        <ReviewButton onClick={moveReviewPage}>
           <Typography variant='paragraph' size={4} color={color.white}>
             리뷰 작성하기
           </Typography>

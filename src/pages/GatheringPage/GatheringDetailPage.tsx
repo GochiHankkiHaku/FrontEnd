@@ -49,10 +49,6 @@ export default function GatheringDetailPage() {
     }
   };
 
-  const moveReviewPage = () => {
-    navigate(`/review`);
-  };
-
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />
