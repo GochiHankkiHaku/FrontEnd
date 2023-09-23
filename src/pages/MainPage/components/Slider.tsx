@@ -10,18 +10,15 @@ import cookImg1 from 'assets/images/cook1.png';
 import cookImg2 from 'assets/images/cook2.png';
 import cookImg3 from 'assets/images/cook3.png';
 import cookImg4 from 'assets/images/cook4.png';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import SliderCnt from './SliderCnt';
 
 export default function Slider() {
   const [activeIndex, setActiveIndex] = useState(1);
 
-  const swiperRef = useRef(null);
-
   return (
     <Wrap>
       <Swiper
-        ref={swiperRef}
         onSlideChange={(swiper) => {
           setActiveIndex(swiper.activeIndex + 1);
         }}
@@ -35,13 +32,11 @@ export default function Slider() {
       >
         <SliderCnt activeIndex={activeIndex} />
         {bannerItems.map((item) => (
-          <>
-            <SwiperSlide key={item.id}>
-              <Image src={item.image} alt='갈치' />
-              <GradientBackground />
-              <Text>{item.description}</Text>
-            </SwiperSlide>
-          </>
+          <SwiperSlide key={item.id}>
+            <Image src={item.image} alt='갈치' />
+            <GradientBackground />
+            <Text>{item.description}</Text>
+          </SwiperSlide>
         ))}
       </Swiper>
     </Wrap>
