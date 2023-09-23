@@ -31,8 +31,6 @@ export default function GatheringDetailPage() {
   const matchingDetailData = useGetMatching(post_idx as string);
   const user_idx = localStorage.getItem('user_idx');
 
-  console.log(matchingDetailData);
-
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
@@ -54,8 +52,6 @@ export default function GatheringDetailPage() {
   const moveReviewPage = () => {
     navigate(`/review`);
   };
-
-  console.log(isRejectModalOpen);
 
   return (
     <>
@@ -144,20 +140,10 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        {user_idx === '1' ? (
-          <>
-            {location.state.postStatus === 'N' && (
-              <GatheredBtn onClick={gatheringComplete}>
-                <Typography variant='paragraph' size={2} color={color.white}>
-                  모임 완료
-                </Typography>
-              </GatheredBtn>
-            )}
-          </>
-        ) : (
-          <GatheredBtn onClick={moveReviewPage}>
+        {location.state.postStatus === 'N' && (
+          <GatheredBtn onClick={gatheringComplete}>
             <Typography variant='paragraph' size={2} color={color.white}>
-              후기 작성
+              모임 완료
             </Typography>
           </GatheredBtn>
         )}
