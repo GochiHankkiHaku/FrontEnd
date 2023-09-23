@@ -4,6 +4,7 @@ import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/Infowindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function ContactFounderInfo({
   founder,
@@ -13,6 +14,8 @@ export default function ContactFounderInfo({
   contact,
   contactNum,
   postStatus,
+  isReviewWritten,
+  onMoveReviewPage,
 }: any) {
   const user_idx = localStorage.getItem('user_idx');
 
@@ -71,11 +74,13 @@ export default function ContactFounderInfo({
           </Typography>
         </ContactButton>
       ) : (
-        <ReviewButton>
-          <Typography variant='paragraph' size={4} color={color.white}>
-            리뷰 작성하기
-          </Typography>
-        </ReviewButton>
+        !isReviewWritten && (
+          <ReviewButton onClick={onMoveReviewPage}>
+            <Typography variant='paragraph' size={4} color={color.white}>
+              리뷰 작성하기
+            </Typography>
+          </ReviewButton>
+        )
       )}
     </HostInfoArea>
   );

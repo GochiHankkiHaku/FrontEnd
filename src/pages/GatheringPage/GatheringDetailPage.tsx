@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
@@ -20,6 +20,7 @@ import { Spinner } from 'components/Spinner';
 import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
+import { PATH } from 'common/constants';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -54,9 +55,15 @@ export default function GatheringDetailPage() {
     }
   };
 
-  const moveReviewPage = () => {
-    navigate(`/review`);
-  };
+  const moveReviewPage = useCallback(() => {
+    // navigate(`/review`);
+    navigate(`/${PATH.review}`, {
+      state: {
+        postIdx: post_idx,
+        gatheringInfo: matchingDetailData,
+      },
+    });
+  }, [matchingDetailData]);
 
   return (
     <>
@@ -116,6 +123,8 @@ export default function GatheringDetailPage() {
               contact={matchingDetailData.matchingUsers[0]?.contactMethod}
               contactNum={matchingDetailData.matchingUsers?.length}
               postStatus={location.state.postStatus}
+              isReviewWritten={matchingDetailData.matchingUsers[0]?.review}
+              onMoveReviewPage={moveReviewPage}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
