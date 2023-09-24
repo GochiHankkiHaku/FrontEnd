@@ -28,6 +28,8 @@ interface ApplyFormState {
   cost: string;
   contactOption: ContactType | null;
   contact: string;
+}
+interface ApplyFormActions {
   actions: {
     setBusinessNumber: (number: string) => void;
     setAddress: (address: string) => void;
@@ -40,10 +42,11 @@ interface ApplyFormState {
     setCost: (cost: string) => void;
     setContactOption: (option: ContactType) => void;
     setContact: (input: string) => void;
+    reset: () => void;
   };
 }
 
-export const useApplyFormStore = create<ApplyFormState>((set, get) => ({
+const initialState: ApplyFormState = {
   // location
   businessNumber: '',
   address: DEFAULT_ADDRESS,
@@ -60,6 +63,10 @@ export const useApplyFormStore = create<ApplyFormState>((set, get) => ({
   cost: '',
   contactOption: null,
   contact: '',
+};
+
+export const useApplyFormStore = create<ApplyFormState & ApplyFormActions>((set, get) => ({
+  ...initialState,
   actions: {
     setBusinessNumber: (number: string) => set(() => ({ businessNumber: number })),
     setAddress: (address: string) => set(() => ({ address: address })),
@@ -86,6 +93,7 @@ export const useApplyFormStore = create<ApplyFormState>((set, get) => ({
     setCost: (cost: string) => set(() => ({ cost: cost })),
     setContactOption: (option: ContactType) => set(() => ({ contactOption: option })),
     setContact: (input: string) => set(() => ({ contact: input })),
+    reset: () => set(initialState),
   },
 }));
 

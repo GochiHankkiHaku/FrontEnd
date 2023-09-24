@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
@@ -20,6 +20,7 @@ import { Spinner } from 'components/Spinner';
 import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
+import { PATH } from 'common/constants';
 
 export default function GatheringDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -48,6 +49,15 @@ export default function GatheringDetailPage() {
       console.error(err);
     }
   };
+
+  const moveReviewPage = useCallback(() => {
+    navigate(`/${PATH.review}`, {
+      state: {
+        postIdx: post_idx,
+        gatheringInfo: matchingDetailData,
+      },
+    });
+  }, [matchingDetailData]);
 
   return (
     <>
@@ -116,6 +126,8 @@ export default function GatheringDetailPage() {
               contact={matchingDetailData.matchingUsers[0]?.contactMethod}
               contactNum={matchingDetailData.matchingUsers?.length}
               postStatus={location.state.postStatus}
+              isReviewWritten={matchingDetailData.matchingUsers[0]?.review}
+              onMoveReviewPage={moveReviewPage}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -145,10 +157,20 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        {location.state.postStatus === 'N' && (
-          <GatheredBtn onClick={gatheringComplete}>
+        {user_idx === '1' ? (
+          <>
+            {location.state.postStatus === 'N' && (
+              <GatheredBtn onClick={gatheringComplete}>
+                <Typography variant='paragraph' size={2} color={color.white}>
+                  모임 완료
+                </Typography>
+              </GatheredBtn>
+            )}
+          </>
+        ) : (
+          <GatheredBtn onClick={moveReviewPage}>
             <Typography variant='paragraph' size={2} color={color.white}>
-              모임 완료
+              후기 작성
             </Typography>
           </GatheredBtn>
         )}

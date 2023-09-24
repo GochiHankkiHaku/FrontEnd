@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { MenuApi } from 'apis/lib/menu';
 import MenuItem from './components/MenuItem';
 import Search from './components/Search';
@@ -10,27 +10,37 @@ import { usePage } from './hooks/usePage';
 import { useFormActions, useApplyForm } from './store/formStore';
 import { Menu } from 'apis/lib/menu/type';
 
-const bgCols = ['#D6F0FF', '#FFF2DE', '#E8FFDD'];
-
 export default function CookPage() {
+  const [input, setInput] = useState('');
+
   const { goNextPage } = usePage();
 
   const { menu: selectedMenu } = useApplyForm();
   const { setMenu } = useFormActions();
   const [menus, setMenus] = useState<Menu[] | null>(null);
+  const initialMenus = useRef<Menu[] | null>(null);
 
   const handleSelectMenu = (name: Menu) => {
     setMenu(name);
+  };
+
+  const handleKeyDown = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInput(event.target.value);
+
+    const searched = initialMenus.current?.filter((menu) => menu.name.includes(value));
+    setMenus(searched ?? []);
   };
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await MenuApi.getMenu();
+        initialMenus.current = res;
         setMenus(res);
         console.log(res);
       } catch (error) {
-        console.log('error :>> ', error);
+        console.error('error :>> ', error);
       }
     };
 
@@ -40,7 +50,7 @@ export default function CookPage() {
   return (
     <>
       <Wrap>
-        <Search />
+        <Search input={input} onChange={handleKeyDown} />
         <Typography variant='title' size={3} color={color.gray[9]} mt={24} mb={44}>
           어떤 요리를 할까요?
         </Typography>

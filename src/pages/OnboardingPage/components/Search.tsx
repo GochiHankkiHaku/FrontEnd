@@ -2,11 +2,17 @@ import styled from 'styled-components';
 import { color, typograpy } from 'styles/constants';
 import { typoStyles } from 'styles/minxin';
 import searchIcon from 'assets/icons/search.svg';
+import { ChangeEventHandler } from 'react';
 
-export default function Search() {
+interface SearchProps {
+  input: string;
+  onChange: ChangeEventHandler;
+}
+
+export default function Search({ input, onChange }: SearchProps) {
   return (
     <Wrap>
-      <Input type='text' placeholder='레시피 검색' />
+      <Input type='text' placeholder='레시피 검색' value={input} onChange={onChange} />
     </Wrap>
   );
 }

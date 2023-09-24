@@ -17,14 +17,18 @@ import { BOTTOM_NAVIGATION_HEIGHT, MAXWIDTH, PATH, STORAGE } from 'common/consta
 export default function MainPage() {
   const navigate = useNavigate();
   const [posts, setPost] = useState<PostResponse[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getPost = async () => {
       try {
+        setLoading(true);
         const res = await PostApi.getPosts();
-        setPost(res);
+        const notRecruited = res.filter((post) => post.status === 'N');
+        setPost(notRecruited);
+        setLoading(false);
       } catch (error) {
-        console.log('error :>> ', error);
+        console.error('error :>> ', error);
       }
     };
 
@@ -44,8 +48,10 @@ export default function MainPage() {
         <Typography variant='title' size={3} color={color.gray[9]}>
           내 주변 요리 모임
         </Typography>
-        {posts.length === 0 ? (
+        {loading ? (
           <Spinner backgroundHeight='100%' />
+        ) : posts.length === 0 ? (
+          '현재 모집 중인 모임이 없습니다.'
         ) : (
           posts.map((post, idx: number) => (
             <Link key={post.post_idx} to={`/detail/${post.post_idx}`}>
@@ -54,7 +60,7 @@ export default function MainPage() {
           ))
         )}
       </ContentsWrap>
-      {localStorage.getItem(STORAGE.userIdx) === 'a' && (
+      {localStorage.getItem(STORAGE.userIdx) === '1' && (
         <CreateBtn onClick={() => navigate(`/${PATH.onBoarding}/${PATH.location}`)}>
           <PlusIcon /> <span>모임</span>
         </CreateBtn>

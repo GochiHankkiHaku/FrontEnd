@@ -13,6 +13,7 @@ export const PATH = {
   contact: 'contact',
   main: 'main',
   recheck: 'recheck',
+  review: 'review',
 } as const;
 
 export const MAXWIDTH = 400;
