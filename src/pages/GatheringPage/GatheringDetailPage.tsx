@@ -59,6 +59,8 @@ export default function GatheringDetailPage() {
     });
   }, [matchingDetailData]);
 
+  console.log(matchingDetailData);
+
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />
@@ -157,23 +159,14 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        {user_idx === '1' ? (
-          <>
-            {location.state.postStatus === 'N' && (
-              <GatheredBtn onClick={gatheringComplete}>
-                <Typography variant='paragraph' size={2} color={color.white}>
-                  모임 완료
-                </Typography>
-              </GatheredBtn>
-            )}
-          </>
-        ) : (
-          <GatheredBtn onClick={moveReviewPage}>
-            <Typography variant='paragraph' size={2} color={color.white}>
-              후기 작성
-            </Typography>
-          </GatheredBtn>
-        )}
+        {location.state.postStatus === 'N' &&
+          matchingDetailData.matchingUsers[0]?.status === 'OK' && (
+            <GatheredBtn onClick={gatheringComplete}>
+              <Typography variant='paragraph' size={2} color={color.white}>
+                모임 완료
+              </Typography>
+            </GatheredBtn>
+          )}
       </GatheredBtnArea>
     </>
   );
