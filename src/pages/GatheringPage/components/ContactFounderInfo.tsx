@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/Infowindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ContactFounderInfo({
   founder,

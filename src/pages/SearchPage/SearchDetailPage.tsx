@@ -206,4 +206,8 @@ const PayBtn = styled.button`
   font-weight: 600;
   background-color: ${color.main[2]};
   border-radius: 8px;
+
+  &:hover {
+    filter: brightness(95%);
+  }
 `;

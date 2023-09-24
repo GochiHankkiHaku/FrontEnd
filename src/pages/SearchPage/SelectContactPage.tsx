@@ -8,12 +8,15 @@ import HelperText from 'components/HelperText';
 import Input from 'components/Input';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const options = ['카카오톡 ID', '전화번호'];
 
 export default function SelectContactPage() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [contact, setContact] = useState<string>('');
+
+  const isBtnDisabled = selectedOption === null || contact === '';
 
   const { post_idx } = useParams();
   const navigate = useNavigate();
@@ -31,9 +34,13 @@ export default function SelectContactPage() {
   };
 
   const movePaymentPage = () => {
-    navigate(`/payment/${post_idx}`, {
-      state: contact,
-    });
+    if (isBtnDisabled) {
+      toast.error('연락 수단을 입려해주세요.');
+    } else {
+      navigate(`/payment/${post_idx}`, {
+        state: contact,
+      });
+    }
   };
 
   return (
@@ -115,4 +122,8 @@ const PayBtn = styled.button`
   font-weight: 600;
   background-color: ${color.main[2]};
   border-radius: 8px;
+
+  &:hover {
+    filter: brightness(95%);
+  }
 `;

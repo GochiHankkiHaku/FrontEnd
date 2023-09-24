@@ -12,6 +12,7 @@ import FounderInfo from './components/FounderInfo';
 import { Spinner } from 'components/Spinner';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from './utils/changeFormatDate';
+import { toast } from 'react-toastify';
 
 export default function PaymentPage() {
   const { post_idx } = useParams();
@@ -30,6 +31,7 @@ export default function PaymentPage() {
     try {
       await axiosClient.post(`matching/save/${post_idx}/${user_idx}?contact=${contact}`);
       navigate('/main');
+      toast.success('모임 신청 및 결제가 완료 되었어요!');
     } catch (err) {
       console.error(err);
     }
@@ -167,4 +169,8 @@ const PayBtn = styled.button<{ background?: string; border?: string }>`
   background-color: ${({ background }) =>
     background === '#FFED00' ? `${background}` : `${background}`};
   border: 1px solid ${({ border }) => (border === '#8B8B8B' ? `${border}` : `${border}`)};
+
+  &:hover {
+    filter: brightness(95%);
+  }
 `;
