@@ -23,6 +23,7 @@ export default function SearchDetailPage() {
   const navigate = useNavigate();
   const { post_idx } = useParams();
   const gatheringDetailData = useGetPost(post_idx as string);
+  const user_idx = localStorage.getItem('user_idx');
 
   const matchingData = useGetMatchings();
   const checkSameGathering = matchingData.filter((data: any) => {
@@ -40,7 +41,9 @@ export default function SearchDetailPage() {
   const moveSelectContactPage = () => {
     if (checkSameGathering.length === 0) {
       navigate(`/select/${post_idx}`);
-    } else {
+    } else if (user_idx === '1') {
+      toast.error('모임은 참가자만 신청할 수 있습니다.');
+    } else if (user_idx === '2') {
       toast.error('이미 신청하신 모임입니다.');
     }
   };
