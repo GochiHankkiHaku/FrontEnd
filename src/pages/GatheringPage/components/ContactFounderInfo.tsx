@@ -8,6 +8,7 @@ import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
 
 export default function ContactFounderInfo({
   founder,
+  participant,
   address,
   great,
   good,
@@ -32,7 +33,7 @@ export default function ContactFounderInfo({
             <HostDescription>
               {user_idx === '1' ? (
                 <Typography variant='paragraph' size={3} color={color.gray[9]}>
-                  {founder} 외 <ContactNum>{contactNum}명</ContactNum>
+                  {participant} 외 <ContactNum>{contactNum}명</ContactNum>
                 </Typography>
               ) : (
                 <Typography variant='paragraph' size={3} color={color.gray[9]}>

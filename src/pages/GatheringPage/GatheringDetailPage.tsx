@@ -122,7 +122,8 @@ export default function GatheringDetailPage() {
               </Typography>
             )}
             <ContactFounderInfo
-              founder={matchingDetailData.matchingUsers[0]?.username}
+              founder={matchingDetailData.writer}
+              participant={matchingDetailData.matchingUsers[0]?.username}
               address={matchingDetailData.address}
               great={matchingDetailData.great}
               good={matchingDetailData.good}
