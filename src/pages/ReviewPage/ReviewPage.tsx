@@ -15,7 +15,7 @@ import { typoStyles } from 'styles/minxin';
 import { Button } from 'components/Button';
 import { MAXWIDTH } from 'common/constants';
 import { UserApi } from 'apis/lib/users';
-import ContactFounderInfo from 'pages/GatheringPage/components/ContactFounderInfo';
+import ContactFounderInfo from 'pages/GatheringPage/components/ContactInfo';
 
 type ReviewType = 'good' | 'notgood' | 'great';
 

@@ -7,10 +7,10 @@ import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
 import { useGetMatching } from './hooks/useGetMatching';
-import MenuInfo from 'components/MenuInfo';
-import ContactFounderInfo from './components/ContactFounderInfo';
-import IngredientInfo from 'components/IngredientInfo';
-import PriceInfoDesc from 'components/PriceInfoDesc';
+import MenuInfo from 'pages/SearchPage/components/MenuInfo';
+import ContactFounderInfo from './components/ContactInfo';
+import IngredientInfo from 'pages/SearchPage/components/IngredientItem';
+import PriceInfoDesc from 'pages/SearchPage/components/PriceInfoDesc';
 import {
   IngredientInfoTitleArea,
   PriceInfoIcon,

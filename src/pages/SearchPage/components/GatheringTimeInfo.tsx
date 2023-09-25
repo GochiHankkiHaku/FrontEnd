@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { color } from 'styles/constants';
-import { GatheringTimeProps } from '../utils/interface';
+import { GatheringTimeInfoProps } from '../utils/searchPage.type';
 import { Typography } from 'components/Typography';
 
-export default function GatheringTime({ time }: GatheringTimeProps) {
+export default function GatheringTimeInfo({ time }: GatheringTimeInfoProps) {
   return (
     <GatheringTimeArea>
       <Typography variant='title' size={6}>

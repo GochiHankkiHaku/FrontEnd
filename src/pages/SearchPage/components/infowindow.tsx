@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { InfowindowProps } from '../utils/interface';
+import { InfowindowProps } from '../utils/searchPage.type';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
@@ -9,37 +9,37 @@ export default function Infowindow({ infoRef, markerInfo }: InfowindowProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/detail/${markerInfo.markerId}`);
+    navigate(`/detail/${markerInfo.post_idx}`);
   };
 
   return (
     <Wrap ref={infoRef} onClick={moveDetailPage}>
       <TitleArea>
         <Typography variant='title' size={4} color={color.gray[9]}>
-          {markerInfo.markerMenuname} 요리 모임 합니다.
+          {markerInfo.menuname} 요리 모임 합니다.
         </Typography>
       </TitleArea>
       <BodyArea>
         <ContentArea>
           <Typography variant='caption' size={2} color={color.gray[6]}>
-            {markerInfo.markerAddress}
+            {markerInfo.address}
           </Typography>
           <GatheringTagArea gap={8}>
             <GatheringTagArea gap={8}>
-              {markerInfo.markerDate === '오늘' ? (
+              {markerInfo.date === '오늘' ? (
                 <GatheringDateTag border={color.main[1]}>
                   <Typography variant='caption' size={4} color={color.main[1]}>
-                    {markerInfo.markerDate} 모집
+                    {markerInfo.date} 모집
                   </Typography>
                 </GatheringDateTag>
               ) : (
                 <GatheringDateTag border={color.main[2]}>
                   <Typography variant='caption' size={4} color={color.main[2]}>
-                    {markerInfo.markerDate} 모집
+                    {markerInfo.date} 모집
                   </Typography>
                 </GatheringDateTag>
               )}
-              {markerInfo.markerStatus === 'N' ? (
+              {markerInfo.status === 'N' ? (
                 <GatheringStatusTag background={color.active}>
                   <Typography variant='caption' size={4} color={color.white}>
                     모집중
@@ -53,19 +53,19 @@ export default function Infowindow({ infoRef, markerInfo }: InfowindowProps) {
                 </GatheringStatusTag>
               )}
               <Typography variant='paragraph' size={7} color={color.active}>
-                {markerInfo.markerDistance}m
+                {markerInfo.distance}m
               </Typography>
             </GatheringTagArea>
           </GatheringTagArea>
           <GatheringTagArea gap={4}>
             <GatheringPopularityTag>
               <Typography variant='caption' size={4} color={color.main[1]}>
-                최고에요 {markerInfo.markerGreate}
+                최고에요 {markerInfo.great}
               </Typography>
             </GatheringPopularityTag>
             <GatheringPopularityTag>
               <Typography variant='caption' size={4} color={color.main[2]}>
-                좋아요 {markerInfo.markerGood}
+                좋아요 {markerInfo.good}
               </Typography>
             </GatheringPopularityTag>
           </GatheringTagArea>

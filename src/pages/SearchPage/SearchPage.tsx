@@ -8,66 +8,58 @@ import { useGeolocation } from './hooks/useGeolacation';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
+import { MarkerInfo } from './utils/searchPage.type';
 
 const { kakao }: any = window;
 
 export default function SearchPage() {
   const [markers, setMarkers] = useState<any>([]);
-  const [markerInfo, setMarkerInfo] = useState<any>({
-    markerId: 0,
-    markerMenuname: '',
-    markerAddress: '',
-    markerDate: '',
-    markerStatus: '',
-    markerDistance: 0,
-    markerGreate: 0,
-    markerGood: 0,
+  const [markerInfo, setMarkerInfo] = useState<MarkerInfo>({
+    post_idx: 0,
+    menuname: '',
+    date: '',
+    address: '',
+    status: '',
+    great: 0,
+    good: 0,
+    distance: 0,
   });
-  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+  const [isInfoWindowOpen, setIsInfoWindowOpen] = useState<boolean>(false);
   const [selectDate, setSelectDate] = useState<number>(0);
 
   const mapRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const { currentMyLocation, locationLoading } = useGeolocation();
-  const gatheringData = useGetPosts();
 
-  const distanceAddData = gatheringData.map((gatheringData: any) => {
-    const distance = getDistance(
-      currentMyLocation.lat,
-      currentMyLocation.lng,
-      gatheringData.lat,
-      gatheringData.lng,
-      'K',
-    );
-    return {
-      ...gatheringData,
-      DISTANCE: distance,
-    };
-  });
-  const distanceLimitData = distanceAddData.filter(
-    (gatheringData: any) => gatheringData.DISTANCE < 1,
-  );
-  const filteredData = distanceLimitData.filter((gatheringData: any) => {
+  const posts = useGetPosts();
+  const distanceLimitPosts = posts
+    .map((post) => {
+      const distance = getDistance(
+        currentMyLocation.lat,
+        currentMyLocation.lng,
+        post.lat,
+        post.lng,
+        'K',
+      );
+      return {
+        ...post,
+        DISTANCE: distance,
+      };
+    })
+    .filter((filteredDatePost) => filteredDatePost.DISTANCE < 1);
+  const filteredDatePosts = distanceLimitPosts.filter((distanceLimitPost) => {
     if (selectDate === 0) {
       return true;
     } else if (selectDate === 1) {
-      return gatheringData.date === '오늘';
+      return distanceLimitPost.date === '오늘';
     } else if (selectDate === 2) {
-      return gatheringData.date === '내일';
+      return distanceLimitPost.date === '내일';
     }
   });
 
-  const filterAll = () => {
-    setSelectDate(0);
-  };
-
-  const filterToday = () => {
-    setSelectDate(1);
-  };
-
-  const filterTomorrow = () => {
-    setSelectDate(2);
+  const selectDateHandler = (date: number) => {
+    setSelectDate(date);
   };
 
   useEffect(() => {
@@ -94,24 +86,24 @@ export default function SearchPage() {
         marker.setMap(null);
       });
 
-      const newMarkers = filteredData.map((gatheringData: any) => {
+      const newMarkers = filteredDatePosts.map((filteredDatePost) => {
         const marker = new kakao.maps.Marker({
           map: mapRef.current,
-          position: new kakao.maps.LatLng(gatheringData.lat, gatheringData.lng),
+          position: new kakao.maps.LatLng(filteredDatePost.lat, filteredDatePost.lng),
         });
 
         const markerClickEvent = () => {
           setMarkerInfo({
-            markerId: gatheringData.post_idx,
-            markerMenuname: gatheringData.menuname,
-            markerAddress: gatheringData.address,
-            markerDate: gatheringData.date,
-            markerStatus: gatheringData.status,
-            markerDistance: Math.floor(gatheringData.DISTANCE * 1000),
-            markerGreate: gatheringData.greate,
-            markerGood: gatheringData.good,
+            post_idx: filteredDatePost.post_idx,
+            menuname: filteredDatePost.menuname,
+            date: filteredDatePost.date,
+            address: filteredDatePost.address,
+            status: filteredDatePost.status,
+            great: filteredDatePost.great,
+            good: filteredDatePost.good,
+            distance: Math.floor(filteredDatePost.DISTANCE * 1000),
           });
-          setIsInfoOpen(true);
+          setIsInfoWindowOpen(true);
         };
         kakao.maps.event.addListener(marker, 'click', markerClickEvent);
 
@@ -124,8 +116,8 @@ export default function SearchPage() {
 
   useEffect(() => {
     const handleOutsideClose = (e: MouseEvent) => {
-      if (isInfoOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
-        setIsInfoOpen(false);
+      if (isInfoWindowOpen && !infoRef.current?.contains(e.target as HTMLElement)) {
+        setIsInfoWindowOpen(false);
       }
     };
     setTimeout(() => {
@@ -133,7 +125,7 @@ export default function SearchPage() {
     }, 100);
 
     return () => document.removeEventListener('click', handleOutsideClose);
-  }, [isInfoOpen]);
+  }, [isInfoWindowOpen]);
 
   return (
     <>
@@ -143,23 +135,23 @@ export default function SearchPage() {
       ) : (
         <Wrap ref={mapRef}>
           <MarkerFilteringBtnArea>
-            <MarkerFilteringBtn onClick={filterAll} active={selectDate === 0}>
+            <MarkerFilteringBtn onClick={() => selectDateHandler(0)} active={selectDate === 0}>
               <Typography variant='paragraph' size={4}>
                 전체 기간
               </Typography>
             </MarkerFilteringBtn>
-            <MarkerFilteringBtn onClick={filterToday} active={selectDate === 1}>
+            <MarkerFilteringBtn onClick={() => selectDateHandler(1)} active={selectDate === 1}>
               <Typography variant='paragraph' size={4}>
                 오늘 모집
               </Typography>
             </MarkerFilteringBtn>
-            <MarkerFilteringBtn onClick={filterTomorrow} active={selectDate === 2}>
+            <MarkerFilteringBtn onClick={() => selectDateHandler(2)} active={selectDate === 2}>
               <Typography variant='paragraph' size={4}>
                 내일 모집
               </Typography>
             </MarkerFilteringBtn>
           </MarkerFilteringBtnArea>
-          {isInfoOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} />}
+          {isInfoWindowOpen && <Infowindow infoRef={infoRef} markerInfo={markerInfo} />}
         </Wrap>
       )}
     </>
@@ -181,9 +173,8 @@ const MarkerFilteringBtnArea = styled.div`
 `;
 
 const MarkerFilteringBtn = styled.button<{ active: boolean }>`
-  width: 85px;
-  height: 32px;
   border-radius: 70px;
+  padding: 5.5px 16px;
   color: ${({ active }) => (active ? color.white : color.gray[9])};
   border: 1px solid ${({ active }) => (active ? color.main[5] : color.gray[3])};
   background-color: ${({ active }) => (active ? color.main[1] : color.white)};

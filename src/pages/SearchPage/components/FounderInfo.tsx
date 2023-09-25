@@ -3,7 +3,7 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { GatheringTagArea, GatheringPopularityTag } from './Infowindow';
-import { FounderInfoProps } from '../utils/interface';
+import { FounderInfoProps } from '../utils/searchPage.type';
 
 export default function FounderInfo({
   founder,

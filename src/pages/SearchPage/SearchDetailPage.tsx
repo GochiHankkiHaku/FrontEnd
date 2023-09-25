@@ -7,31 +7,31 @@ import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { Divider } from 'components/Divider';
 import { useParams } from 'react-router-dom';
-import { useGetPost } from './hooks/useGetPost';
+import { useGetPostDetail } from './hooks/useGetPostDetail';
 import { Spinner } from 'components/Spinner';
-import MenuInfo from '../../components/MenuInfo';
-import GatheringTime from './components/GatheringTime';
+import MenuInfo from './components/MenuInfo';
+import GatheringTime from './components/GatheringTimeInfo';
 import FounderInfo from './components/FounderInfo';
-import IngredientInfo from '../../components/IngredientInfo';
-import PriceInfoDesc from '../../components/PriceInfoDesc';
+import IngredientInfo from './components/IngredientItem';
+import PriceInfoDesc from './components/PriceInfoDesc';
 import { useGetMatchings } from 'pages/GatheringPage/hooks/useGetMatchings';
 import { toast } from 'react-toastify';
 
 export default function SearchDetailPage() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isIngredientDescOpen, setIsIngredientDescOpen] = useState<boolean>(false);
 
+  const user_idx = localStorage.getItem('user_idx');
   const navigate = useNavigate();
   const { post_idx } = useParams();
-  const gatheringDetailData = useGetPost(post_idx as string);
-  const user_idx = localStorage.getItem('user_idx');
+  const postDetail = useGetPostDetail(post_idx as string);
 
   const matchingData = useGetMatchings();
   const checkSameGathering = matchingData.filter((data: any) => {
     return data.postIdx === Number(post_idx);
   });
 
-  const openHandler = () => {
-    setIsOpen(!isOpen);
+  const openIngredientDescHandler = () => {
+    setIsIngredientDescOpen(!isIngredientDescOpen);
   };
 
   const movePrevPage = () => {
@@ -57,7 +57,7 @@ export default function SearchDetailPage() {
         </Typography>
         <div className='none' />
       </Header>
-      {gatheringDetailData === undefined ? (
+      {postDetail === undefined ? (
         <Spinner />
       ) : (
         <Main>
@@ -78,9 +78,9 @@ export default function SearchDetailPage() {
               요리 정보
             </Typography>
             <MenuInfo
-              img={gatheringDetailData.menuimg}
-              menuname={gatheringDetailData.menuname}
-              menuContent={gatheringDetailData.menucontent}
+              img={postDetail.menuimg}
+              menuname={postDetail.menuname}
+              menuContent={postDetail.menucontent}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -88,7 +88,7 @@ export default function SearchDetailPage() {
             <Typography variant='title' size={5} color={color.gray[9]}>
               모임 시간대
             </Typography>
-            <GatheringTime time={gatheringDetailData.time} />
+            <GatheringTime time={postDetail.time} />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
           <Section gap={24}>
@@ -96,10 +96,10 @@ export default function SearchDetailPage() {
               개설자 정보
             </Typography>
             <FounderInfo
-              founder={gatheringDetailData.writer}
-              address={gatheringDetailData.address}
-              great={gatheringDetailData.great}
-              good={gatheringDetailData.good}
+              founder={postDetail.writer}
+              address={postDetail.address}
+              great={postDetail.great}
+              good={postDetail.good}
               founderInfoBorder={'detail'}
             />
           </Section>
@@ -110,12 +110,12 @@ export default function SearchDetailPage() {
                 재료 시세 정보
               </Typography>
               <PriceInfoIcon>
-                <Info className='info_icon' onClick={openHandler} />
-                {isOpen && <PriceInfoDesc />}
+                <Info className='info_icon' onClick={openIngredientDescHandler} />
+                {isIngredientDescOpen && <PriceInfoDesc />}
               </PriceInfoIcon>
             </IngredientInfoTitleArea>
             <IngredientInfoList>
-              {gatheringDetailData.item.map((ingredient: any) => {
+              {postDetail.item.map((ingredient: any) => {
                 return (
                   <IngredientInfo
                     key={ingredient.idx}

@@ -6,8 +6,8 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
 import { useParams } from 'react-router-dom';
-import { useGetPost } from './hooks/useGetPost';
-import MenuInfo from '../../components/MenuInfo';
+import { useGetPostDetail } from './hooks/useGetPostDetail';
+import MenuInfo from './components/MenuInfo';
 import FounderInfo from './components/FounderInfo';
 import { Spinner } from 'components/Spinner';
 import { axiosClient } from 'apis/apiClient';
@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 
 export default function PaymentPage() {
   const { post_idx } = useParams();
-  const gatheringDetailData = useGetPost(post_idx as string);
+  const postDetail = useGetPostDetail(post_idx as string);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -46,7 +46,7 @@ export default function PaymentPage() {
         </Typography>
         <div className='none' />
       </Header>
-      {gatheringDetailData === undefined ? (
+      {postDetail === undefined ? (
         <Spinner />
       ) : (
         <Main>
@@ -55,22 +55,22 @@ export default function PaymentPage() {
           </Typography>
           <Section>
             <Typography variant='paragraph' size={2} color={color.gray[9]}>
-              {changeFormatDate(gatheringDetailData.realdate)}
+              {changeFormatDate(postDetail.realdate)}
             </Typography>
             <Line />
             <MenuInfo
-              img={gatheringDetailData.menuimg}
-              menuname={gatheringDetailData.menuname}
-              menuContent={gatheringDetailData.menucontent}
+              img={postDetail.menuimg}
+              menuname={postDetail.menuname}
+              menuContent={postDetail.menucontent}
             />
             <Line />
           </Section>
           <Section>
             <FounderInfo
-              founder={gatheringDetailData.writer}
-              address={gatheringDetailData.address}
-              great={gatheringDetailData.great}
-              good={gatheringDetailData.good}
+              founder={postDetail.writer}
+              address={postDetail.address}
+              great={postDetail.great}
+              good={postDetail.good}
               founderInfoBorder={'payment'}
             />
             <GatheringPayArea>
@@ -78,7 +78,7 @@ export default function PaymentPage() {
                 모임 비용
               </Typography>
               <Typography variant='title' size={1} color={color.main[1]}>
-                {gatheringDetailData.money.toLocaleString()}원
+                {postDetail.money.toLocaleString()}원
               </Typography>
             </GatheringPayArea>
           </Section>

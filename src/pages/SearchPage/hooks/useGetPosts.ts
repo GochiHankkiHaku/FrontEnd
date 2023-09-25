@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { PostApi } from 'apis/lib/post';
+import { Posts } from '../utils/searchPage.type';
 
 export const useGetPosts = () => {
-  const [gatheringData, setGatheringData] = useState<any>([]);
+  const [posts, setPosts] = useState<Posts[]>([]);
+
+  const getPosts = async () => {
+    try {
+      const res = await PostApi.getPosts();
+      setPosts(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await PostApi.getPosts();
-        setGatheringData(res);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getData();
+    getPosts();
   }, []);
 
-  return gatheringData;
+  return posts;
 };

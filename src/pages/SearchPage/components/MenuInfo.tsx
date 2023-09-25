@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { MenuInfoProps } from '../pages/SearchPage/utils/interface';
+import { MenuInfoProps } from '../utils/searchPage.type';
 
 export default function MenuInfo({ img, menuname, menuContent }: MenuInfoProps) {
   return (

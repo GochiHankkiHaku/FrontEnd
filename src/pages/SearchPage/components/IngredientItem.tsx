@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
-import { IngredientInfoProps } from '../pages/SearchPage/utils/interface';
+import { IngredientItemProps } from '../utils/searchPage.type';
 
-export default function IngredientInfo({ img, ingredient, price }: IngredientInfoProps) {
+export default function IngredientInfo({ img, ingredient, price }: IngredientItemProps) {
   return (
     <IngredientInfoItem>
       <IngredientImg src={img} />
