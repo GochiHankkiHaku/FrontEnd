@@ -21,7 +21,7 @@ export default function GatheringItem({ data }: any) {
       <Typography
         variant='paragraph'
         size={1}
-        color={data.postStatus === 'N' ? color.complete : color.active}
+        color={data.postStatus === 'N' ? color.active : color.complete}
       >
         {data.postStatus === 'N' ? '모임 중' : '모임 완료'}
       </Typography>
