@@ -15,7 +15,7 @@ export interface Posts {
   choose: number;
 }
 
-interface PostDetailItem {
+export interface PostDetailItem {
   idx: number;
   ingredient: string;
   price: number;

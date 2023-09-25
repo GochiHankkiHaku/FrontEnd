@@ -15,7 +15,7 @@ import { typoStyles } from 'styles/minxin';
 import { Button } from 'components/Button';
 import { MAXWIDTH } from 'common/constants';
 import { UserApi } from 'apis/lib/users';
-import ContactFounderInfo from 'pages/GatheringPage/components/ContactInfo';
+import ContactInfo from 'pages/GatheringPage/components/ContactInfo';
 
 type ReviewType = 'good' | 'notgood' | 'great';
 
@@ -70,7 +70,7 @@ export default function ReviewPage() {
         <Typography variant='title' size={5} mb={24}>
           개설자 정보
         </Typography>
-        <ContactFounderInfo
+        <ContactInfo
           founder={gatheringInfo.writer}
           address={gatheringInfo.address}
           great={gatheringInfo.great}

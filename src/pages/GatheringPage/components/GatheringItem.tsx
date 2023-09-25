@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { GatheringItemProps } from '../utils/gatheringPage.type';
 
-export default function GatheringItem({ data }: any) {
+export default function GatheringItem({ data }: GatheringItemProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {

@@ -5,8 +5,9 @@ import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { ReactComponent as User4 } from 'assets/icons/user4.svg';
 import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/Infowindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
+import { ContactInfoProps } from '../utils/gatheringPage.type';
 
-export default function ContactFounderInfo({
+export default function ContactInfo({
   founder,
   participant,
   address,
@@ -18,11 +19,8 @@ export default function ContactFounderInfo({
   isReviewWritten,
   onMoveReviewPage,
   matchingStatus,
-}: any) {
+}: ContactInfoProps) {
   const user_idx = localStorage.getItem('user_idx');
-
-  console.log(matchingStatus);
-  console.log(postStatus);
 
   return (
     <>

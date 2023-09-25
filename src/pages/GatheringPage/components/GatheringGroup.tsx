@@ -4,8 +4,9 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { Divider } from 'components/Divider';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
+import { GatheringGroupProps } from '../utils/gatheringPage.type';
 
-export default function GatheringGroup({ data }: any) {
+export default function GatheringGroup({ data }: GatheringGroupProps) {
   return (
     <>
       <Wrap>
@@ -14,8 +15,8 @@ export default function GatheringGroup({ data }: any) {
             {changeFormatDate(data[0].postDate)}
           </Typography>
         </GatheringDate>
-        {data.map((value: any) => {
-          return <GatheringItem data={value} key={value.postIdx} />;
+        {data.map((value) => {
+          return <GatheringItem key={value.postIdx} data={value} />;
         })}
       </Wrap>
       <Divider height={14} backgroundColor={color.gray[2]} />

@@ -3,26 +3,20 @@ import { axiosClient } from 'apis/apiClient';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import { toast } from 'react-toastify';
-
-interface RejectModalProps {
-  contactName: string;
-  contactNum: number;
-  setIsRejectModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  matchingIdx: number;
-}
+import { RejectModalProps } from '../utils/gatheringPage.type';
 
 export default function RejectModal({
   contactName,
   contactNum,
   setIsRejectModalOpen,
   matchingIdx,
-  getData,
-}: any) {
-  const rejectGathering = async () => {
+  getMatchingDetail,
+}: RejectModalProps) {
+  const rejectGatheringHandler = async () => {
     try {
       await axiosClient.put(`matching/no/${matchingIdx}`);
       setIsRejectModalOpen(false);
-      getData();
+      getMatchingDetail();
       document.body.style.removeProperty('overflow');
       toast.error('참가자 거절이 완료 되었어요.');
     } catch (err) {
@@ -30,7 +24,7 @@ export default function RejectModal({
     }
   };
 
-  const closeRejectModal = () => {
+  const closeRejectModalHandler = () => {
     setIsRejectModalOpen(false);
     document.body.style.removeProperty('overflow');
   };
@@ -46,12 +40,12 @@ export default function RejectModal({
           </Typography>
         </AlertText>
         <RejectButtonArea>
-          <CancelButton onClick={closeRejectModal}>
+          <CancelButton onClick={closeRejectModalHandler}>
             <Typography variant='paragraph' size={2} color={color.black}>
               아니요
             </Typography>
           </CancelButton>
-          <RejectButton onClick={rejectGathering}>
+          <RejectButton onClick={rejectGatheringHandler}>
             <Typography variant='paragraph' size={1} color={color.white}>
               거절할게요
             </Typography>

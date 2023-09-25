@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import GatheringGroup from './components/GatheringGroup';
 import GatheringItem from './components/GatheringItem';
-import { groupedDate } from './utils/groupedDate';
+import { groupBySameDate } from './utils/groupBySameDate';
 import { color } from 'styles/constants';
 import { Typography } from 'components/Typography';
 import SearchHeader from 'components/SearchHeader';
@@ -9,41 +9,36 @@ import { Divider } from 'components/Divider';
 import { useGetMatchings } from './hooks/useGetMatchings';
 
 export default function GatheringPage() {
-  const matchingData = useGetMatchings();
-  const recruitingData = matchingData.filter((value: any) => {
-    return value.postStatus === 'N';
+  const matchings = useGetMatchings();
+  const recruitingMatchings = matchings.filter((matching) => {
+    return matching.postStatus === 'N';
   });
-  const recruitmentCompletedData = matchingData.filter((value: any) => {
-    return value.postStatus === 'C';
+  const recruitmentCompletedMatchings = matchings.filter((matching) => {
+    return matching.postStatus === 'C';
   });
-  const groupedData = groupedDate(recruitmentCompletedData);
-
-  console.log(matchingData);
+  const groupedMatchings = groupBySameDate(recruitmentCompletedMatchings);
 
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />
       <Main>
-        {recruitingData.length !== 0 && (
+        {recruitingMatchings.length !== 0 && (
           <GatheringLabel>
             <Typography variant='title' size={5} color={color.white}>
               현재 모임
             </Typography>
           </GatheringLabel>
         )}
-
         <GatheredListArea>
-          {recruitingData.map((data: any) => {
-            return <GatheringItem data={data} key={data.postIdx} />;
+          {recruitingMatchings.map((data) => {
+            return <GatheringItem key={data.postIdx} data={data} />;
           })}
         </GatheredListArea>
-
-        {recruitingData.length !== 0 && groupedData.length !== 0 && (
+        {recruitingMatchings.length !== 0 && groupedMatchings.length !== 0 && (
           <Divider height={14} backgroundColor={color.gray[2]} margin={36} />
         )}
-
         <GatheringListArea>
-          {groupedData.map((data: any, index: number) => {
+          {groupedMatchings.map((data, index) => {
             return <GatheringGroup key={`group: ${index}`} data={data} />;
           })}
         </GatheringListArea>

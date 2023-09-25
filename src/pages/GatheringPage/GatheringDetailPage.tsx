@@ -6,9 +6,9 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import SearchHeader from 'components/SearchHeader';
 import { Divider } from 'components/Divider';
-import { useGetMatching } from './hooks/useGetMatching';
+import { useGetMatchingDetail } from './hooks/useGetMatchingDetail';
 import MenuInfo from 'pages/SearchPage/components/MenuInfo';
-import ContactFounderInfo from './components/ContactInfo';
+import ContactInfo from './components/ContactInfo';
 import IngredientInfo from 'pages/SearchPage/components/IngredientItem';
 import PriceInfoDesc from 'pages/SearchPage/components/PriceInfoDesc';
 import {
@@ -23,25 +23,25 @@ import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
 import { PATH } from 'common/constants';
 
 export default function GatheringDetailPage() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isIngredientDescOpen, setIsIngredientDescOpen] = useState<boolean>(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
   const { post_idx } = useParams();
-  const { matchingDetailData, getData } = useGetMatching(post_idx as string);
+  const { matchingDetail, getMatchingDetail } = useGetMatchingDetail(post_idx as string);
   const user_idx = localStorage.getItem('user_idx');
 
-  const openHandler = () => {
-    setIsOpen(!isOpen);
+  const openIngredientDescHandler = () => {
+    setIsIngredientDescOpen(!isIngredientDescOpen);
   };
 
-  const openRejectModal = () => {
+  const openRejectModalHandler = () => {
     setIsRejectModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
-  const gatheringComplete = async () => {
+  const gatheringCompletedHandler = async () => {
     try {
       await axiosClient.put(`post/complete/${post_idx}`);
       navigate('/gathering');
@@ -54,17 +54,15 @@ export default function GatheringDetailPage() {
     navigate(`/${PATH.review}`, {
       state: {
         postIdx: post_idx,
-        gatheringInfo: matchingDetailData,
+        gatheringInfo: matchingDetail,
       },
     });
-  }, [matchingDetailData]);
-
-  console.log(matchingDetailData);
+  }, [matchingDetail]);
 
   return (
     <>
       <SearchHeader title={'모임 정보'} underbarColor={color.white} />
-      {matchingDetailData === undefined ? (
+      {matchingDetail === undefined ? (
         <Spinner />
       ) : (
         <Main>
@@ -75,7 +73,7 @@ export default function GatheringDetailPage() {
               </Typography>
               <MenuInfoTagTitleArea>
                 <Typography variant='title' size={1} color={color.gray[9]}>
-                  {matchingDetailData.menuname} 요리 모집
+                  {matchingDetail.menuname} 요리 모집
                 </Typography>
                 {location.state.postStatus === 'N' && (
                   <StatusTag>
@@ -87,9 +85,9 @@ export default function GatheringDetailPage() {
               </MenuInfoTagTitleArea>
             </MenuInfoTitle>
             <MenuInfo
-              img={matchingDetailData.menuimg}
-              menuname={matchingDetailData.menuname}
-              menuContent={matchingDetailData.menucontent}
+              img={matchingDetail.menuimg}
+              menuname={matchingDetail.menuname}
+              menuContent={matchingDetail.menucontent}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -100,8 +98,8 @@ export default function GatheringDetailPage() {
                   신청자 정보
                 </Typography>
                 {location.state.postStatus === 'N' &&
-                  matchingDetailData?.matchingUsers[0]?.status === 'HOLDING' && (
-                    <button onClick={openRejectModal}>
+                  matchingDetail?.matchingUsers[0]?.status === 'HOLDING' && (
+                    <button onClick={openRejectModalHandler}>
                       <Typography variant='paragraph' size={4} color={color.alert}>
                         거절하기
                       </Typography>
@@ -109,11 +107,11 @@ export default function GatheringDetailPage() {
                   )}
                 {isRejectModalOpen && (
                   <RejectModal
-                    contactName={matchingDetailData.matchingUsers[0]?.username}
-                    contactNum={matchingDetailData?.matchingUsers.length}
+                    contactName={matchingDetail.matchingUsers[0]?.username}
+                    contactNum={matchingDetail?.matchingUsers.length}
                     setIsRejectModalOpen={setIsRejectModalOpen}
-                    matchingIdx={matchingDetailData?.matchingUsers[0].matchingIndex}
-                    getData={getData}
+                    matchingIdx={matchingDetail?.matchingUsers[0].matchingIndex}
+                    getMatchingDetail={getMatchingDetail}
                   />
                 )}
               </FounderTitleArea>
@@ -122,18 +120,18 @@ export default function GatheringDetailPage() {
                 개최자 정보
               </Typography>
             )}
-            <ContactFounderInfo
-              founder={matchingDetailData.writer}
-              participant={matchingDetailData.matchingUsers[0]?.username}
-              address={matchingDetailData.address}
-              great={matchingDetailData.great}
-              good={matchingDetailData.good}
-              contact={matchingDetailData.matchingUsers[0]?.contactMethod}
-              contactNum={matchingDetailData?.matchingUsers.length}
+            <ContactInfo
+              founder={matchingDetail.writer}
+              participant={matchingDetail.matchingUsers[0]?.username}
+              address={matchingDetail.address}
+              great={matchingDetail.great}
+              good={matchingDetail.good}
+              contact={matchingDetail.matchingUsers[0]?.contactMethod}
+              contactNum={matchingDetail?.matchingUsers.length}
               postStatus={location.state.postStatus}
-              isReviewWritten={matchingDetailData.matchingUsers[0]?.review}
+              isReviewWritten={matchingDetail.matchingUsers[0]?.review}
               onMoveReviewPage={moveReviewPage}
-              matchingStatus={matchingDetailData.matchingUsers[0]?.status}
+              matchingStatus={matchingDetail.matchingUsers[0]?.status}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -143,12 +141,12 @@ export default function GatheringDetailPage() {
                 가격 측정 정보
               </Typography>
               <PriceInfoIcon>
-                <Info className='info_icon' onClick={openHandler} />
-                {isOpen && <PriceInfoDesc />}
+                <Info className='info_icon' onClick={openIngredientDescHandler} />
+                {isIngredientDescOpen && <PriceInfoDesc />}
               </PriceInfoIcon>
             </IngredientInfoTitleArea>
             <IngredientInfoList>
-              {matchingDetailData.item.map((ingredient: any) => {
+              {matchingDetail.item.map((ingredient: any) => {
                 return (
                   <IngredientInfo
                     key={ingredient.idx}
@@ -163,14 +161,13 @@ export default function GatheringDetailPage() {
         </Main>
       )}
       <GatheredBtnArea>
-        {location.state.postStatus === 'N' &&
-          matchingDetailData?.matchingUsers[0]?.status === 'OK' && (
-            <GatheredBtn onClick={gatheringComplete}>
-              <Typography variant='paragraph' size={2} color={color.white}>
-                모임 완료
-              </Typography>
-            </GatheredBtn>
-          )}
+        {location.state.postStatus === 'N' && matchingDetail?.matchingUsers[0]?.status === 'OK' && (
+          <GatheredBtn onClick={gatheringCompletedHandler}>
+            <Typography variant='paragraph' size={2} color={color.white}>
+              모임 완료
+            </Typography>
+          </GatheredBtn>
+        )}
       </GatheredBtnArea>
     </>
   );
