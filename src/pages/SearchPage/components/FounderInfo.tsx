@@ -41,7 +41,7 @@ export default function FounderInfo({
   );
 }
 
-export const HostInfoArea = styled.div<{ borderColor: string }>`
+const HostInfoArea = styled.div<{ borderColor: string }>`
   display: flex;
   padding: 12px;
   align-items: center;

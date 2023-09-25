@@ -29,7 +29,7 @@ export default function GatheringDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { post_idx } = useParams();
-  const matchingDetailData = useGetMatching(post_idx as string);
+  const { matchingDetailData, getData } = useGetMatching(post_idx as string);
   const user_idx = localStorage.getItem('user_idx');
 
   const openHandler = () => {
@@ -113,6 +113,7 @@ export default function GatheringDetailPage() {
                     contactNum={matchingDetailData?.matchingUsers.length}
                     setIsRejectModalOpen={setIsRejectModalOpen}
                     matchingIdx={matchingDetailData?.matchingUsers[0].matchingIndex}
+                    getData={getData}
                   />
                 )}
               </FounderTitleArea>

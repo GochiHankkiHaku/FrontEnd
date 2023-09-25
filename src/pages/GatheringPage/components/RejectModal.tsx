@@ -16,11 +16,13 @@ export default function RejectModal({
   contactNum,
   setIsRejectModalOpen,
   matchingIdx,
-}: RejectModalProps) {
+  getData,
+}: any) {
   const rejectGathering = async () => {
     try {
       await axiosClient.put(`matching/no/${matchingIdx}`);
       setIsRejectModalOpen(false);
+      getData();
       document.body.style.removeProperty('overflow');
       toast.error('참가자 거절이 완료 되었어요.');
     } catch (err) {
