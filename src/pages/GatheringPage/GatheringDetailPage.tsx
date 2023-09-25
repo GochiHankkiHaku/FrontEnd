@@ -108,10 +108,10 @@ export default function GatheringDetailPage() {
                 )}
                 {isRejectModalOpen && (
                   <RejectModal
-                    contactName={matchingDetailData.matchingUsers[0]?.username}
-                    contactNum={matchingDetailData.matchingUsers?.length}
+                    contactName={matchingDetailData?.matchingUsers[0].username}
+                    contactNum={matchingDetailData?.matchingUsers.length}
                     setIsRejectModalOpen={setIsRejectModalOpen}
-                    matchingIdx={location.state.matchingIdx}
+                    matchingIdx={matchingDetailData?.matchingUsers[0].matchingIndex}
                   />
                 )}
               </FounderTitleArea>
@@ -121,15 +121,16 @@ export default function GatheringDetailPage() {
               </Typography>
             )}
             <ContactFounderInfo
-              founder={matchingDetailData.writer}
+              founder={matchingDetailData?.matchingUsers[0].username}
               address={matchingDetailData.address}
               great={matchingDetailData.great}
               good={matchingDetailData.good}
-              contact={matchingDetailData.matchingUsers[0]?.contactMethod}
-              contactNum={matchingDetailData.matchingUsers?.length}
+              contact={matchingDetailData?.matchingUsers[0].contactMethod}
+              contactNum={matchingDetailData?.matchingUsers.length}
               postStatus={location.state.postStatus}
-              isReviewWritten={matchingDetailData.matchingUsers[0]?.review}
+              isReviewWritten={matchingDetailData?.matchingUsers[0].review}
               onMoveReviewPage={moveReviewPage}
+              matchingStatus={matchingDetailData?.matchingUsers[0].status}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -160,7 +161,7 @@ export default function GatheringDetailPage() {
       )}
       <GatheredBtnArea>
         {location.state.postStatus === 'N' &&
-          matchingDetailData.matchingUsers[0]?.status === 'OK' && (
+          matchingDetailData?.matchingUsers[0].status === 'OK' && (
             <GatheredBtn onClick={gatheringComplete}>
               <Typography variant='paragraph' size={2} color={color.white}>
                 모임 완료

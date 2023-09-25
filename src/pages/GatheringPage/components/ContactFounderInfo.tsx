@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
+import { ReactComponent as User4 } from 'assets/icons/user4.svg';
 import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/Infowindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
-import { useNavigate } from 'react-router-dom';
 
 export default function ContactFounderInfo({
   founder,
@@ -16,88 +16,104 @@ export default function ContactFounderInfo({
   postStatus,
   isReviewWritten,
   onMoveReviewPage,
+  matchingStatus,
 }: any) {
-  const navigate = useNavigate();
   const user_idx = localStorage.getItem('user_idx');
 
-  const moveReviewPage = () => {
-    navigate(`/review`);
-  };
+  console.log(matchingStatus);
+  console.log(postStatus);
 
   return (
-    <HostInfoArea>
-      <HostInfoDescArea>
-        <User1 />
-        <HostDescription>
-          {user_idx === '1' ? (
-            <Typography variant='paragraph' size={3} color={color.gray[9]}>
-              {founder} 외 <ContactNum>{contactNum}명</ContactNum>
-            </Typography>
+    <>
+      {matchingStatus === 'OK' || matchingStatus === 'HOLDING' || user_idx === '2' ? (
+        <HostInfoArea border={'solid'}>
+          <HostInfoDescArea>
+            <User1 />
+            <HostDescription>
+              {user_idx === '1' ? (
+                <Typography variant='paragraph' size={3} color={color.gray[9]}>
+                  {founder} 외 <ContactNum>{contactNum}명</ContactNum>
+                </Typography>
+              ) : (
+                <Typography variant='paragraph' size={3} color={color.gray[9]}>
+                  {founder}
+                </Typography>
+              )}
+              {user_idx === '1' ? (
+                <PaymentCheckTagArea>
+                  <CheckTag kakao={'kakao'}>
+                    <Typography variant='caption' size={1} color={color.gray[9]}>
+                      카카오 pay 결제
+                    </Typography>
+                  </CheckTag>
+                  <CheckTag>
+                    <Typography variant='caption' size={1} color={color.gray[9]}>
+                      가상계좌 입금
+                    </Typography>
+                  </CheckTag>
+                </PaymentCheckTagArea>
+              ) : (
+                <Typography variant='caption' size={2} color={color.gray[6]}>
+                  {address}
+                </Typography>
+              )}
+              {user_idx === '2' && (
+                <GatheringTagArea gap={4}>
+                  <GatheringPopularityTag>
+                    <Typography variant='caption' size={4} color={color.main[1]}>
+                      최고에요 {great}
+                    </Typography>
+                  </GatheringPopularityTag>
+                  <GatheringPopularityTag>
+                    <Typography variant='caption' size={4} color={color.main[2]}>
+                      좋아요 {good}
+                    </Typography>
+                  </GatheringPopularityTag>
+                </GatheringTagArea>
+              )}
+            </HostDescription>
+          </HostInfoDescArea>
+          {postStatus === 'N' ? (
+            <ContactButton>
+              <Typography variant='paragraph' size={4} color={color.main[1]}>
+                {contact} 으로 연락 하기
+              </Typography>
+            </ContactButton>
           ) : (
-            <Typography variant='paragraph' size={3} color={color.gray[9]}>
-              {founder}
-            </Typography>
+            !isReviewWritten && (
+              <ReviewButton onClick={onMoveReviewPage}>
+                <Typography variant='paragraph' size={4} color={color.white}>
+                  리뷰 작성하기
+                </Typography>
+              </ReviewButton>
+            )
           )}
-          {user_idx === '1' ? (
-            <PaymentCheckTagArea>
-              <CheckTag kakao={'kakao'}>
-                <Typography variant='caption' size={1} color={color.gray[9]}>
-                  카카오 pay 결제
-                </Typography>
-              </CheckTag>
-              <CheckTag>
-                <Typography variant='caption' size={1} color={color.gray[9]}>
-                  가상계좌 입금
-                </Typography>
-              </CheckTag>
-            </PaymentCheckTagArea>
-          ) : (
-            <Typography variant='caption' size={2} color={color.gray[6]}>
-              {address}
-            </Typography>
-          )}
-          {user_idx === '2' && (
-            <GatheringTagArea gap={4}>
-              <GatheringPopularityTag>
-                <Typography variant='caption' size={4} color={color.main[1]}>
-                  최고에요 {great}
-                </Typography>
-              </GatheringPopularityTag>
-              <GatheringPopularityTag>
-                <Typography variant='caption' size={4} color={color.main[2]}>
-                  좋아요 {good}
-                </Typography>
-              </GatheringPopularityTag>
-            </GatheringTagArea>
-          )}
-        </HostDescription>
-      </HostInfoDescArea>
-      {postStatus === 'N' ? (
-        <ContactButton>
-          <Typography variant='paragraph' size={4} color={color.main[1]}>
-            {contact} 으로 연락 하기
-          </Typography>
-        </ContactButton>
+        </HostInfoArea>
       ) : (
-        !isReviewWritten && (
-          <ReviewButton onClick={onMoveReviewPage}>
-            <Typography variant='paragraph' size={4} color={color.white}>
-              리뷰 작성하기
-            </Typography>
-          </ReviewButton>
-        )
+        <HostInfoArea border={'dashed'}>
+          <HostInfoDescArea>
+            <User4 />
+            <HostDescription>
+              <Typography variant='paragraph' size={3} color={color.gray[9]}>
+                새로운 참가자와의
+                <br />
+                만남을 기다려보세요.
+              </Typography>
+            </HostDescription>
+          </HostInfoDescArea>
+        </HostInfoArea>
       )}
-    </HostInfoArea>
+    </>
   );
 }
 
-const HostInfoArea = styled.div`
+const HostInfoArea = styled.div<{ border: string }>`
   display: flex;
   flex-direction: column;
   row-gap: 12px;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid ${color.gray[4]};
+  border: 1px ${({ border }) => (border === 'solid' ? 'solid' : 'dashed')} ${color.gray[4]};
 `;
 
 const HostInfoDescArea = styled.div`
