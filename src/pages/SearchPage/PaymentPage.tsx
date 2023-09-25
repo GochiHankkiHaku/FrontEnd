@@ -78,7 +78,7 @@ export default function PaymentPage() {
                 모임 비용
               </Typography>
               <Typography variant='title' size={1} color={color.main[1]}>
-                {gatheringDetailData.money}원
+                {gatheringDetailData.money.toLocaleString()}원
               </Typography>
             </GatheringPayArea>
           </Section>

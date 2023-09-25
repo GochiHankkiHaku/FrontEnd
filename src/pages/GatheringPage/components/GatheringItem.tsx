@@ -35,7 +35,7 @@ export default function GatheringItem({ data }: any) {
             {data.address}
           </Typography>
           <Typography variant='title' size={5} color={color.main[1]}>
-            {data.menuPrice}원
+            {data.menuPrice.toLocaleString()}원
           </Typography>
           <MoveDetailBtn onClick={moveDetailPage}>
             <Typography variant='caption' size={2} color={color.gray[7]}>

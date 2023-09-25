@@ -12,7 +12,7 @@ export default function IngredientInfo({ img, ingredient, price }: IngredientInf
           {ingredient}
         </Typography>
         <Typography variant='paragraph' size={2} color={color.gray[9]}>
-          평균 {price}원
+          평균 {price.toLocaleString()}원
         </Typography>
       </IngredientDescription>
     </IngredientInfoItem>
