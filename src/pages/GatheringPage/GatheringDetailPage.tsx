@@ -99,16 +99,17 @@ export default function GatheringDetailPage() {
                 <Typography variant='title' size={4} color={color.gray[9]}>
                   신청자 정보
                 </Typography>
-                {location.state.postStatus === 'N' && (
-                  <button onClick={openRejectModal}>
-                    <Typography variant='paragraph' size={4} color={color.alert}>
-                      거절하기
-                    </Typography>
-                  </button>
-                )}
+                {location.state.postStatus === 'N' &&
+                  matchingDetailData?.matchingUsers[0]?.status === 'HOLDING' && (
+                    <button onClick={openRejectModal}>
+                      <Typography variant='paragraph' size={4} color={color.alert}>
+                        거절하기
+                      </Typography>
+                    </button>
+                  )}
                 {isRejectModalOpen && (
                   <RejectModal
-                    contactName={matchingDetailData?.matchingUsers[0].username}
+                    contactName={matchingDetailData.matchingUsers[0]?.username}
                     contactNum={matchingDetailData?.matchingUsers.length}
                     setIsRejectModalOpen={setIsRejectModalOpen}
                     matchingIdx={matchingDetailData?.matchingUsers[0].matchingIndex}
@@ -121,16 +122,16 @@ export default function GatheringDetailPage() {
               </Typography>
             )}
             <ContactFounderInfo
-              founder={matchingDetailData?.matchingUsers[0].username}
+              founder={matchingDetailData.matchingUsers[0]?.username}
               address={matchingDetailData.address}
               great={matchingDetailData.great}
               good={matchingDetailData.good}
-              contact={matchingDetailData?.matchingUsers[0].contactMethod}
+              contact={matchingDetailData.matchingUsers[0]?.contactMethod}
               contactNum={matchingDetailData?.matchingUsers.length}
               postStatus={location.state.postStatus}
-              isReviewWritten={matchingDetailData?.matchingUsers[0].review}
+              isReviewWritten={matchingDetailData.matchingUsers[0]?.review}
               onMoveReviewPage={moveReviewPage}
-              matchingStatus={matchingDetailData?.matchingUsers[0].status}
+              matchingStatus={matchingDetailData.matchingUsers[0]?.status}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -161,7 +162,7 @@ export default function GatheringDetailPage() {
       )}
       <GatheredBtnArea>
         {location.state.postStatus === 'N' &&
-          matchingDetailData?.matchingUsers[0].status === 'OK' && (
+          matchingDetailData?.matchingUsers[0]?.status === 'OK' && (
             <GatheredBtn onClick={gatheringComplete}>
               <Typography variant='paragraph' size={2} color={color.white}>
                 모임 완료
