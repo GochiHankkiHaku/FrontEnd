@@ -21,6 +21,7 @@ import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
 import { PATH } from 'common/constants';
+import { toast } from 'react-toastify';
 
 export default function GatheringDetailPage() {
   const [isIngredientDescOpen, setIsIngredientDescOpen] = useState<boolean>(false);
@@ -45,6 +46,7 @@ export default function GatheringDetailPage() {
     try {
       await axiosClient.put(`post/complete/${post_idx}`);
       navigate('/gathering');
+      toast.success('모임은 어떠셨나요? 리뷰를 남겨보세요.');
     } catch (err) {
       console.error(err);
     }
