@@ -38,37 +38,24 @@ export default function ContactInfo({
                   {founder}
                 </Typography>
               )}
-              {user_idx === '1' ? (
-                <PaymentCheckTagArea>
-                  <CheckTag kakao={'kakao'}>
-                    <Typography variant='caption' size={1} color={color.gray[9]}>
-                      카카오 pay 결제
-                    </Typography>
-                  </CheckTag>
-                  <CheckTag>
-                    <Typography variant='caption' size={1} color={color.gray[9]}>
-                      가상계좌 입금
-                    </Typography>
-                  </CheckTag>
-                </PaymentCheckTagArea>
-              ) : (
-                <Typography variant='caption' size={2} color={color.gray[6]}>
-                  {address}
-                </Typography>
-              )}
               {user_idx === '2' && (
-                <GatheringTagArea gap={4}>
-                  <GatheringPopularityTag>
-                    <Typography variant='caption' size={4} color={color.main[1]}>
-                      최고에요 {great}
-                    </Typography>
-                  </GatheringPopularityTag>
-                  <GatheringPopularityTag>
-                    <Typography variant='caption' size={4} color={color.main[2]}>
-                      좋아요 {good}
-                    </Typography>
-                  </GatheringPopularityTag>
-                </GatheringTagArea>
+                <>
+                  <Typography variant='caption' size={2} color={color.gray[6]}>
+                    {address}
+                  </Typography>
+                  <GatheringTagArea gap={4}>
+                    <GatheringPopularityTag>
+                      <Typography variant='caption' size={4} color={color.main[1]}>
+                        최고에요 {great}
+                      </Typography>
+                    </GatheringPopularityTag>
+                    <GatheringPopularityTag>
+                      <Typography variant='caption' size={4} color={color.main[2]}>
+                        좋아요 {good}
+                      </Typography>
+                    </GatheringPopularityTag>
+                  </GatheringTagArea>
+                </>
               )}
             </HostDescription>
           </HostInfoDescArea>
@@ -122,17 +109,6 @@ const HostInfoDescArea = styled.div`
 
 const ContactNum = styled.span`
   color: ${color.main[1]};
-`;
-
-const PaymentCheckTagArea = styled.div`
-  display: flex;
-  column-gap: 4px;
-`;
-
-const CheckTag = styled.div<{ kakao?: string }>`
-  padding: 2px 12px;
-  border-radius: 19px;
-  background-color: ${({ kakao }) => (kakao ? color.main[7] : color.gray[3])};
 `;
 
 const ContactButton = styled.button`
