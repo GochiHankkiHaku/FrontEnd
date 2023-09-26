@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
@@ -32,6 +32,10 @@ export default function GatheringDetailPage() {
   const { post_idx } = useParams();
   const { matchingDetail, getMatchingDetail } = useGetMatchingDetail(post_idx as string);
   const user_idx = localStorage.getItem('user_idx');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const openIngredientDescHandler = () => {
     setIsIngredientDescOpen(!isIngredientDescOpen);
