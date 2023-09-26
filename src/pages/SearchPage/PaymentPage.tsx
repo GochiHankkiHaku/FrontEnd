@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ReactComponent as Kakaopay } from 'assets/icons/kakaopay.svg';
-import { ReactComponent as Copy } from 'assets/icons/copy.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-forward.svg';
@@ -85,16 +84,10 @@ export default function PaymentPage() {
         </Main>
       )}
       <Footer>
-        <PayBtn onClick={reqGathering} background={'#FFED00'}>
+        <PayBtn onClick={reqGathering}>
           <Kakaopay />
           <Typography variant='title' size={4} color={color.gray[9]}>
             pay 결제
-          </Typography>
-        </PayBtn>
-        <PayBtn border={'#8B8B8B'}>
-          <Copy />
-          <Typography variant='title' size={6} color={color.gray[8]}>
-            가상계좌 복사
           </Typography>
         </PayBtn>
       </Footer>
@@ -147,9 +140,6 @@ const GatheringPayArea = styled.div`
 `;
 
 const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -158,7 +148,7 @@ const Footer = styled.footer`
   padding: 0 20px 32px 20px;
 `;
 
-const PayBtn = styled.button<{ background?: string; border?: string }>`
+const PayBtn = styled.button`
   display: flex;
   width: 100%;
   padding: 11.5px 20px;
@@ -166,9 +156,7 @@ const PayBtn = styled.button<{ background?: string; border?: string }>`
   align-items: center;
   column-gap: 10px;
   border-radius: 8px;
-  background-color: ${({ background }) =>
-    background === '#FFED00' ? `${background}` : `${background}`};
-  border: 1px solid ${({ border }) => (border === '#8B8B8B' ? `${border}` : `${border}`)};
+  background-color: #ffed00;
 
   &:hover {
     filter: brightness(95%);
