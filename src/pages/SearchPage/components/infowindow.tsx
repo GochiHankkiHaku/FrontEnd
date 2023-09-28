@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { InfowindowProps } from '../utils/searchPage.type';
+import { InfoWindowProps } from '../utils/searchPage.type';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 
-export default function Infowindow({ infoRef, markerInfo }: InfowindowProps) {
+export default function InfoWindow({ infoRef, markerInfo }: InfoWindowProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
