@@ -3,7 +3,10 @@ import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { ReactComponent as User1 } from 'assets/icons/user1.svg';
 import { ReactComponent as User4 } from 'assets/icons/user4.svg';
-import { GatheringTagArea, GatheringPopularityTag } from 'pages/SearchPage/components/InfoWindow';
+import {
+  GatheringTagArea,
+  GatheringPopularityTag,
+} from 'pages/SearchPage/components/MarkerInfoWindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
 import { ContactInfoProps } from '../utils/gatheringPage.type';
 

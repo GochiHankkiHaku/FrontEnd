@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import MarkerInfoWindow from './components/InfoWindow';
+import MarkerInfoWindow from './components/MarkerInfoWindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
