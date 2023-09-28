@@ -15,7 +15,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: deploy to s3
-      - uses: jakejarvis/s3-sync-action@master
+      - uses: jakejarvis/s3-sync-action@main
         with:
           args: --delete
         env:
