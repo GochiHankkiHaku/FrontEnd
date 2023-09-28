@@ -11,7 +11,7 @@ export default function SearchHeader({ title, underbarColor }: SearchHeaderProps
   return (
     <Header underbarColor={underbarColor}>
       <Typography variant='title' size={2} color={color.gray[9]}>
-        {title} test
+        {title}
       </Typography>
     </Header>
   );

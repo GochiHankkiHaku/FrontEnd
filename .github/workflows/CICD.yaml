@@ -9,14 +9,18 @@ jobs:
   cicd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout main branch
+        uses: actions/checkout@v3
         with:
           ref: 'main'
-      - run: npm install
-      - run: npm run build
+      - name: install
+        run: npm install
+      - name: build
+        run: npm run build
         env:
           CI: false
-      - uses: jakejarvis/s3-sync-action@master
+      - name: deploy to s3
+        uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete
         env:
