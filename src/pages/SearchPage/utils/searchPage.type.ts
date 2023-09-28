@@ -50,7 +50,7 @@ export interface MarkerInfo {
   distance: number;
 }
 
-export interface InfoWindowProps {
+export interface MarkerInfoWindowProps {
   infoRef: React.RefObject<HTMLDivElement>;
   markerInfo: MarkerInfo;
 }

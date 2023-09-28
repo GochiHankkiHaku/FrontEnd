@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import InfoWindow from './components/InfoWindow';
+import MarkerInfoWindow from './components/InfoWindow';
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'components/Spinner';
 import { getDistance } from './utils/getDistance';
@@ -151,7 +151,7 @@ export default function SearchPage() {
               </Typography>
             </MarkerFilteringBtn>
           </MarkerFilteringBtnArea>
-          {isInfoWindowOpen && <InfoWindow infoRef={infoRef} markerInfo={markerInfo} />}
+          {isInfoWindowOpen && <MarkerInfoWindow infoRef={infoRef} markerInfo={markerInfo} />}
         </Wrap>
       )}
     </>
