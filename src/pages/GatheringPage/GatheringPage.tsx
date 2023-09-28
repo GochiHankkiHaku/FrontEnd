@@ -25,7 +25,7 @@ export default function GatheringPage() {
         {recruitingMatchings.length !== 0 && (
           <GatheringLabel>
             <Typography variant='title' size={5} color={color.white}>
-              현재 모임
+              현재 모임 test
             </Typography>
           </GatheringLabel>
         )}
