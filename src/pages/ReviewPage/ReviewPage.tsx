@@ -22,7 +22,7 @@ type ReviewType = 'good' | 'notgood' | 'great';
 export default function ReviewPage() {
   const [review, setReview] = useState<ReviewType>('good');
   const location = useLocation();
-  const { postIdx, gatheringInfo } = location.state;
+  const { postIdx, matchingDetail } = location.state;
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
@@ -47,16 +47,16 @@ export default function ReviewPage() {
         </Typography>
       </Header>
       <MenuInfoArea>
-        <MenuImg src={gatheringInfo.menuimg} alt='메뉴 이미지' />
+        <MenuImg src={matchingDetail.menuimg} alt='메뉴 이미지' />
         <MenuInfo>
           <Typography variant='paragraph' size={1} color={color.gray[9]}>
-            {gatheringInfo.menuname + '요리 모임'}
+            {matchingDetail.menuname + '요리 모임'}
           </Typography>
           <Typography variant='caption' size={2} color={color.gray[6]}>
-            {gatheringInfo.address}
+            {matchingDetail.address}
           </Typography>
           <Typography variant='title' size={5} color={color.main[1]}>
-            {gatheringInfo.price.toLocaleString()}원
+            {matchingDetail.price.toLocaleString()}원
           </Typography>
           <MoveDetailBtn onClick={moveDetailPage}>
             <Typography variant='caption' size={2} color={color.main[4]}>
@@ -70,16 +70,7 @@ export default function ReviewPage() {
         <Typography variant='title' size={5} mb={24}>
           개설자 정보
         </Typography>
-        <ContactInfo
-          founder={gatheringInfo.writer}
-          address={gatheringInfo.address}
-          great={gatheringInfo.great}
-          good={gatheringInfo.good}
-          contact={gatheringInfo.matchingUsers[0]?.contactMethod}
-          contactNum={gatheringInfo.matchingUsers?.length}
-          postStatus={'C'}
-          isReviewWritten={true}
-        />
+        <ContactInfo matchingDetail={matchingDetail} postStatus={'C'} />
         <Typography variant='title' size={5} mb={24} mt={36}>
           오늘 모임에 대한 평가를 해주세요.
         </Typography>

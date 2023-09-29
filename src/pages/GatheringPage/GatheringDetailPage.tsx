@@ -20,7 +20,6 @@ import { Spinner } from 'components/Spinner';
 import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
-import { PATH } from 'common/constants';
 import { toast } from 'react-toastify';
 
 export default function GatheringDetailPage() {
@@ -55,15 +54,6 @@ export default function GatheringDetailPage() {
       console.error(err);
     }
   };
-
-  const moveReviewPage = useCallback(() => {
-    navigate(`/${PATH.review}`, {
-      state: {
-        postIdx: post_idx,
-        gatheringInfo: matchingDetail,
-      },
-    });
-  }, [matchingDetail]);
 
   return (
     <>
@@ -127,17 +117,9 @@ export default function GatheringDetailPage() {
               </Typography>
             )}
             <ContactInfo
-              founder={matchingDetail.writer}
-              participant={matchingDetail.matchingUsers[0]?.username}
-              address={matchingDetail.address}
-              great={matchingDetail.great}
-              good={matchingDetail.good}
-              contact={matchingDetail.matchingUsers[0]?.contactMethod}
-              contactNum={matchingDetail?.matchingUsers.length}
+              matchingDetail={matchingDetail}
               postStatus={location.state.postStatus}
-              isReviewWritten={matchingDetail.matchingUsers[0]?.review}
-              onMoveReviewPage={moveReviewPage}
-              matchingStatus={matchingDetail.matchingUsers[0]?.status}
+              getMatchingDetail={getMatchingDetail}
             />
           </Section>
           <Divider height={14} backgroundColor={color.gray[2]} />
@@ -240,4 +222,8 @@ const GatheredBtn = styled.button`
   background-color: ${color.main[1]};
   border-radius: 50px;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    filter: brightness(95%);
+  }
 `;

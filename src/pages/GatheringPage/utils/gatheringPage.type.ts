@@ -49,15 +49,7 @@ export interface RejectModalProps {
 }
 
 export interface ContactInfoProps {
-  founder: string;
-  participant?: string;
-  address: string;
-  great: number;
-  good: number;
-  contact?: string;
-  contactNum?: number;
+  matchingDetail: MatchingDetail;
   postStatus: string;
-  isReviewWritten?: boolean;
-  onMoveReviewPage?: () => void;
-  matchingStatus?: string;
+  getMatchingDetail?: () => void;
 }

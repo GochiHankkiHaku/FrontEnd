@@ -9,72 +9,104 @@ import {
 } from 'pages/SearchPage/components/MarkerInfoWindow';
 import { HostDescription } from 'pages/SearchPage/components/FounderInfo';
 import { ContactInfoProps } from '../utils/gatheringPage.type';
+import { axiosClient } from 'apis/apiClient';
+import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import { PATH } from 'common/constants';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ContactInfo({
-  founder,
-  participant,
-  address,
-  great,
-  good,
-  contact,
-  contactNum,
+  matchingDetail,
   postStatus,
-  isReviewWritten,
-  onMoveReviewPage,
-  matchingStatus,
+  getMatchingDetail,
 }: ContactInfoProps) {
   const user_idx = localStorage.getItem('user_idx');
+  const matchingUser = matchingDetail.matchingUsers;
+  const { post_idx } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const acceptGatheringHandler = async () => {
+    try {
+      await axiosClient.put(`matching/ok/${matchingUser[0]?.matchingIndex}`);
+      if (getMatchingDetail) {
+        getMatchingDetail();
+      }
+      toast.success('모임을 수락했습니다. 참가자에게 연락해 보세요.');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const moveReviewPage = () => {
+    navigate(`/${PATH.review}`, {
+      state: {
+        postIdx: post_idx,
+        matchingDetail: matchingDetail,
+      },
+    });
+  };
 
   return (
     <>
-      {matchingStatus === 'OK' || matchingStatus === 'HOLDING' || user_idx === '2' ? (
+      {matchingUser[0]?.status === 'OK' || matchingUser[0]?.status === 'HOLDING' ? (
         <HostInfoArea border={'solid'}>
           <HostInfoDescArea>
             <User1 />
             <HostDescription>
               {user_idx === '1' ? (
                 <Typography variant='paragraph' size={3} color={color.gray[9]}>
-                  {participant} 외 <ContactNum>{contactNum}명</ContactNum>
+                  {matchingUser[0]?.username} 외 <ContactNum>{matchingUser.length}명</ContactNum>
                 </Typography>
               ) : (
                 <Typography variant='paragraph' size={3} color={color.gray[9]}>
-                  {founder}
+                  {matchingDetail.writer}
                 </Typography>
               )}
-              {user_idx === '2' && (
-                <>
-                  <Typography variant='caption' size={2} color={color.gray[6]}>
-                    {address}
-                  </Typography>
-                  <GatheringTagArea gap={4}>
-                    <GatheringPopularityTag>
-                      <Typography variant='caption' size={4} color={color.main[1]}>
-                        최고에요 {great}
-                      </Typography>
-                    </GatheringPopularityTag>
-                    <GatheringPopularityTag>
-                      <Typography variant='caption' size={4} color={color.main[2]}>
-                        좋아요 {good}
-                      </Typography>
-                    </GatheringPopularityTag>
-                  </GatheringTagArea>
-                </>
-              )}
+              {user_idx === '2' ||
+                (location.pathname === '/review' && (
+                  <>
+                    <Typography variant='caption' size={2} color={color.gray[6]}>
+                      {matchingDetail.address}
+                    </Typography>
+                    <GatheringTagArea gap={4}>
+                      <GatheringPopularityTag>
+                        <Typography variant='caption' size={4} color={color.main[1]}>
+                          최고에요 {matchingDetail.great}
+                        </Typography>
+                      </GatheringPopularityTag>
+                      <GatheringPopularityTag>
+                        <Typography variant='caption' size={4} color={color.main[2]}>
+                          좋아요 {matchingDetail.good}
+                        </Typography>
+                      </GatheringPopularityTag>
+                    </GatheringTagArea>
+                  </>
+                ))}
             </HostDescription>
           </HostInfoDescArea>
           {postStatus === 'N' ? (
-            <ContactButton>
-              <Typography variant='paragraph' size={4} color={color.main[1]}>
-                {contact} 으로 연락 하기
-              </Typography>
-            </ContactButton>
+            matchingUser[0]?.status === 'HOLDING' && user_idx === '1' ? (
+              <ContactButton onClick={acceptGatheringHandler} background={true}>
+                <Typography variant='paragraph' size={4} color={color.white}>
+                  모임 수락하기
+                </Typography>
+              </ContactButton>
+            ) : (
+              <ContactButton background={false}>
+                <Typography variant='paragraph' size={4} color={color.main[1]}>
+                  {matchingUser[0]?.contactMethod} 으로 연락 하기
+                </Typography>
+              </ContactButton>
+            )
           ) : (
-            !isReviewWritten && (
-              <ReviewButton onClick={onMoveReviewPage}>
+            !matchingUser[0]?.review &&
+            location.pathname !== '/review' && (
+              <ContactButton onClick={moveReviewPage} background={true}>
                 <Typography variant='paragraph' size={4} color={color.white}>
                   리뷰 작성하기
                 </Typography>
-              </ReviewButton>
+              </ContactButton>
             )
           )}
         </HostInfoArea>
@@ -114,16 +146,10 @@ const ContactNum = styled.span`
   color: ${color.main[1]};
 `;
 
-const ContactButton = styled.button`
+const ContactButton = styled.button<{ background: boolean }>`
   width: 100%;
   padding: 10.5px 0;
   border-radius: 4px;
   border: 1px solid ${color.main[1]};
-`;
-
-const ReviewButton = styled.button`
-  width: 100%;
-  padding: 10.5px 0;
-  border-radius: 4px;
-  background-color: ${color.main[1]};
+  background-color: ${({ background }) => (background ? color.main[1] : color.white)};
 `;

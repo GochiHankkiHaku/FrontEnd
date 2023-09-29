@@ -144,7 +144,6 @@ const Footer = styled.footer`
   bottom: 0;
   width: 100%;
   max-width: 400px;
-  gap: 12px;
   padding: 0 20px 32px 20px;
 `;
 
