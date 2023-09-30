@@ -26,7 +26,7 @@ export default function SearchDetailPage() {
   const postDetail = useGetPostDetail(post_idx as string);
 
   const matchingData = useGetMatchings();
-  const checkSameGathering = matchingData.filter((data: any) => {
+  const checkSameGathering = matchingData.filter((data) => {
     return data.postIdx === Number(post_idx);
   });
 
