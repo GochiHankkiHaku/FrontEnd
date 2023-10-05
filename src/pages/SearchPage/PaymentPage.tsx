@@ -12,6 +12,7 @@ import { Spinner } from 'components/Spinner';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from './utils/changeFormatDate';
 import { toast } from 'react-toastify';
+import { PATH } from 'common/constants';
 
 export default function PaymentPage() {
   const { post_idx } = useParams();
@@ -29,7 +30,7 @@ export default function PaymentPage() {
   const reqGathering = async () => {
     try {
       await axiosClient.post(`matching/save/${post_idx}/${user_idx}?contact=${contact}`);
-      navigate('/main');
+      navigate(`/${PATH.main}`);
       toast.success('모임 신청 및 결제가 완료 되었어요!');
     } catch (err) {
       console.error(err);

@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
 import { GatheringItemProps } from '../utils/gatheringPage.type';
+import { PATH } from 'common/constants';
 
 export default function GatheringItem({ data }: GatheringItemProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/gathering/${data.postIdx}`, {
+    navigate(`/${PATH.gathering}/${data.postIdx}`, {
       state: {
         postDate: data.postDate,
         matchingIdx: data.matchingIdx,

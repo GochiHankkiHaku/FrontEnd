@@ -16,6 +16,7 @@ import IngredientInfo from './components/IngredientItem';
 import PriceInfoDesc from './components/PriceInfoDesc';
 import { useGetMatchings } from 'pages/GatheringPage/hooks/useGetMatchings';
 import { toast } from 'react-toastify';
+import { PATH } from 'common/constants';
 
 export default function SearchDetailPage() {
   const [isIngredientDescOpen, setIsIngredientDescOpen] = useState<boolean>(false);
@@ -40,7 +41,7 @@ export default function SearchDetailPage() {
 
   const moveSelectContactPage = () => {
     if (checkSameGathering.length === 0) {
-      navigate(`/select/${post_idx}`);
+      navigate(`/${PATH.select}/${post_idx}`);
     } else if (user_idx === '1') {
       toast.error('모임은 참가자만 신청할 수 있습니다.');
     } else if (user_idx === '2') {

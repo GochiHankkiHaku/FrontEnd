@@ -14,6 +14,11 @@ export const PATH = {
   main: 'main',
   recheck: 'recheck',
   review: 'review',
+  map: 'map',
+  gathering: 'gathering',
+  detail: 'detail',
+  select: 'select',
+  payment: 'payment',
 } as const;
 
 export const MAXWIDTH = 400;

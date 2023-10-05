@@ -1,18 +1,18 @@
 import { BOTTOM_NAVIGATION_HEIGHT, MAXWIDTH } from 'common/constants';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { ReactComponent as MainIcon } from 'assets/icons/main.svg';
 import { ReactComponent as MapIcon } from 'assets/icons/map.svg';
 import { ReactComponent as PotIcon } from 'assets/icons/pot.svg';
 import { color, typograpy } from 'styles/constants';
+import { PATH } from 'common/constants';
 
 const staticServerUri = process.env.REACT_APP_PATH || '';
 
 export default function BottomNavigation() {
   return (
     <Nav>
-      <NavItem to={staticServerUri + '/main'}>
+      <NavItem to={staticServerUri + `/${PATH.main}`}>
         {({ isActive }) => (
           <>
             <MainIcon fill={isActive ? color.main[2] : color.gray[3]} />
@@ -20,7 +20,7 @@ export default function BottomNavigation() {
           </>
         )}
       </NavItem>
-      <NavItem to={staticServerUri + '/map'}>
+      <NavItem to={staticServerUri + `/${PATH.map}`}>
         {({ isActive }) => (
           <>
             <MapIcon fill={isActive ? color.main[2] : color.gray[3]} />
@@ -28,7 +28,7 @@ export default function BottomNavigation() {
           </>
         )}
       </NavItem>
-      <NavItem to={staticServerUri + '/gathering'}>
+      <NavItem to={staticServerUri + `/${PATH.gathering}`}>
         {({ isActive }) => (
           <>
             <PotIcon fill={isActive ? color.main[2] : color.gray[3]} />

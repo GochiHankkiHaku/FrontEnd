@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as Info } from 'assets/icons/info.svg';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from 'components/Typography';
@@ -21,6 +21,7 @@ import RejectModal from './components/RejectModal';
 import { axiosClient } from 'apis/apiClient';
 import { changeFormatDate } from 'pages/SearchPage/utils/changeFormatDate';
 import { toast } from 'react-toastify';
+import { PATH } from 'common/constants';
 
 export default function GatheringDetailPage() {
   const [isIngredientDescOpen, setIsIngredientDescOpen] = useState<boolean>(false);
@@ -48,7 +49,7 @@ export default function GatheringDetailPage() {
   const gatheringCompletedHandler = async () => {
     try {
       await axiosClient.put(`post/complete/${post_idx}`);
-      navigate('/gathering');
+      navigate(`/${PATH.gathering}`);
       toast.success('모임은 어떠셨나요? 리뷰를 남겨보세요.');
     } catch (err) {
       console.error(err);

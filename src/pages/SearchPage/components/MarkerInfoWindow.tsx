@@ -4,12 +4,13 @@ import { MarkerInfoWindowProps } from '../utils/searchPage.type';
 import { ReactComponent as ArrowChevron } from 'assets/icons/chevron-backward.svg';
 import { Typography } from 'components/Typography';
 import { color } from 'styles/constants';
+import { PATH } from 'common/constants';
 
 export default function MarkerInfoWindow({ infoRef, markerInfo }: MarkerInfoWindowProps) {
   const navigate = useNavigate();
 
   const moveDetailPage = () => {
-    navigate(`/detail/${markerInfo.post_idx}`);
+    navigate(`/${PATH.detail}/${markerInfo.post_idx}`);
   };
 
   return (

@@ -34,16 +34,15 @@ export const Router = (): React.ReactElement => {
       </Route>
       <Route path={`/${PATH.recheck}`} element={<RecheckPage />} />
       <Route path={'/'} element={<Layout />}>
-        <Route path='main' element={<MainPage />} />
-        <Route path='map' element={<SearchPage />} />
-        <Route path='gathering' element={<GatheringPage />} />
-        <Route path={'gathering/:post_idx'} element={<GatheringDetailPage />} />
+        <Route path={`${PATH.main}`} element={<MainPage />} />
+        <Route path={`${PATH.map}`} element={<SearchPage />} />
+        <Route path={`${PATH.gathering}`} element={<GatheringPage />} />
+        <Route path={`${PATH.gathering}/:post_idx`} element={<GatheringDetailPage />} />
       </Route>
-      <Route path={'/detail/:post_idx'} element={<SearchDetailPage />} />
-      <Route path={'/select/:post_idx'} element={<SelectContactPage />} />
-      <Route path={'/payment/:post_idx'} element={<PaymentPage />} />
-      <Route path={'/review'} element={<ReviewPage />} />
-      {/* 상단에 위치하는 경로를 모두 확인, 일치하는 경로가 없는 경우 처리 */}
+      <Route path={`${PATH.detail}/:post_idx`} element={<SearchDetailPage />} />
+      <Route path={`${PATH.select}/:post_idx`} element={<SelectContactPage />} />
+      <Route path={`${PATH.payment}/:post_idx`} element={<PaymentPage />} />
+      <Route path={`/${PATH.review}`} element={<ReviewPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );

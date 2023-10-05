@@ -9,6 +9,7 @@ import Input from 'components/Input';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { PATH } from 'common/constants';
 
 const options = ['카카오톡 ID', '전화번호'];
 
@@ -37,7 +38,7 @@ export default function SelectContactPage() {
     if (isBtnDisabled) {
       toast.error('연락 수단을 입려해주세요.');
     } else {
-      navigate(`/payment/${post_idx}`, {
+      navigate(`/${PATH.payment}/${post_idx}`, {
         state: contact,
       });
     }
