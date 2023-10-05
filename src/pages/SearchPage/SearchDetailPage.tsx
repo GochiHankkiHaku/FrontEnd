@@ -116,10 +116,10 @@ export default function SearchDetailPage() {
               </PriceInfoIcon>
             </IngredientInfoTitleArea>
             <IngredientInfoList>
-              {postDetail.item.map((ingredient: any) => {
+              {postDetail.item.map((ingredient, index) => {
                 return (
                   <IngredientInfo
-                    key={ingredient.idx}
+                    key={index}
                     img={ingredient.url}
                     ingredient={ingredient.ingredient}
                     price={ingredient.price}
